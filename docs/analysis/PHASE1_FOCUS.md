@@ -1,52 +1,68 @@
-# Phase 1 Focus - Assignment Implementation
+# Phase 1 Focus - Prototype for Interview Presentation
 
 **For the remainder of this discussion, we are focused EXCLUSIVELY on Phase 1.**
 
-**⚠️ UPDATED December 9, 2024:** Timeline revised to **2.5 weeks** (50% reduction) after discovering that institution-level statistics infrastructure is already 50% implemented. See [PARTIAL_IMPLEMENTATION_ANALYSIS.md](./PARTIAL_IMPLEMENTATION_ANALYSIS.md) for details.
+**⚠️ UPDATED December 9, 2024:** Approach changed from **full implementation (2.5 weeks)** to **working prototype (4-6 days)** for interview presentation context. See [PROTOTYPE_PLAN.md](./PROTOTYPE_PLAN.md) for complete strategy.
 
 ---
 
-## 📋 Phase 1 Scope (The Assignment)
+## 📋 Phase 1 Scope (Interview Presentation)
 
-**Goal:** Implement faculty-level statistics for the 4TU.ResearchData repository
+**Goal:** Create working prototype demonstrating faculty-level statistics for 15-minute interview presentation
 
-**Approach:** Depositor-only (track faculty for registered users who upload datasets)
+**Approach:** Prototype + migration analysis + visualization (proves concept with concrete evidence)
 
-**Timeline:** **2.5 weeks, 50 hours** (updated after discovery - originally 5 weeks)
+**Timeline:** **4-6 days** (reduced from 2.5 weeks full implementation)
 
-**Key Discovery:** Institution filtering infrastructure (`dataset_statistics(group_ids=[...])`) already exists, reducing implementation time by 50%.
+**Context:** Interview presentation (10-15 minutes), not production deployment. Working demo more valuable than theoretical design.
+
+**Key Discovery:** Institution filtering infrastructure (`dataset_statistics(group_ids=[...])`) already exists, enabling rapid extension prototype.
 
 **Deliverables:**
-1. Faculty entity in RDF schema
-2. `faculty_id` on Account entity
-3. 6 API endpoints for faculty data
-4. Statistics dashboard showing datasets by faculty
-5. Migration of ~200 depositor accounts
+1. ✅ Working faculty statistics backend (core functionality)
+2. ✅ Sample data migration (20 datasets, proves feasibility)
+3. ✅ Migration analysis script (scans all datasets, provides concrete numbers)
+4. ✅ Visualization dashboard (4 charts demonstrating end-to-end solution)
+5. ✅ 15-minute presentation with live demo
 
 ---
 
 ## 📂 Phase 1 Documentation
 
-All Phase 1 documentation is in `docs/assignment/`:
+**Prototype Plan** (PRIMARY - Current Approach):
+```
+docs/analysis/
+└── PROTOTYPE_PLAN.md              ← Complete 4-6 day prototype strategy (START HERE)
+```
 
+**Original Full Implementation Plan** (Reference - 2.5 weeks):
 ```
 docs/assignment/
-├── README.md                      ← Phase 1 overview and guide (updated with discovery)
-├── SOLUTION_ARCHITECTURE.md       ← Complete 61-page specification (discovery notice added)
-├── IMPLEMENTATION_ROADMAP.md      ← 2.5-week schedule (updated from 5 weeks)
-├── ROADMAP_EXECUTIVE_SUMMARY.md   ← Executive summary (50 hours, updated from 100)
-├── ARCHITECTURE_SUMMARY.md        ← Quick reference (updated approach)
+├── README.md                      ← Phase 1 overview and guide
+├── SOLUTION_ARCHITECTURE.md       ← Complete 61-page specification
+├── IMPLEMENTATION_ROADMAP.md      ← 2.5-week schedule
+├── ROADMAP_EXECUTIVE_SUMMARY.md   ← Executive summary (50 hours)
+├── ARCHITECTURE_SUMMARY.md        ← Quick reference
 └── archive/                       ← Original v1.0 documents (pre-discovery, 5-week timeline)
 ```
 
-**Discovery Documentation** is in `docs/analysis/`:
+**Discovery Documentation**:
 ```
 docs/analysis/
-├── PARTIAL_IMPLEMENTATION_INDEX.md      ← Quick navigation (start here)
+├── PARTIAL_IMPLEMENTATION_INDEX.md      ← Quick navigation
 ├── PARTIAL_IMPLEMENTATION_ANALYSIS.md   ← Technical deep dive (30 pages)
 ├── PHASE1_IMPACT_SUMMARY.md             ← Executive summary (12 pages)
 └── PHASE1_FOCUS.md                      ← This document
 ```
+
+**Why Prototype Instead of Full Implementation:**
+- Interview context: 15-minute presentation benefits more from working demo than full implementation
+- Time efficiency: 4-6 days vs 2.5 weeks
+- Concrete evidence: Live demo + migration analysis provides definitive answers to "how confident are you?"
+- Risk mitigation: Validates approach before committing to full development
+- More impressive: Working code is more compelling than theoretical design for technical interview
+
+See [PROTOTYPE_PLAN.md](./PROTOTYPE_PLAN.md) for complete strategy, timeline, and implementation details.
 
 **Phase 2 and future work are OUT OF SCOPE for current discussion.**
 
