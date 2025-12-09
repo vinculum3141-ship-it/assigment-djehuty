@@ -2,11 +2,16 @@
 
 **Last updated:** December 9, 2024 (restructured for better organization)
 
+**⭐ NEW: Start with [PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md)** for a comprehensive 30-minute introduction covering current system, assignment, discovery, and implementation phases.
+
+---
+
 This documentation is organized into **six main sections** for clarity and easy navigation:
 
 ```
 docs/
 ├── README.md                        ← You are here
+├── PROJECT_OVERVIEW.md              ← ⭐ START HERE - Complete 30-min overview
 ├── requirements/                    ← Requirements analysis & interpretation
 ├── analysis/                        ← Discovery & partial implementation analysis  
 ├── assignment/                      ← Phase 1: Faculty statistics (2.5 weeks)
@@ -19,20 +24,30 @@ docs/
 
 ## 🚀 **Quick Start - Where Do I Begin?**
 
+### ⭐ Best for Everyone: Start Here
+**Read [PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md) first** (25 pages, 30 minutes)
+- Complete introduction to current system, assignment, and discovery
+- Covers Phase 1 and Phase 2 at high level
+- Reading paths and quick start guides included
+- Perfect entry point before diving into details
+
 ### Option 1: New to the Project (First-Time Reader)
-1. `requirements/REQUIREMENTS_SUMMARY.md` (5 min) - Get oriented
-2. `analysis/PARTIAL_IMPLEMENTATION_INDEX.md` (2 min) - Understand key discovery
-3. `assignment/README.md` (10 min) - See what's being built
+1. **[PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md)** (30 min) - **START HERE**
+2. `requirements/REQUIREMENTS_SUMMARY.md` (5 min) - Detailed Q&A
+3. `analysis/PARTIAL_IMPLEMENTATION_INDEX.md` (2 min) - Discovery summary
+4. `assignment/README.md` (10 min) - Phase 1 overview
 
 ### Option 2: Implementing the Assignment (Developer)
-1. `analysis/PARTIAL_IMPLEMENTATION_ANALYSIS.md` (30 min) - Technical details
-2. `assignment/SOLUTION_ARCHITECTURE.md` (2 hours) - Complete specification
-3. `assignment/IMPLEMENTATION_ROADMAP.md` (1 hour) - Development schedule
+1. **[PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md)** (30 min) - **START HERE**
+2. `analysis/PARTIAL_IMPLEMENTATION_ANALYSIS.md` (30 min) - Technical details
+3. `assignment/SOLUTION_ARCHITECTURE.md` (2 hours) - Complete specification
+4. `assignment/IMPLEMENTATION_ROADMAP.md` (1 hour) - Development schedule
 
 ### Option 3: Reviewing the Work (Interviewer/Manager)
-1. `analysis/PHASE1_IMPACT_SUMMARY.md` (15 min) - Impact summary
-2. `assignment/ROADMAP_EXECUTIVE_SUMMARY.md` (10 min) - Timeline and costs
-3. `requirements/REQUIREMENTS_SUMMARY.md` (5 min) - Requirements coverage
+1. **[PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md)** (30 min) - **START HERE**
+2. `analysis/PHASE1_IMPACT_SUMMARY.md` (15 min) - Impact summary
+3. `assignment/ROADMAP_EXECUTIVE_SUMMARY.md` (10 min) - Timeline and costs
+4. `requirements/REQUIREMENTS_SUMMARY.md` (5 min) - Requirements coverage
 
 ---
 
