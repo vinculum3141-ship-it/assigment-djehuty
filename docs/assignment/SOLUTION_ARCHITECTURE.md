@@ -1,5 +1,50 @@
 # Solution Architecture: Faculty-Level Statistics for 4TU.ResearchData
 
+**⚠️ IMPORTANT: PARTIAL IMPLEMENTATION DISCOVERED - READ THIS FIRST**
+
+**Version History:**
+- **v1.0 (archived):** Original design (build from scratch) - [See archive/SOLUTION_ARCHITECTURE_v1.md](./archive/SOLUTION_ARCHITECTURE_v1.md)
+- **v2.0 (current):** Updated December 9, 2024 after partial implementation discovery
+
+**Critical Discovery (December 9, 2024):**
+
+During code analysis, discovered that **institution-level statistics infrastructure is 50% implemented** in current Djehuty codebase:
+
+- ✅ **FOUND:** `dataset_statistics(group_ids=[...])` - Filters datasets by institution (already works!)
+- ✅ **FOUND:** `djht:group_id` predicate in RDF schema - Institution tracking (already exists!)
+- ✅ **FOUND:** SPARQL templates with filtering support - Dynamic filters (already built!)
+- ❌ **MISSING:** Aggregation layer - Need to sum results instead of returning list (4-6 hours to add)
+
+**Impact on This Document:**
+
+| Section | Status | Note |
+|---------|--------|------|
+| **Institution Sections** | ⚠️ Read with context | Infrastructure exists; design shows what to build if starting from scratch |
+| **Faculty Sections** | ✅ 100% Valid | This is genuinely new work - all design is applicable |
+| **Implementation Timeline** | ⚠️ Updated | 5 weeks → 2.5 weeks (50% reduction) |
+| **Approach** | ⚠️ Changed | Build from scratch → Leverage existing + extend |
+
+**How to Use This Document:**
+
+1. **For Faculty Implementation:** Use this document as-is (faculty design is 100% valid)
+2. **For Institution Understanding:** Read knowing that filtering infrastructure already exists
+3. **For Discovery Details:** See [PARTIAL_IMPLEMENTATION_ANALYSIS.md](../PARTIAL_IMPLEMENTATION_ANALYSIS.md) (30 pages)
+4. **For Quick Reference:** See [PHASE1_IMPACT_SUMMARY.md](../PHASE1_IMPACT_SUMMARY.md) (12 pages)
+5. **For Original Context:** See [archive/SOLUTION_ARCHITECTURE_v1.md](./archive/SOLUTION_ARCHITECTURE_v1.md)
+
+**What Changed:**
+- **Timeline:** ~~5 weeks~~ → **2.5 weeks** (50% faster)
+- **Effort:** ~~100 hours~~ → **50 hours** (50% reduction)
+- **Institution Work:** ~~Build from scratch~~ → **Wrap existing method** (4-6 hours instead of 2 weeks)
+- **Faculty Work:** **Same as designed** (this part doesn't exist, design is valid)
+
+**Key Insight:**
+The majority of this document (faculty tracking, migration, UI, testing) remains completely valid and applicable. Institution sections show what would be needed if building from scratch, but in practice we'll leverage the existing infrastructure discovered during analysis.
+
+---
+
+**Original Document Headers:**
+
 **Version:** 1.0  
 **Date:** December 9, 2025  
 **Author:** Solution Architecture for Senior Software Developer Assignment  
@@ -27,6 +72,8 @@
 ---
 
 ## 1. Executive Summary
+
+**⚠️ NOTE:** This summary reflects the original "build from scratch" approach. For revised timeline and approach leveraging existing infrastructure, see [ROADMAP_EXECUTIVE_SUMMARY.md](./ROADMAP_EXECUTIVE_SUMMARY.md).
 
 ### 1.1 Problem Statement
 
