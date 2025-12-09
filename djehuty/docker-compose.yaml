@@ -1,0 +1,16 @@
+services:
+  sparql:
+    image: openlink/virtuoso-opensource-7:7.2.13
+    volumes:
+      - ./docker/sparql/:/database/
+      - ./docker/dev/sparql-init/:/initdb.d/
+    ports:
+      - "8890:8890"
+      - "1111:1111"
+    environment:
+      DBA_PASSWORD: "pwd"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:8890/sparql"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
