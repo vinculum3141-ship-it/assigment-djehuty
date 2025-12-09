@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **MAJOR: Restructured `docs/` folder** for better organization and navigation (Dec 9, 2024)
+  - Created `docs/requirements/` - Requirements analysis documents (3 files)
+  - Created `docs/analysis/` - Discovery & partial implementation analysis (5 files)
+  - Created `docs/meta/` - Documentation process & history (3 files)
+  - Existing folders preserved: `assignment/`, `current-system/`, `future-work/`
+  - All 11 root-level docs moved to appropriate folders using `git mv` (history preserved)
+  - Created comprehensive README.md in each new folder
+  - Updated main `docs/README.md` with new structure and navigation
+  - All cross-references updated to new locations
+  - **Benefits:** Clear separation of concerns, easier navigation, scalable structure
+
 ### Added
 - `docs/ARCHIVE_UPDATE_STATUS.md` - **Progress tracker for documentation archiving and updates**
   - Status of all archiving and update tasks
