@@ -10,34 +10,36 @@
 
 ## Email Template
 
-# Email Template: Discovery Communication for Design Assignment
+# Email Template: Discovery Communication for Presentation Assignment
 
-**Purpose:** Communicate partial implementation discovery in context of design assignment
+**Purpose:** Communicate partial implementation discovery in context of presentation assignment
 
 **Audience:** Hiring manager, technical lead, or assignment evaluator
 
-**Context:** This is a DESIGN assignment, not implementation - wording reflects architectural analysis
+**Context:** This is a 15-minute PRESENTATION (conceptual design, technical approach, edge cases), not full design documentation
 
-**Tone:** Professional, transparent, collaborative, shows design thinking
+**Deliverable:** 10-15 minute presentation covering conceptual design, technical approach, data handling, advantages/limitations
+
+**Tone:** Professional, transparent, collaborative, shows architectural thinking
 
 ---
 
-## Email Template (Design Assignment Context)
+## Email Template (Presentation Assignment Context)
 
-**Subject:** Design Assignment: Architectural Discovery Affecting Approach
+**Subject:** Presentation Assignment: Baseline Assumption Question for Faculty Statistics
 
 ---
 
 Dear [Hiring Manager / Technical Lead],
 
-I hope this message finds you well. I'm writing to share an important architectural finding from my analysis of the Djehuty codebase and seek your guidance on how this should be reflected in the design submission.
+I hope this message finds you well. I'm writing to seek clarification on a baseline assumption for the **faculty-level statistics presentation** (10-15 minutes) and how this discovery should be reflected in the conceptual design.
 
 ### Discovery Summary
 
-While analyzing the existing system architecture for the faculty-level statistics design assignment, I discovered a **baseline assumption conflict**:
+While analyzing the existing system architecture to prepare the presentation, I discovered a **baseline assumption conflict**:
 
 **The Assignment States:**  
-*"Institution-level statistics already exist, you need to add faculty-level statistics."*
+*"Institution-level statistics already exist, you need to design faculty-level statistics."*
 
 **The Codebase Reality:**  
 Institution-level statistics are **only partially implemented** (infrastructure exists but incomplete).
@@ -87,177 +89,211 @@ Each approach demonstrates different competencies:
 - **(B) Gap Analysis:** Tests ability to identify and address technical debt
 - **(C) Architectural Judgment:** Tests ability to recognize patterns and intent in existing code
 
-### Impact on Design Approach
+### Impact on Presentation Approach
 
-This baseline question creates three distinct architectural paths:
+This baseline question affects how I frame the **conceptual design** in the 10-15 minute presentation:
 
-| Aspect | Design Path A:<br/>Assignment Baseline | Design Path B:<br/>Reality Baseline | Design Path C:<br/>Intent Recognition |
+| Aspect | Presentation Path A:<br/>Assignment Baseline | Presentation Path B:<br/>Reality Baseline | Presentation Path C:<br/>Intent Recognition |
 |--------|----------------------------------------|-------------------------------------|--------------------------------------|
 | **Assumption** | "Institution stats complete" | "Institution stats partial" | "Extension intended" |
-| **Scope** | Faculty only | Institution completion + Faculty | Faculty extending institution patterns |
-| **Architecture** | Standalone faculty system | Comprehensive statistics system | Hierarchical extension |
-| **Design Focus** | New capability | Gap filling + new capability | Pattern extension |
-| **Risk Assessment** | May ignore reality | May exceed assignment | Balanced |
-| **Demonstrates** | Spec compliance | System analysis | Architectural judgment |
+| **Conceptual Design** | Faculty-only solution | Complete statistics system | Faculty extending institution pattern |
+| **Technical Approach** | New faculty components | Institution completion + Faculty | Hierarchical extension pattern |
+| **Data Handling** | Focus on faculty metadata | Handle both institution & faculty | Extend existing institution approach |
+| **Edge Cases** | Faculty-specific issues | Both layer edge cases | Extension point challenges |
+| **Advantages** | Clean, focused solution | Comprehensive system | Pragmatic, leverages foundation |
+| **System Strengths/Weaknesses** | Faculty layer analysis | Full system analysis | Extension architecture analysis |
 
-### Design Options to Consider
+### Presentation Content Options
 
-I've analyzed all three architectural approaches:
+The 10-15 minute presentation must cover:
+1. ✅ Conceptual design of solution
+2. ✅ Technical approach (data model changes, algorithms, integration strategies)
+3. ✅ Handling of existing data and edge cases
+4. ✅ Advantages and potential limitations
+5. ✅ System strengths/weaknesses and how to address specific weakness
 
-**Option 1: Faculty-Only Design (Assignment Baseline)**
+**How each baseline affects the presentation:**
+
+**Path A: Faculty-Only Presentation (Assignment Baseline)**
 - **Assumption:** Institution statistics are complete (per assignment statement)
-- **Design:** Only faculty-level components, assumes institution layer works
-- **Scope:** ~30 hours focused design effort
-- **Documentation:** Faculty data model, services, APIs (assumes institution foundation)
-- **Evaluation:** Tests ability to design within stated constraints
-- **Risk:** Design may not align with codebase reality
+- **Conceptual Design:** Faculty-level solution extending assumed complete foundation
+- **Technical Approach:** Faculty metadata extraction, faculty aggregation algorithms
+- **Data Handling:** Strategies for faculty-level existing data (ORCID, affiliations)
+- **Edge Cases:** Multiple affiliations, missing ORCID, inconsistent faculty metadata
+- **System Analysis:** Focus on how faculty layer integrates with assumed complete institution layer
+- **Time Split:** 100% on faculty-specific solution
+- **Risk:** May present solution that doesn't align with actual codebase architecture
 
-**Option 2: Comprehensive Design (Reality Baseline)**
+**Path B: Comprehensive Presentation (Reality Baseline)**
 - **Assumption:** Institution statistics are incomplete (per codebase analysis)
-- **Design:** Complete institution statistics + faculty statistics
-- **Scope:** ~60 hours comprehensive design effort
-- **Documentation:** Full statistical hierarchy from ground up
-- **Evaluation:** Tests ability to identify gaps and design complete solutions
-- **Risk:** May be seen as scope creep beyond assignment
+- **Conceptual Design:** Complete statistical hierarchy (both institution and faculty)
+- **Technical Approach:** Institution aggregation + faculty aggregation algorithms
+- **Data Handling:** Strategies for both institution and faculty existing data
+- **Edge Cases:** Both institution-level and faculty-level challenges
+- **System Analysis:** Comprehensive system weaknesses and how to address
+- **Time Split:** ~40% institution completion, ~60% faculty additions
+- **Risk:** May be seen as scope creep, too broad for 15-minute presentation
 
-**Option 3: Extension Design (Intent Recognition) [RECOMMENDED]**
+**Path C: Extension Presentation (Intent Recognition) [RECOMMENDED]**
 - **Assumption:** Partial implementation suggests extension pattern was intended
-- **Design:** Leverage existing `djht:group_id` pattern, extend hierarchically
-- **Scope:** ~30 hours focused on extension points
-- **Documentation:** Shows existing analysis + faculty extensions
-- **Evaluation:** Tests architectural judgment and pattern recognition
-- **Risk:** Lowest - balances assignment scope with codebase reality
+- **Conceptual Design:** Faculty statistics leveraging and extending existing `djht:group_id` pattern
+- **Technical Approach:** Hierarchical extension algorithm (faculty within institution)
+- **Data Handling:** Extend existing institution metadata approach to faculty level
+- **Edge Cases:** Extension point challenges (hierarchy conflicts, multiple affiliations)
+- **System Analysis:** Focus on "missing hierarchical layer" as key weakness to address
+- **Time Split:** ~20% existing pattern analysis, ~80% faculty extension design
+- **Risk:** Lowest - balanced presentation showing analysis + solution
 
-### Recommended Design Approach
+### Recommended Presentation Approach
 
-I recommend **Option 3 (Extension Design - Intent Recognition)** for the design submission because:
+I recommend **Path C (Extension Presentation - Intent Recognition)** for the following reasons:
 
-1. **Balances Assignment & Reality:** Respects assignment scope (faculty) while acknowledging codebase reality
-2. **Recognizes Architectural Intent:** The `djht:group_id` predicate clearly suggests hierarchical grouping was intended
-3. **Demonstrates Senior-Level Thinking:** Real architects assess existing systems and extend thoughtfully
-4. **Focused Design Quality:** 30 hours on well-reasoned faculty extensions vs. 60 hours on everything
-5. **Shows Code Analysis:** Demonstrates I can read code, recognize patterns, and make architectural judgments
-6. **Honest & Pragmatic:** Partial implementation isn't ignored (Path A) or treated as defect (Path B), but as foundation
+1. **Fits 15-minute format:** Shows analysis (existing system) + solution (faculty extension) without scope creep
+2. **Balances Assignment & Reality:** Respects assignment scope (faculty focus) while acknowledging codebase reality
+3. **Recognizes Architectural Intent:** The `djht:group_id` predicate pattern clearly suggests hierarchical grouping was intended
+4. **Demonstrates System Analysis:** Can discuss "missing hierarchical layer" as **specific weakness to address** (required by assignment)
+5. **Shows Architectural Judgment:** Real architects assess existing systems and extend thoughtfully
+6. **Practical Presentation Flow:**
+   - **Minutes 1-3:** Problem context + discovery of existing institution pattern
+   - **Minutes 4-7:** Conceptual design (faculty extending institution hierarchy)
+   - **Minutes 8-10:** Technical approach (data model, algorithms, integration)
+   - **Minutes 11-13:** Data handling + edge cases (multiple affiliations, missing ORCID)
+   - **Minutes 14-15:** Advantages, limitations, system weakness addressed (missing hierarchical layer)
 
 ### The Core Clarification Needed
 
-**The fundamental question isn't "how should I implement" but "what baseline should I design from?"**
+**The fundamental question for the presentation is: What baseline should I present from?**
 
 **Please advise:**
 
-1. **Should I design assuming institution statistics are complete?** (Path A - Follow assignment literally)
-2. **Should I design completing institution stats + adding faculty?** (Path B - Address discovered gaps)
-3. **Should I design faculty extending the existing institution pattern?** (Path C - Recognize partial implementation as foundation)
+1. **Should I present assuming institution statistics are complete?** (Path A - Follow assignment literally)
+   - Pro: Clean, focused faculty-only presentation
+   - Con: Ignores discovered partial implementation
+
+2. **Should I present completing institution stats + adding faculty?** (Path B - Address discovered gaps)
+   - Pro: Comprehensive system solution
+   - Con: May be too broad for 15-minute presentation, scope creep
+
+3. **Should I present faculty extending the existing institution pattern?** (Path C - Recognize partial implementation as foundation)
+   - Pro: Shows analysis + solution, fits 15-minute format, addresses "specific weakness"
+   - Con: More complex narrative (requires explaining existing system first)
 
 This affects:
-- What components appear in the architecture
-- Whether existing infrastructure is referenced or ignored
-- Whether design documents show "new system" or "extension of existing"
-- How I frame the architectural approach in documentation
+- What I present as "the problem" (missing faculty vs. missing hierarchical layer vs. incomplete system)
+- What I present as "the solution" (new faculty capability vs. extension pattern vs. comprehensive rebuild)
+- What I identify as "system weakness to address" (no faculty vs. incomplete hierarchy vs. gaps everywhere)
+- How much time I spend explaining existing vs. proposed architecture
 
 ### Request for Guidance
 
-Before finalizing the design submission, I need clarity on the **design baseline assumption**:
+Before finalizing the presentation, I need clarity on the **baseline assumption**:
 
-**Question 1: What should be the architectural baseline?**
-- A) Design assuming institution statistics are complete (per assignment statement)?
-- B) Design acknowledging institution statistics are partial (per codebase)?
-- C) Design leveraging existing patterns as intentional foundation (architectural judgment)?
+**Question 1: What baseline should the presentation assume?**
+- A) Institution statistics are complete (per assignment statement)?
+- B) Institution statistics are partial (per codebase reality)?
+- C) Partial implementation is intentional foundation for extension (architectural judgment)?
 
-**Question 2: How should the discovery be reflected?**
-- Should existing infrastructure be referenced/leveraged in the design?
-- Or should the design be "clean slate" as if nothing exists?
-- Should the discovery itself be documented as part of the design analysis?
+**Question 2: How should the 15-minute presentation be structured?**
+- Should I spend time explaining existing infrastructure as context?
+- Or should I present "clean slate" as if no institution infrastructure exists?
+- Should the discovery itself be part of the presentation narrative?
 
-**Question 3: What competency is being evaluated?**
-- Spec compliance (follow assignment literally regardless of codebase)?
-- System analysis (identify gaps and design comprehensive solutions)?
-- Architectural judgment (recognize patterns and design pragmatic extensions)?
+**Question 3: What "specific weakness" should I address?**
+- Path A would frame weakness as: "No faculty-level statistics capability"
+- Path B would frame weakness as: "Incomplete statistical system overall"
+- Path C would frame weakness as: "Missing hierarchical layer in grouping architecture"
 
-### Design Deliverables Prepared
+### Presentation Deliverables Prepared
 
-Regardless of which path you prefer, I've prepared complete design documentation for all three approaches:
+Regardless of which path you prefer, I've prepared presentation content for all three approaches:
 
-**Path A Design (Faculty-Only - Assignment Baseline):**
-- Faculty-level architecture assuming complete institution foundation
-- Faculty-specific data model, API design, and service architecture
-- Focused scope, follows assignment literally
-- ~30 pages of targeted design documentation
+**Path A Presentation Content (Faculty-Only):**
+- Slides covering conceptual design, technical approach, data handling, edge cases
+- Focused scope: Faculty metadata extraction and aggregation
+- System weakness: "No faculty-level statistics"
+- ~12 slides, 15-minute timing
 
-**Path B Design (Comprehensive - Reality Baseline):**
-- Complete statistical hierarchy (institution + faculty)
-- Full data model, query design, service layer, and UI architecture
-- Comprehensive scope, addresses discovered gaps
-- ~60 pages of complete system design
+**Path B Presentation Content (Comprehensive):**
+- Slides covering complete statistical hierarchy design
+- Broad scope: Institution completion + faculty additions
+- System weakness: "Incomplete statistical infrastructure overall"
+- ~18 slides, 15-minute timing (tight)
 
-**Path C Design (Extension - Intent Recognition) [PREPARED]:**
-- Faculty architecture extending existing institution patterns
-- Analysis of existing `djht:group_id` pattern + faculty extensions
-- Balanced scope, pragmatic architectural judgment
-- ~35 pages including existing system analysis + faculty design
+**Path C Presentation Content (Extension) [PREPARED]:**
+- Slides covering existing pattern analysis + faculty extension design
+- Balanced scope: Extension of institution pattern to faculty level
+- System weakness: "Missing hierarchical layer in grouping architecture"
+- ~15 slides, 15-minute timing (comfortable)
+- Includes: Existing `djht:group_id` analysis, hierarchical extension design, integration strategy
 
-**Discovery Analysis Documentation:**
+**Supporting Materials (All Paths):**
 - Technical analysis of existing infrastructure
-- Gap assessment (what exists vs. what's complete)
-- Architectural pattern recognition
-- Design baseline impact analysis
+- Data model diagrams (RDF schema extensions)
+- Algorithm pseudocode (metadata extraction, aggregation)
+- Edge case analysis documentation
+- Code feasibility exploration notes
 
 ### My Assumption
 
-**If I don't hear back by [DATE]**, I'll submit **Path C (Extension Design - Intent Recognition)** for the following reasons:
+**If I don't hear back by [DATE]**, I'll prepare the presentation following **Path C (Extension Presentation - Intent Recognition)** for the following reasons:
 
-**Why Path C:**
-1. **Assignment states "institution stats exist"** - Path C respects this by treating partial implementation as foundation
-2. **Codebase shows `djht:group_id` pattern** - Suggests hierarchical extension was intended
-3. **Demonstrates architectural judgment** - Shows I can recognize patterns and design pragmatically
-4. **Balances scope** - Focused on faculty (per assignment) while acknowledging reality
-5. **Honest approach** - Doesn't ignore discovery (Path A) or treat it as defect (Path B)
+**Why Path C for a 15-minute presentation:**
+1. **Fits the format:** 15 minutes is perfect for showing analysis (existing system) + solution (faculty extension)
+2. **Assignment states "institution stats exist"** - Path C respects this by treating partial implementation as foundation
+3. **Addresses required deliverable:** Can clearly identify "missing hierarchical layer" as **specific weakness to address**
+4. **Demonstrates architectural thinking:** Shows I can analyze existing systems and propose pragmatic extensions
+5. **Balances scope:** Focused on faculty (per assignment) while acknowledging partial implementation reality
+6. **Good presentation narrative:** "I found this pattern → I propose extending it → Here's how" is compelling storytelling
 
-**Why NOT Path A (Faculty-only ignoring reality):**
-- Designing "as if institution stats are complete" when they're partial feels dishonest
-- Ignores discovered technical debt
-- May produce design that doesn't align with actual codebase
+**Why NOT Path A (Faculty-only ignoring existing infrastructure):**
+- Presenting "as if institution stats are complete" when they're partial feels dishonest
+- Can't meaningfully discuss system weaknesses if I ignore discovered gaps
+- Misses opportunity to show code analysis skills
 
-**Why NOT Path B (Comprehensive redesign):**
+**Why NOT Path B (Comprehensive institution + faculty):**
+- Too broad for 15-minute presentation (would need to rush)
 - May be seen as scope creep beyond assignment
 - Assignment explicitly says "institution stats already exist"
-- Treats partial implementation as failure rather than foundation
+
+**Path C Presentation Structure (15 minutes):**
+- **Min 1-3:** Problem + Discovery (faculty stats missing, but institution pattern exists)
+- **Min 4-7:** Conceptual Design (extend `djht:group_id` hierarchically to faculties)
+- **Min 8-10:** Technical Approach (data model changes, extraction algorithms, aggregation)
+- **Min 11-13:** Data Handling + Edge Cases (existing data migration, multiple affiliations, missing ORCID)
+- **Min 14-15:** Advantages + System Weakness Addressed (hierarchical layer was missing)
 
 However, I can easily pivot to Path A or Path B if that better serves the evaluation criteria.
 
-### Design Submission Will Include
+### Presentation Deliverables
 
-Regardless of approach:
-- ✅ Complete architectural specification
-- ✅ Data model design (RDF schema extensions)
-- ✅ API design (endpoints, request/response formats)
-- ✅ Service architecture (components, responsibilities)
-- ✅ UI/UX design (wireframes, user flows)
-- ✅ Migration strategy design
-- ✅ Testing strategy design
-- ✅ Deployment architecture
+Regardless of baseline approach, the presentation will cover all required elements:
+- ✅ **Conceptual design of solution** (faculty statistics approach)
+- ✅ **Technical approach** (data model changes, metadata extraction algorithms, integration strategies)
+- ✅ **Handling of existing data and edge cases** (migration strategy, multiple affiliations, missing ORCID, inconsistent metadata)
+- ✅ **Advantages and potential limitations** (benefits to stakeholders, technical constraints)
+- ✅ **System strengths and weaknesses** (specific weakness identified and how to address it)
 
-The discovery doesn't change the **quality or completeness** of the design - only whether it's positioned as an extension or a standalone system.
+The baseline choice affects **which problem I present** and **which weakness I identify**, but not the quality or depth of the presentation.
 
 ### Transparency Note
 
 I want to be completely transparent about this discovery because:
 
-1. **It's materially relevant:** The baseline assumption affects the entire architectural approach
-2. **It demonstrates methodology:** Finding this shows thorough code analysis
-3. **It's an evaluation factor:** Your guidance clarifies what competency you're assessing
-4. **Senior architects communicate proactively:** This is exactly the type of question to raise early
+1. **It's materially relevant:** The baseline assumption affects how I frame the problem and solution in the presentation
+2. **It demonstrates methodology:** Finding this pattern shows thorough code analysis
+3. **It affects "weakness to address":** Path A = "no faculty", Path B = "incomplete system", Path C = "missing hierarchical layer"
+4. **Senior architects communicate proactively:** This is exactly the type of question to clarify before preparing a presentation
 
 **The Core Dilemma:**
 - Assignment says: "Institution statistics exist" (assume complete baseline)
 - Codebase shows: "Institution statistics partial" (infrastructure exists, aggregation incomplete)
-- Question: Should I design for the stated world or the actual world?
+- Question: What baseline should the 15-minute presentation assume?
 
-This isn't about reducing work—all three paths require comprehensive design effort. It's about **which design baseline produces the most valuable assessment** of my architectural capabilities.
+This isn't about reducing work—all three presentation paths require thorough preparation. It's about **which baseline produces the most effective presentation** for evaluating my architectural capabilities.
 
-I'm excited about this design challenge. The partial implementation discovery has been valuable for understanding how real systems evolve and where architectural extension points naturally emerge.
+I'm excited about this presentation. The partial implementation discovery has been valuable for understanding how real systems evolve and where architectural extension points naturally emerge.
 
-Please let me know your preference on design baseline, or feel free to discuss during our next interaction.
+Please let me know your preference on presentation baseline, or feel free to discuss during our next interaction.
 
 Best regards,  
 [Your Name]
@@ -273,37 +309,38 @@ Best regards,
 
 ## Alternative: Shorter Version (For Time-Constrained Reviewers)
 
-**Subject:** Design Assignment: Baseline Assumption Clarification Needed
+**Subject:** Presentation Assignment: Baseline Assumption for Faculty Statistics (15-min)
 
 ---
 
 Dear [Name],
 
-**Quick Context:** I'm completing the faculty-level statistics **design assignment** (architectural specification).
+**Quick Context:** I'm preparing the 10-15 minute **presentation** on faculty-level statistics (conceptual design, technical approach, edge cases).
 
 **Baseline Conflict Discovered:**
 
 - **Assignment states:** "Institution-level statistics already exist, add faculty-level statistics"
 - **Codebase shows:** Institution statistics are only **partially implemented** (infrastructure exists, aggregation incomplete)
 
-**Clarification Needed: What baseline should I design from?**
+**Clarification Needed: What baseline should the presentation assume?**
 
-**Path A:** Design assuming institution stats are complete (follow assignment literally, ignore partial implementation)  
-**Path B:** Design completing institution stats + adding faculty (address discovered gaps, broader scope)  
-**Path C:** Design faculty extending existing institution patterns (recognize partial implementation as intentional foundation) ← **My recommendation**
+**Path A:** Present assuming institution stats are complete (faculty-only solution, ignore partial implementation)  
+**Path B:** Present completing institution + adding faculty (comprehensive solution, address discovered gaps)  
+**Path C:** Present faculty extending existing institution pattern (hierarchical extension, leverage foundation) ← **My recommendation**
 
-**The Question:** Should I design for the **stated world** (Path A) or the **actual world** (Paths B/C)?
+**The Question for 15-minute presentation:** Which baseline creates the most effective presentation?
 
-**Why Path C:**
-- Assignment says "institution exists" → Treats partial implementation as foundation (respects scope)
-- Codebase shows `djht:group_id` pattern → Suggests hierarchical extension was intended
-- Demonstrates architectural judgment → Shows I can analyze existing systems and extend pragmatically
+**Why Path C fits best:**
+- **Good narrative:** "Found pattern → Propose extension → Here's how" (compelling story)
+- **Fits 15 minutes:** ~3 min existing analysis + ~12 min faculty solution (not rushed)
+- **Identifies weakness:** Can clearly state "missing hierarchical layer" as specific weakness to address
+- **Shows analysis:** Demonstrates code analysis + architectural thinking
 
-**What doesn't change:** Design quality, completeness, and documentation depth are the same for all paths.
+**Presentation will cover (all paths):**
+- ✅ Conceptual design, technical approach, data handling, edge cases
+- ✅ Advantages/limitations, system strengths/weaknesses
 
-**Assumption:** Will submit Path C (Extension Design) by [DATE] unless I hear otherwise.
-
-**Attached:** Analysis of existing infrastructure for your review.
+**Assumption:** Will prepare Path C presentation by [DATE] unless I hear otherwise.
 
 Best,  
 [Your Name]
@@ -321,23 +358,28 @@ Best,
 
 ## Alternative: Very Formal/Academic Tone
 
-**Subject:** Design Assignment Submission: Architectural Baseline Clarification Required
+**Subject:** Presentation Assignment: Baseline Assumption Clarification for Faculty Statistics Presentation
 
 ---
 
 Dear [Title] [Last Name],
 
-I am writing to request clarification regarding the **architectural baseline assumption** for the faculty-level statistics design assignment prior to final submission.
+I am writing to request clarification regarding the **baseline assumption** for the faculty-level statistics presentation (10-15 minutes) prior to final preparation.
 
 ### Assignment Context
 
+The assignment deliverable is a **10-15 minute presentation** covering:
+1. Conceptual design of solution
+2. Technical approach (data model changes, algorithms, integration strategies)
+3. Handling of existing data and edge cases
+4. Advantages and potential limitations
+5. System strengths/weaknesses and how to address a specific weakness
+
 The assignment specification states: *"Institution-level statistics already exist within the 4TU.ResearchData repository. Your task is to design faculty-level statistics."*
 
-My understanding is that this is primarily a **design exercise** demonstrating architectural thinking and system design capability.
+### Discovery: Baseline Assumption Conflict
 
-### Architectural Discovery: Baseline Assumption Conflict
-
-During systematic analysis of the Djehuty codebase architecture, I identified a **conflict between the assignment statement and the codebase reality**:
+During systematic analysis of the Djehuty codebase to prepare the presentation, I identified a **conflict between the assignment statement and the codebase reality**:
 
 **Assignment Baseline:** "Institution-level statistics already exist"  
 **Codebase Reality:** Institution-level statistics are **partially implemented**
@@ -352,27 +394,36 @@ During systematic analysis of the Djehuty codebase architecture, I identified a 
 5. ❌ Complete reporting endpoints for institution-level statistics  
 6. ❌ Hierarchical organization infrastructure
 
-### Architectural Baseline Question
+### Impact on Presentation Structure
 
-This discovery creates three valid architectural design baselines:
+This discovery creates three valid presentation approaches with different baseline assumptions:
 
-**Baseline A: Assignment Specification as Reality**
+**Presentation Baseline A: Assignment Specification as Reality**
 - **Assumption:** Institution statistics are complete (per assignment statement)
-- **Design Approach:** Faculty-level additions only
-- **Competency Demonstrated:** Specification compliance, focused design capability
-- **Risk:** Design may not align with actual codebase architecture
+- **Presentation Approach:** Faculty-level solution only
+- **Problem Framed As:** "Repository lacks faculty-level statistics"
+- **Specific Weakness Addressed:** "No faculty statistics capability"
+- **Time Allocation:** 100% on faculty solution (~15 minutes)
+- **Competency Demonstrated:** Specification compliance, focused solution design
+- **Risk:** Ignores discovered partial implementation
 
-**Baseline B: Codebase Reality as Foundation**
+**Presentation Baseline B: Codebase Reality as Foundation**
 - **Assumption:** Institution statistics are incomplete (per codebase analysis)
-- **Design Approach:** Complete institution statistics + faculty statistics
-- **Competency Demonstrated:** Gap analysis, comprehensive system design
-- **Risk:** May exceed assignment scope, could be perceived as scope creep
+- **Presentation Approach:** Complete institution + faculty statistics
+- **Problem Framed As:** "Statistical infrastructure incomplete overall"
+- **Specific Weakness Addressed:** "Incomplete statistical system"
+- **Time Allocation:** ~40% institution, ~60% faculty (~15 minutes total, rushed)
+- **Competency Demonstrated:** Gap analysis, comprehensive system thinking
+- **Risk:** May exceed assignment scope, too broad for 15 minutes
 
-**Baseline C: Intent Recognition** (Recommended)
+**Presentation Baseline C: Intent Recognition** (Recommended)
 - **Assumption:** Partial implementation represents intentional foundation for hierarchical extension
-- **Design Approach:** Faculty statistics extending existing institution patterns
+- **Presentation Approach:** Faculty statistics extending existing institution pattern
+- **Problem Framed As:** "Missing hierarchical layer in grouping architecture"
+- **Specific Weakness Addressed:** "Incomplete hierarchical organization infrastructure"
+- **Time Allocation:** ~20% existing analysis, ~80% faculty extension (~15 minutes, comfortable)
 - **Competency Demonstrated:** Architectural judgment, pattern recognition, pragmatic design
-- **Risk:** Lowest - balances assignment scope with codebase reality
+- **Risk:** Lowest - balanced presentation showing analysis + solution
 
 ### Request for Clarification
 
@@ -386,36 +437,49 @@ Which architectural baseline best serves the assignment evaluation criteria?
 **Secondary Question:** Should the design documentation:
 - Reference and leverage existing infrastructure components?
 - Design "clean slate" as if no infrastructure exists?
-- Include analysis of existing system as part of design methodology?
+Which presentation baseline best serves the assignment evaluation criteria?
 
-### Design Deliverables (Unchanged Regardless of Baseline)
+**Primary Question:** Should the 15-minute presentation assume:
+1. Institution statistics are complete (follow assignment statement, present faculty-only solution)?
+2. Institution statistics are incomplete (address gaps, present comprehensive solution)?
+3. Partial implementation is intentional foundation (recognize pattern, present extension solution)?
 
-All three baseline approaches include complete architectural design documentation:
-- Complete data model specification (RDF schema design and extensions)
-- Service architecture (component design, responsibilities, interfaces)
-- API design (endpoint specifications, request/response schemas)
-- Query architecture (SPARQL design patterns and templates)
-- UI/UX design (wireframes, interaction flows, user journeys)
-- Migration strategy design
-- Testing architecture design
-- Deployment architecture design
+**Secondary Question:** How should the presentation structure "system weakness to address"?
+- Baseline A identifies weakness as: "No faculty statistics capability"
+- Baseline B identifies weakness as: "Incomplete statistical system overall"
+- Baseline C identifies weakness as: "Missing hierarchical layer in grouping architecture"
 
-The baseline choice affects **which components appear in the architecture** and **how the design is framed**, but not the quality, depth, or completeness of the design documentation.
+**Tertiary Question:** Should the presentation include:
+- Analysis of existing system as context (supports Baseline C)?
+- "Clean slate" approach with no existing system reference (supports Baseline A)?
 
-### Submission Plan
+### Presentation Deliverables (Unchanged Regardless of Baseline)
 
-I plan to submit the final design by [DATE]. If I do not receive clarification by [EARLIER DATE], I will proceed with **Baseline C (Intent Recognition - Extension Design)** as it:
+All three baseline approaches include complete 10-15 minute presentation covering:
+- Conceptual design of faculty statistics solution
+- Technical approach (data model changes, metadata extraction algorithms, aggregation strategies, integration patterns)
+- Handling of existing data and edge cases (migration strategy, multiple author affiliations, missing ORCID, inconsistent metadata)
+- Advantages and potential limitations (stakeholder benefits, technical constraints)
+- System strengths and weaknesses analysis with specific weakness to address
 
-1. Respects assignment scope (focus on faculty-level statistics)
-2. Acknowledges codebase reality (partial institution implementation exists)
-3. Demonstrates architectural judgment (recognizes patterns and designs pragmatically)
-4. Balances specification compliance with system analysis capability
+The baseline choice affects **which problem is presented**, **which weakness is identified**, and **how much time is spent on existing system analysis**, but not the quality, depth, or completeness of the presentation.
+
+### Presentation Plan
+
+I plan to prepare and deliver the final presentation by [DATE]. If I do not receive clarification by [EARLIER DATE], I will proceed with **Baseline C (Intent Recognition - Extension Presentation)** as it:
+
+1. Fits 15-minute format well (~3 min existing analysis + ~12 min faculty solution)
+2. Respects assignment scope (focus on faculty-level statistics)
+3. Acknowledges codebase reality (partial institution implementation exists)
+4. Provides clear "specific weakness": "Missing hierarchical layer in grouping architecture"
+5. Demonstrates architectural judgment (recognizes patterns and proposes pragmatic extensions)
+6. Creates compelling presentation narrative (discovery → analysis → solution)
 
 However, I can readily pivot to Baseline A or B if that better aligns with evaluation objectives.
 
 ### Availability
 
-I am available to discuss this architectural question at your convenience if clarification would be helpful.
+I am available to discuss this presentation approach at your convenience if clarification would be helpful.
 
 Respectfully,  
 [Your Full Name]  
