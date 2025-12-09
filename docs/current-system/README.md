@@ -48,7 +48,166 @@ This folder contains analysis of the **existing Djehuty codebase** to understand
 - You need a quick technical overview
 - You're making architectural decisions
 - You need to understand what's missing
-- You're estimating effort
+
+---
+
+### 3. DATASET_ANALYSIS.md (8 pages, ~20 min read)
+
+**Purpose:** Analysis of live datasets from 4TU.ResearchData to understand real-world data.
+
+**Contents:**
+- Live dataset scraping results (3 datasets)
+- ORCID profile analysis (1 author)
+- Institution data format examples
+- Author metadata structure
+- Data quality observations
+
+**When to read:**
+- You need real-world examples
+- You're designing data parsers
+- You want to see actual dataset metadata
+
+---
+
+### 4. ⭐ **NEW** INSTITUTION_STATISTICS_GUIDE.md (15 pages, ~35 min read)
+
+**Purpose:** Step-by-step guide explaining how the current system displays institution-level statistics.
+
+**Contents:**
+- How to access the portal home page statistics
+- Institution tiles and navigation
+- Individual institution pages (`/institutions/<name>`)
+- Backend code flow and SPARQL queries
+- RDF data model for institutions
+- What's missing (the assignment gap)
+- How to run and test the current portal
+- Key files reference (Python, SPARQL, HTML templates)
+
+**When to read:**
+- ✅ **You want to understand how institution statistics currently work**
+- You need to see where to add faculty statistics
+- You're looking for code examples to extend
+- You want to test the current system before implementing changes
+- You need to understand the UI/UX patterns
+
+---
+
+### 5. ⭐ **NEW** STATISTICS_OUTPUT_EXAMPLES.md (12 pages, ~30 min read)
+
+**Purpose:** Shows the exact output format of statistics queries in the current system and what Phase 1 needs to produce.
+
+**Contents:**
+- Repository-wide statistics output (Python dict format)
+- Portal HTML display with formatting
+- Institution-specific data (what exists vs. what's missing)
+- SPARQL query output examples (JSON bindings)
+- Phase 1 expected output formats (API responses)
+- HTML dashboard mockup for faculty statistics
+- Current vs. Phase 1 comparison table
+- Testing instructions to query current system
+
+**When to read:**
+- ✅ **You want to know the exact output format of institution-wide statistics**
+- You're designing API responses for Phase 1
+- You need to understand SPARQL output structure
+- You're writing tests and need expected data formats
+- You want to see what the dashboard should display
+
+---
+
+### 6. ⭐ **NEW** STATISTICS_DEFINITION_CLARIFICATION.md (20 pages, ~50 min read)
+
+**Purpose:** Resolves ambiguity in "statistics per institute" requirement by providing clear definitions based on current implementation patterns.
+
+**Contents:**
+- The ambiguity problem (what metrics? what granularity? depositor vs author?)
+- Learning from current implementation (repository-wide patterns)
+- Proposed definition (extending existing patterns to faculty level)
+- What "statistics" should include (Tier 1-4 metrics with priorities)
+- Extending current implementation pattern (repository → institution → faculty)
+- Concrete examples (API responses, HTML dashboard, SPARQL queries)
+- Minimum viable statistics (Phase 1 scope: MUST/SHOULD/NICE TO HAVE)
+- Implementation checklist with validation criteria
+- Clear resolution: What to build vs. what to skip
+
+**When to read:**
+- ✅ **The assignment feels vague about "statistics per institute"**
+- ✅ **You need to decide which metrics to include**
+- ✅ **You're uncertain about scope boundaries**
+- You need stakeholder alignment on requirements
+- You want to extend current patterns correctly
+- You're writing the technical specification
+- You need validation criteria for testing
+
+---
+
+### 7. ⭐ **NEW** CURRENT_STATISTICS_IMPLEMENTATION.md (25 pages, ~60 min read)
+
+**Purpose:** Complete documentation of current statistics implementation WITHOUT any Phase 1 extension discussion.
+
+**Contents:**
+- Repository-wide statistics (what exists today)
+- Complete source code with explanations
+- SPARQL query details (datasets, authors, collections)
+- Portal home page implementation
+- Institution pages (list view, not statistics)
+- RDF data model for institutions
+- Data flow diagrams
+- Testing instructions
+- Key files reference
+- What does NOT exist (gaps)
+
+**When to read:**
+- ✅ **You want to focus ONLY on current implementation**
+- ✅ **You don't want Phase 1 extension discussion yet**
+- You're learning how Djehuty statistics work today
+- You need complete source code examples
+- You want to understand the data flow
+- You're testing the current portal
+- You need a reference for "as-is" state
+
+---
+
+## 📋 Quick Decision Guide
+
+**"I just want to understand the current implementation, ignore Phase 1 extensions"**
+→ Read **CURRENT_STATISTICS_IMPLEMENTATION.md** (pure as-is documentation, no future plans)
+
+**"The assignment is vague about 'statistics per institute' - what should I build?"**
+→ Read **STATISTICS_DEFINITION_CLARIFICATION.md** (complete analysis with clear recommendations)
+
+**"What metrics should be included in faculty statistics?"**
+→ Read **STATISTICS_DEFINITION_CLARIFICATION.md** Section "What Statistics Should Include"
+
+**"What is the output of institution-wide statistics?"**
+→ Read **STATISTICS_OUTPUT_EXAMPLES.md** (shows exact data formats and outputs)
+
+**"How do I display stats per institute in the current implementation?"**
+→ Read **INSTITUTION_STATISTICS_GUIDE.md** (shows you exactly how it works today)
+
+**"I'm new to Djehuty, where do I start?"**
+→ Read **CODEBASE_ANALYSIS.md** then **TECHNICAL_FINDINGS_SUMMARY.md**
+
+**"What's missing for faculty statistics?"**
+→ Read **TECHNICAL_FINDINGS_SUMMARY.md** Section 3 (Critical Gaps)
+
+**"I need real-world data examples"**
+→ Read **DATASET_ANALYSIS.md**
+
+**"Where is the code for X?"**
+→ Search **CODEBASE_ANALYSIS.md** Section 7 (Code Locations)
+
+**"How are SPARQL queries structured?"**
+→ Read **CODEBASE_ANALYSIS.md** Section 8 (SPARQL Query Patterns)
+
+**"What's the current RDF schema?"**
+→ Read **CODEBASE_ANALYSIS.md** Section 1 (Data Model & Ontology)
+
+**"What format should my API return for Phase 1?"**
+→ Read **STATISTICS_OUTPUT_EXAMPLES.md** (Phase 1 expected outputs section)
+
+**"How do I extend the current pattern correctly?"**
+→ Read **STATISTICS_DEFINITION_CLARIFICATION.md** Section "Extending Current Implementation Pattern"
 
 ---
 
