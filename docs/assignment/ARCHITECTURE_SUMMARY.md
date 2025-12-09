@@ -1,16 +1,47 @@
 # Faculty-Level Statistics: Architecture Summary
 
+**⚠️ UPDATED VERSION - Revised After Partial Implementation Discovery**
+
 **Quick Reference Guide**
+
+**Version History:**
+- v1.0 (archived): Original design (build from scratch) - [See archive](./archive/ARCHITECTURE_SUMMARY_v1.md)
+- **v2.0 (current)**: Updated to leverage existing infrastructure
+
+**Update Date:** December 9, 2024  
+**Timeline:** ~~5 weeks~~ **2.5 weeks** | **Effort:** 1 developer | **Accuracy:** ≥90% migration
 
 ---
 
-## 📋 Overview
+## � Discovery: What Changed
+
+**Found (Dec 9, 2024):** Institution infrastructure already exists!
+- ✅ `dataset_statistics(group_ids=[...])` - Institution filtering works
+- ✅ `djht:group_id` predicate - Institution tracking in RDF
+- ✅ SPARQL templates - Support filtering
+
+**Impact:**
+- Institution work: ~~2 weeks~~ → 4-6 hours (just add aggregation wrapper)
+- **Total timeline: 5 weeks → 2.5 weeks** (50% reduction)
+
+**For Details:** [PARTIAL_IMPLEMENTATION_ANALYSIS.md](../PARTIAL_IMPLEMENTATION_ANALYSIS.md)
+
+---
+
+## �📋 Overview
 
 **Problem:** 4TU.ResearchData needs faculty-level statistics but currently only tracks institutional affiliation.
 
-**Solution:** Extend RDF data model with Faculty entity, add faculty selection to user workflows, migrate existing data.
+**Solution:** 
+- ~~Extend RDF data model with Institution + Faculty entities~~ **Institution exists!**
+- **Add Faculty entity** (genuinely new)
+- Add aggregation wrapper for institutions (leverages existing filter)
+- Add faculty selection to user workflows
+- Migrate existing data
 
-**Timeline:** 5 weeks | **Effort:** 1 developer | **Accuracy:** ≥90% migration
+**Approach:**
+- **Institution statistics:** Wrap existing `dataset_statistics(group_ids)` (4-6 hours)
+- **Faculty statistics:** Build new entity + reuse institution aggregation pattern (1.5 weeks)
 
 ---
 
@@ -19,22 +50,30 @@
 ### 1. Data Model (RDF Extensions)
 
 ```
+EXISTING (Discovered Dec 9):
+djht:InstitutionGroup (already exists!)
+├── group_id (institution identifier)
+├── name (institution name)
+└── Used by: dataset_statistics(group_ids=[...])
+
 NEW Entity: djht:Faculty
 ├── id (integer)
 ├── name (string)
 ├── short_name (string)
 ├── code (string)
-├── institution_id (integer)
+├── institution_id (integer) ← Links to existing InstitutionGroup
 └── url (URI)
 
 EXTENDED Entities:
-├── Account + faculty_id
-├── Dataset + faculty_id
-└── Author + faculty_id (optional)
+├── Account + faculty_id (NEW)
+├── Dataset + faculty_id (NEW)
+└── Author + faculty_id (optional - Phase 2)
 ```
 
 **Storage:** Virtuoso RDF triple store  
 **Query:** SPARQL templates with Jinja2
+
+**Note:** Institution tracking already works - no RDF changes needed for institutions!
 
 ### 2. System Components
 
@@ -42,27 +81,30 @@ EXTENDED Entities:
 Presentation Layer
 ├── Registration UI (faculty dropdown)
 ├── Dataset Form UI (faculty field)
-└── Statistics Dashboard (faculty breakdown)
+└── Statistics Dashboard (faculty + institution breakdown)
 
 Application Layer
-├── FacultyManager (taxonomy management)
-├── FacultyStatisticsService (aggregation)
-└── FacultyMigrationService (data migration)
+├── institution_statistics() (NEW - wraps existing dataset_statistics)
+├── FacultyManager (NEW - taxonomy management)
+├── FacultyStatisticsService (NEW - reuses institution pattern)
+└── FacultyMigrationService (NEW - data migration)
 
-Data Layer
-├── SPARQL Templates (faculties.sparql, statistics_faculty.sparql)
-└── Database Methods (insert_faculty, faculty_statistics)
+Data Layer (Leverages Existing!)
+├── dataset_statistics(group_ids) (EXISTS - institution filtering)
+├── SPARQL Templates (EXISTS - dataset_statistics.sparql)
+└── NEW: faculties.sparql, faculty_statistics wrapper
 ```
 
 ### 3. API Endpoints
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/v2/institutions/{id}/faculties` | GET | List faculties |
-| `/v2/faculties/{id}` | GET | Faculty details |
-| `/v2/statistics/faculties` | GET | Faculty statistics |
-| `/v2/statistics/faculties/{id}/datasets` | GET | Faculty datasets |
-| `/v2/account` | PATCH | Update account faculty |
+| Endpoint | Method | Purpose | Status |
+|----------|--------|---------|--------|
+| `/v2/institutions/{id}/statistics` | GET | Institution stats | NEW (wraps existing) |
+| `/v2/institutions/{id}/faculties` | GET | List faculties | NEW |
+| `/v2/faculties/{id}` | GET | Faculty details | NEW |
+| `/v2/statistics/faculties` | GET | Faculty statistics | NEW |
+| `/v2/statistics/faculties/{id}/datasets` | GET | Faculty datasets | NEW |
+| `/v2/account` | PATCH | Update account faculty | NEW |
 
 ---
 

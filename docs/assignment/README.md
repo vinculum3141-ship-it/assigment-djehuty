@@ -1,6 +1,38 @@
 # Phase 1: Faculty Statistics Implementation (The Assignment)
 
-This folder contains the **complete specification for implementing faculty-level statistics** using the depositor-only approach (5-week timeline, 1 developer).
+**⚠️ UPDATED - Timeline Reduced After Partial Implementation Discovery**
+
+**Original Estimate:** 5-week timeline (build from scratch) - [See archived v1](./archive/README.md)  
+**Revised Estimate:** 2.5-week timeline (leverage existing infrastructure)  
+**Update Date:** December 9, 2024  
+**Time Savings:** 50% faster delivery
+
+---
+
+## 🔍 Discovery: What Changed (December 9, 2024)
+
+### Critical Finding
+
+During code analysis, discovered that **institution-level statistics are 50% implemented**:
+
+- ✅ `dataset_statistics(group_ids=[...])` - Filters datasets by institution (already works!)
+- ✅ `djht:group_id` predicate - Institution tracking in RDF (already exists!)
+- ✅ SPARQL templates - Support filtering (already built!)
+- ❌ Aggregation layer - Need to sum results (4-6 hours to build)
+
+**Impact:** 
+- Institution infrastructure: ~~2 weeks~~ → 4-6 hours (just add aggregation)
+- Total timeline: **5 weeks → 2.5 weeks** (50% reduction)
+- Approach: Changed from "build from scratch" to "leverage existing + extend"
+
+**For Complete Analysis:**
+- Technical deep dive: [PARTIAL_IMPLEMENTATION_ANALYSIS.md](../PARTIAL_IMPLEMENTATION_ANALYSIS.md) (30 pages)
+- Quick reference: [PHASE1_IMPACT_SUMMARY.md](../PHASE1_IMPACT_SUMMARY.md) (12 pages)
+- Navigation guide: [PARTIAL_IMPLEMENTATION_INDEX.md](../PARTIAL_IMPLEMENTATION_INDEX.md)
+
+**Original Documents:**
+- All original v1 "build from scratch" documents preserved in [archive/](./archive/) folder
+- See [archive/README.md](./archive/README.md) for complete explanation
 
 ---
 
@@ -14,10 +46,11 @@ This folder contains the **complete specification for implementing faculty-level
 - 1 dataset = 1 faculty (depositor's faculty)
 - Migration: ~200 depositor accounts
 - **No tracking of co-author faculties**
+- **NEW:** Leverage existing institution infrastructure for faster delivery
 
 **Why depositor-only?**
 - Simpler: Only ~200 accounts vs ~5,000 authors
-- Faster: 5 weeks vs 10 weeks
+- Faster: ~~5 weeks~~ **2.5 weeks** vs 10 weeks (after discovery)
 - Matches existing behavior: `institution_id` is also depositor-only
 - Good enough for institutional reporting: "Which faculty deposited the most datasets?"
 
@@ -25,17 +58,26 @@ This folder contains the **complete specification for implementing faculty-level
 
 ---
 
-## 📄 Documents
+## 📄 Documents (Updated Versions)
 
-### 1. IMPLEMENTATION_ROADMAP.md (30 pages, ~45 min read) ⭐ **NEW**
+### 1. IMPLEMENTATION_ROADMAP.md (30 pages, ~45 min read) ⭐ **UPDATED v2.0**
 
-**Purpose:** Complete 5-week delivery plan for stakeholders (technical and non-technical).
+**Version History:**
+- v1.0 (archived): Original 5-week plan - [See archive/IMPLEMENTATION_ROADMAP_v1.md](./archive/IMPLEMENTATION_ROADMAP_v1.md)
+- **v2.0 (current)**: Revised 2.5-week plan after partial implementation discovery
+
+**Purpose:** Complete 2.5-week delivery plan for stakeholders (technical and non-technical).
 
 **Contents:**
+- **Discovery section** explaining 50% time reduction
 - Executive summary with business value
-- Detailed week-by-week schedule with tasks and deliverables
+- **Revised week-by-week schedule** (2.5 weeks instead of 5)
+- Phase 1: Institution aggregation (0.5 days - leverages existing)
+- Week 1: Faculty foundation (5 days)
+- Week 2: Data migration (5 days)
+- Week 2.5: Faculty statistics & UI (2.5 days)
 - Team roles and resource requirements
-- Budget and ROI analysis
+- Budget and ROI analysis (updated estimates)
 - Testing strategy and quality assurance
 - Rollout and deployment plan
 - Risk assessment and mitigation
@@ -51,13 +93,15 @@ This folder contains the **complete specification for implementing faculty-level
 
 ---
 
-### 2. ROADMAP_EXECUTIVE_SUMMARY.md (2 pages, ~5 min read) ⭐ **NEW**
+### 2. ROADMAP_EXECUTIVE_SUMMARY.md (2 pages, ~5 min read) ⭐ **NEEDS UPDATE**
+
+**Status:** Currently being updated to reflect 2.5-week timeline
 
 **Purpose:** 1-page overview of the roadmap for busy stakeholders.
 
 **Contents:**
 - What we're building
-- 5-week timeline (table format)
+- ~~5-week timeline~~ **2.5-week timeline** (table format)
 - Success metrics
 - Resource requirements
 - Key risks
@@ -71,9 +115,28 @@ This folder contains the **complete specification for implementing faculty-level
 
 ---
 
-### 3. SOLUTION_ARCHITECTURE.md (61 pages, ~2 hours read)
+### 3. SOLUTION_ARCHITECTURE.md (61 pages, ~2 hours read) ⭐ **NEEDS UPDATE**
+
+**Status:** Currently being updated to reflect partial implementation discovery
+
+**Version History:**
+- v1.0 (archived): Original design (build from scratch) - [See archive/SOLUTION_ARCHITECTURE_v1.md](./archive/SOLUTION_ARCHITECTURE_v1.md)
+- **v2.0 (in progress)**: Updated to leverage existing infrastructure
 
 **Purpose:** Complete technical specification for implementation.
+
+**What's Changing:**
+- Institution sections: Will reference existing infrastructure instead of designing from scratch
+- Faculty sections: Remain valid (this is genuinely new functionality)
+- Implementation approach: Updated to wrap existing methods
+
+**What's Still Valid (from v1):**
+- Faculty RDF entity design
+- UI/UX patterns  
+- Testing strategies
+- General architecture thinking
+
+**When to use:**
 
 **Contents:**
 1. Executive Summary
