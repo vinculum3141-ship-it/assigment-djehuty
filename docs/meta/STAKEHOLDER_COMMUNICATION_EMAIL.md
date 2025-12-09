@@ -34,108 +34,196 @@ I hope this message finds you well. I'm writing to share an important architectu
 
 ### Discovery Summary
 
-While analyzing the existing system architecture for the faculty-level statistics design assignment, I discovered that **institution-level statistics infrastructure already exists** in the current codebase. This materially affects the architectural approach:
+While analyzing the existing system architecture for the faculty-level statistics design assignment, I discovered a **baseline assumption conflict**:
+
+**The Assignment States:**  
+*"Institution-level statistics already exist, you need to add faculty-level statistics."*
+
+**The Codebase Reality:**  
+Institution-level statistics are **only partially implemented** (infrastructure exists but incomplete).
 
 **Existing Architecture Components:**
-- `dataset_statistics(group_ids=[...])` method providing institution-level filtering
-- `djht:group_id` predicate in RDF schema for institutional hierarchy
-- SPARQL template infrastructure with dynamic query generation
-- Production-deployed filtering mechanism (tested and working)
+- ✅ Institution grouping mechanism (`djht:group_id` predicate in RDF schema)
+- ✅ Dataset filtering by institution (`dataset_statistics(group_ids=[...])` method)
+- ✅ SPARQL template infrastructure with dynamic query generation
+- ❌ Complete aggregation layer for institution statistics (returns lists, not aggregated counts)
+- ❌ Full reporting endpoints for institution-level statistics
+- ❌ Hierarchical organization infrastructure
 
-**Missing Components:**
-- Aggregation layer (returns lists rather than aggregated counts)
-- Faculty-level extensions (the focus of this design)
-- Faculty configuration and validation
+### The Design Baseline Question
+
+This discovery creates a fundamental design question about **what baseline to design from**:
+
+**Should I design assuming:**
+
+**A) Assignment Specification as Reality** → "Institution statistics are complete"
+- Design only faculty-level additions (per assignment literal reading)
+- Assume institution statistics work fully (as assignment states)
+- Clean, focused scope on genuinely new capability
+- **Demonstrates:** Ability to follow specifications, focused design
+
+**B) Codebase Reality as Baseline** → "Institution statistics are partial"
+- Design completion of institution layer + faculty additions
+- Address the technical debt discovered in analysis
+- More comprehensive scope acknowledging reality
+- **Demonstrates:** Code analysis skills, identifying gaps, system improvement
+
+**C) Intent Recognition** → "Partial implementation suggests extension was intended"
+- Design leveraging existing patterns (extending what exists)
+- Treat partial institution stats as foundation to build on
+- Recognize that `djht:group_id` predicate suggests hierarchical extension was planned
+- **Demonstrates:** Architectural judgment, pattern recognition, pragmatic design
+
+### Why This Matters
+
+This isn't just about scope—it's about **what world I'm designing for**:
+
+- **Design for stated world (A):** Follow assignment literally, ignore codebase reality
+- **Design for actual world (B):** Address what's really there, broader scope
+- **Design for intended world (C):** Recognize partial implementation as intentional extension point
+
+Each approach demonstrates different competencies:
+- **(A) Specification Compliance:** Tests ability to follow requirements as written
+- **(B) Gap Analysis:** Tests ability to identify and address technical debt
+- **(C) Architectural Judgment:** Tests ability to recognize patterns and intent in existing code
 
 ### Impact on Design Approach
 
-This discovery creates two distinct architectural approaches for the design:
+This baseline question creates three distinct architectural paths:
 
-| Aspect | "Greenfield" Design | "Leverage Existing" Design | Difference |
-|--------|---------------------|---------------------------|------------|
-| **Architecture** | Build complete new system | Extend existing infrastructure | Foundation vs. Extension |
-| **Complexity** | Higher (all new components) | Lower (focused on faculty layer) | Scope |
-| **Pattern** | Parallel implementation | Hierarchical extension | Strategy |
-| **Risk Profile** | Medium (untested design) | Low (proven foundation) | Validation |
-| **Design Effort** | ~60 hours (complete system) | ~30 hours (focused extension) | Scope |
+| Aspect | Design Path A:<br/>Assignment Baseline | Design Path B:<br/>Reality Baseline | Design Path C:<br/>Intent Recognition |
+|--------|----------------------------------------|-------------------------------------|--------------------------------------|
+| **Assumption** | "Institution stats complete" | "Institution stats partial" | "Extension intended" |
+| **Scope** | Faculty only | Institution completion + Faculty | Faculty extending institution patterns |
+| **Architecture** | Standalone faculty system | Comprehensive statistics system | Hierarchical extension |
+| **Design Focus** | New capability | Gap filling + new capability | Pattern extension |
+| **Risk Assessment** | May ignore reality | May exceed assignment | Balanced |
+| **Demonstrates** | Spec compliance | System analysis | Architectural judgment |
 
 ### Design Options to Consider
 
-I've prepared architectural designs for both approaches:
+I've analyzed all three architectural approaches:
 
-**Option 1: Extension Design (RECOMMENDED for design submission)**
-- **Approach:** Design faculty layer extending existing institution infrastructure
-- **Architecture:** Hierarchical - Faculty extends InstitutionGroup pattern
-- **Design Focus:** Faculty-specific components (validation, aggregation, UI)
-- **Documentation:** Shows understanding of existing system + new design
-- **Demonstrates:** Code analysis skills, architectural judgment, pragmatic design
+**Option 1: Faculty-Only Design (Assignment Baseline)**
+- **Assumption:** Institution statistics are complete (per assignment statement)
+- **Design:** Only faculty-level components, assumes institution layer works
+- **Scope:** ~30 hours focused design effort
+- **Documentation:** Faculty data model, services, APIs (assumes institution foundation)
+- **Evaluation:** Tests ability to design within stated constraints
+- **Risk:** Design may not align with codebase reality
 
-**Option 2: Greenfield Design**
-- **Approach:** Design complete faculty statistics system from ground up
-- **Architecture:** Standalone - Independent faculty infrastructure
-- **Design Focus:** All components (data model, queries, services, UI)
-- **Documentation:** Complete system design (as if nothing exists)
-- **Demonstrates:** Full-stack design capability, comprehensive thinking
+**Option 2: Comprehensive Design (Reality Baseline)**
+- **Assumption:** Institution statistics are incomplete (per codebase analysis)
+- **Design:** Complete institution statistics + faculty statistics
+- **Scope:** ~60 hours comprehensive design effort
+- **Documentation:** Full statistical hierarchy from ground up
+- **Evaluation:** Tests ability to identify gaps and design complete solutions
+- **Risk:** May be seen as scope creep beyond assignment
 
-**Option 3: Dual Design Submission**
-- **Approach:** Present both designs with comparative analysis
-- **Architecture:** Show both extension and greenfield approaches
-- **Design Focus:** Trade-off analysis, decision framework
-- **Documentation:** Two architectural specs + comparison document
-- **Demonstrates:** Thorough analysis, multiple perspectives, critical thinking
+**Option 3: Extension Design (Intent Recognition) [RECOMMENDED]**
+- **Assumption:** Partial implementation suggests extension pattern was intended
+- **Design:** Leverage existing `djht:group_id` pattern, extend hierarchically
+- **Scope:** ~30 hours focused on extension points
+- **Documentation:** Shows existing analysis + faculty extensions
+- **Evaluation:** Tests architectural judgment and pattern recognition
+- **Risk:** Lowest - balances assignment scope with codebase reality
 
 ### Recommended Design Approach
 
-I recommend **Option 1 (Extension Design)** for the design submission because:
+I recommend **Option 3 (Extension Design - Intent Recognition)** for the design submission because:
 
-1. **Demonstrates Architectural Analysis:** Shows I analyzed the existing system thoroughly
-2. **Shows Pragmatic Judgment:** Real-world architects build on existing foundations
-3. **Focused Design Quality:** 30 hours on faculty-specific design vs. 60 hours on everything
-4. **Honest Assessment:** Reflects actual architectural situation accurately
-5. **Senior-Level Thinking:** Extension vs. replacement is a key architectural decision
+1. **Balances Assignment & Reality:** Respects assignment scope (faculty) while acknowledging codebase reality
+2. **Recognizes Architectural Intent:** The `djht:group_id` predicate clearly suggests hierarchical grouping was intended
+3. **Demonstrates Senior-Level Thinking:** Real architects assess existing systems and extend thoughtfully
+4. **Focused Design Quality:** 30 hours on well-reasoned faculty extensions vs. 60 hours on everything
+5. **Shows Code Analysis:** Demonstrates I can read code, recognize patterns, and make architectural judgments
+6. **Honest & Pragmatic:** Partial implementation isn't ignored (Path A) or treated as defect (Path B), but as foundation
 
-However, I recognize the assignment may be testing **complete system design capability** regardless of what exists. In that case, Option 2 (Greenfield) may be more appropriate.
+### The Core Clarification Needed
+
+**The fundamental question isn't "how should I implement" but "what baseline should I design from?"**
+
+**Please advise:**
+
+1. **Should I design assuming institution statistics are complete?** (Path A - Follow assignment literally)
+2. **Should I design completing institution stats + adding faculty?** (Path B - Address discovered gaps)
+3. **Should I design faculty extending the existing institution pattern?** (Path C - Recognize partial implementation as foundation)
+
+This affects:
+- What components appear in the architecture
+- Whether existing infrastructure is referenced or ignored
+- Whether design documents show "new system" or "extension of existing"
+- How I frame the architectural approach in documentation
 
 ### Request for Guidance
 
-Before finalizing the design submission, I'd appreciate your perspective on:
+Before finalizing the design submission, I need clarity on the **design baseline assumption**:
 
-1. **Should the design reflect the existing infrastructure?** (Extension approach)
-2. **Or should it be designed as if building from scratch?** (Greenfield approach)
-3. **Is discovering existing infrastructure considered positive analysis?** (Or does it "reduce" the assignment scope?)
-4. **Should I document both approaches?** (Comparison study)
+**Question 1: What should be the architectural baseline?**
+- A) Design assuming institution statistics are complete (per assignment statement)?
+- B) Design acknowledging institution statistics are partial (per codebase)?
+- C) Design leveraging existing patterns as intentional foundation (architectural judgment)?
+
+**Question 2: How should the discovery be reflected?**
+- Should existing infrastructure be referenced/leveraged in the design?
+- Or should the design be "clean slate" as if nothing exists?
+- Should the discovery itself be documented as part of the design analysis?
+
+**Question 3: What competency is being evaluated?**
+- Spec compliance (follow assignment literally regardless of codebase)?
+- System analysis (identify gaps and design comprehensive solutions)?
+- Architectural judgment (recognize patterns and design pragmatic extensions)?
 
 ### Design Deliverables Prepared
 
-Regardless of which approach you prefer, I've prepared complete design documentation:
+Regardless of which path you prefer, I've prepared complete design documentation for all three approaches:
 
-**Extension Design (Option 1):**
-- System architecture showing faculty layer extending institution infrastructure
+**Path A Design (Faculty-Only - Assignment Baseline):**
+- Faculty-level architecture assuming complete institution foundation
 - Faculty-specific data model, API design, and service architecture
-- Integration points with existing components
-- Migration and deployment strategy
-- ~30 pages of focused design documentation
+- Focused scope, follows assignment literally
+- ~30 pages of targeted design documentation
 
-**Greenfield Design (Option 2):**
-- Complete system architecture (as if building from scratch)
+**Path B Design (Comprehensive - Reality Baseline):**
+- Complete statistical hierarchy (institution + faculty)
 - Full data model, query design, service layer, and UI architecture
-- All components designed in detail
-- ~60 pages of comprehensive design documentation
+- Comprehensive scope, addresses discovered gaps
+- ~60 pages of complete system design
 
-**Discovery Analysis:**
-- Technical analysis of existing infrastructure (what exists, what's missing)
-- Architectural impact assessment
-- Design trade-off analysis
+**Path C Design (Extension - Intent Recognition) [PREPARED]:**
+- Faculty architecture extending existing institution patterns
+- Analysis of existing `djht:group_id` pattern + faculty extensions
+- Balanced scope, pragmatic architectural judgment
+- ~35 pages including existing system analysis + faculty design
+
+**Discovery Analysis Documentation:**
+- Technical analysis of existing infrastructure
+- Gap assessment (what exists vs. what's complete)
+- Architectural pattern recognition
+- Design baseline impact analysis
 
 ### My Assumption
 
-**If I don't hear back by [DATE]**, I'll submit **Option 1 (Extension Design)** for the following reasons:
-- Demonstrates thorough architectural analysis
-- Reflects honest assessment of current system
-- Shows pragmatic design judgment
-- Focuses design effort on genuinely new components
+**If I don't hear back by [DATE]**, I'll submit **Path C (Extension Design - Intent Recognition)** for the following reasons:
 
-However, I can easily pivot to Option 2 (Greenfield) or Option 3 (Dual) if that better serves the assignment evaluation criteria.
+**Why Path C:**
+1. **Assignment states "institution stats exist"** - Path C respects this by treating partial implementation as foundation
+2. **Codebase shows `djht:group_id` pattern** - Suggests hierarchical extension was intended
+3. **Demonstrates architectural judgment** - Shows I can recognize patterns and design pragmatically
+4. **Balances scope** - Focused on faculty (per assignment) while acknowledging reality
+5. **Honest approach** - Doesn't ignore discovery (Path A) or treat it as defect (Path B)
+
+**Why NOT Path A (Faculty-only ignoring reality):**
+- Designing "as if institution stats are complete" when they're partial feels dishonest
+- Ignores discovered technical debt
+- May produce design that doesn't align with actual codebase
+
+**Why NOT Path B (Comprehensive redesign):**
+- May be seen as scope creep beyond assignment
+- Assignment explicitly says "institution stats already exist"
+- Treats partial implementation as failure rather than foundation
+
+However, I can easily pivot to Path A or Path B if that better serves the evaluation criteria.
 
 ### Design Submission Will Include
 
@@ -154,14 +242,22 @@ The discovery doesn't change the **quality or completeness** of the design - onl
 ### Transparency Note
 
 I want to be completely transparent about this discovery because:
-1. It materially affects the architectural approach
-2. It demonstrates my code analysis methodology
-3. It's important you evaluate the design with full context
-4. Senior architects communicate discoveries proactively
 
-I'm excited about this design challenge and confident in delivering a comprehensive architectural solution. The existing infrastructure discovery has been a valuable learning experience in analyzing legacy systems.
+1. **It's materially relevant:** The baseline assumption affects the entire architectural approach
+2. **It demonstrates methodology:** Finding this shows thorough code analysis
+3. **It's an evaluation factor:** Your guidance clarifies what competency you're assessing
+4. **Senior architects communicate proactively:** This is exactly the type of question to raise early
 
-Please let me know your preference, or feel free to discuss during our next interaction.
+**The Core Dilemma:**
+- Assignment says: "Institution statistics exist" (assume complete baseline)
+- Codebase shows: "Institution statistics partial" (infrastructure exists, aggregation incomplete)
+- Question: Should I design for the stated world or the actual world?
+
+This isn't about reducing work—all three paths require comprehensive design effort. It's about **which design baseline produces the most valuable assessment** of my architectural capabilities.
+
+I'm excited about this design challenge. The partial implementation discovery has been valuable for understanding how real systems evolve and where architectural extension points naturally emerge.
+
+Please let me know your preference on design baseline, or feel free to discuss during our next interaction.
 
 Best regards,  
 [Your Name]
@@ -177,27 +273,42 @@ Best regards,
 
 ## Alternative: Shorter Version (For Time-Constrained Reviewers)
 
-**Subject:** Design Assignment: Architectural Discovery - Guidance Requested
+**Subject:** Design Assignment: Baseline Assumption Clarification Needed
 
 ---
 
 Dear [Name],
 
-**Context:** I'm completing the faculty-level statistics **design assignment** (architectural specification, not implementation).
+**Quick Context:** I'm completing the faculty-level statistics **design assignment** (architectural specification).
 
-**Discovery:** While analyzing the existing Djehuty architecture, I found that institution-level statistics infrastructure already exists in production.
+**Baseline Conflict Discovered:**
 
-**Design Question:**
+- **Assignment states:** "Institution-level statistics already exist, add faculty-level statistics"
+- **Codebase shows:** Institution statistics are only **partially implemented** (infrastructure exists, aggregation incomplete)
 
-Should my architectural design:
+**Clarification Needed: What baseline should I design from?**
 
-**A) Extend the existing infrastructure** (pragmatic, focused on faculty layer)  
-**B) Design a complete new system** (comprehensive, as if building from scratch)  
-**C) Present both approaches** (comparative analysis)
+**Path A:** Design assuming institution stats are complete (follow assignment literally, ignore partial implementation)  
+**Path B:** Design completing institution stats + adding faculty (address discovered gaps, broader scope)  
+**Path C:** Design faculty extending existing institution patterns (recognize partial implementation as intentional foundation) ← **My recommendation**
 
-**My Recommendation:** Option A - shows I analyzed existing architecture and designed appropriate extension points.
+**The Question:** Should I design for the **stated world** (Path A) or the **actual world** (Paths B/C)?
 
-**What doesn't change:** Design quality, completeness, and documentation depth remain the same regardless of approach.
+**Why Path C:**
+- Assignment says "institution exists" → Treats partial implementation as foundation (respects scope)
+- Codebase shows `djht:group_id` pattern → Suggests hierarchical extension was intended
+- Demonstrates architectural judgment → Shows I can analyze existing systems and extend pragmatically
+
+**What doesn't change:** Design quality, completeness, and documentation depth are the same for all paths.
+
+**Assumption:** Will submit Path C (Extension Design) by [DATE] unless I hear otherwise.
+
+**Attached:** Analysis of existing infrastructure for your review.
+
+Best,  
+[Your Name]
+
+---
 
 **Assumption:** Will submit Extension Design (Option A) by [DATE] unless I hear otherwise.
 
@@ -210,71 +321,101 @@ Best,
 
 ## Alternative: Very Formal/Academic Tone
 
-**Subject:** Design Assignment Submission: Architectural Analysis and Approach Clarification
+**Subject:** Design Assignment Submission: Architectural Baseline Clarification Required
 
 ---
 
 Dear [Title] [Last Name],
 
-I am writing to seek clarification regarding the architectural approach for the faculty-level statistics design assignment prior to final submission.
+I am writing to request clarification regarding the **architectural baseline assumption** for the faculty-level statistics design assignment prior to final submission.
 
-**Assignment Context:**
+### Assignment Context
 
-The assignment requests an architectural design for faculty-level statistics within the 4TU.ResearchData repository. My understanding is that this is primarily a **design exercise** demonstrating architectural thinking, not a production implementation.
+The assignment specification states: *"Institution-level statistics already exist within the 4TU.ResearchData repository. Your task is to design faculty-level statistics."*
 
-**Architectural Discovery:**
+My understanding is that this is primarily a **design exercise** demonstrating architectural thinking and system design capability.
 
-During systematic analysis of the Djehuty codebase architecture, I identified existing infrastructure components relevant to the design:
+### Architectural Discovery: Baseline Assumption Conflict
 
-1. **Existing:** Institution-level grouping mechanism (`djht:group_id` predicate)
-2. **Existing:** Dataset filtering by institution (`dataset_statistics(group_ids=[])`)
-3. **Existing:** SPARQL template infrastructure with dynamic query generation
-4. **Missing:** Faculty-level hierarchy extension
-5. **Missing:** Aggregation layer for statistical reporting
+During systematic analysis of the Djehuty codebase architecture, I identified a **conflict between the assignment statement and the codebase reality**:
 
-**Architectural Implications:**
+**Assignment Baseline:** "Institution-level statistics already exist"  
+**Codebase Reality:** Institution-level statistics are **partially implemented**
 
-This discovery presents two valid architectural approaches for the design submission:
+**Existing Components:**
+1. ✅ Institution grouping mechanism (`djht:group_id` predicate in RDF schema)
+2. ✅ Dataset filtering by institution (`dataset_statistics(group_ids=[])` method)
+3. ✅ SPARQL template infrastructure with dynamic query generation
 
-**Approach A: Extension Architecture**
-- Design faculty layer as hierarchical extension of existing InstitutionGroup pattern
-- Leverage proven infrastructure as architectural foundation
-- Focus design effort on faculty-specific components
-- Demonstrates: Architectural analysis, pattern recognition, pragmatic design
+**Incomplete Components:**
+4. ❌ Aggregation layer for institution statistics (returns datasets, not aggregated counts)
+5. ❌ Complete reporting endpoints for institution-level statistics  
+6. ❌ Hierarchical organization infrastructure
 
-**Approach B: Greenfield Architecture**  
-- Design complete faculty statistics system independently
-- Treat as standalone architectural problem
-- Design all infrastructure components from first principles
-- Demonstrates: Comprehensive system design, full-stack thinking
+### Architectural Baseline Question
 
-**Request for Clarification:**
+This discovery creates three valid architectural design baselines:
 
-Which architectural approach better serves the assignment evaluation criteria?
+**Baseline A: Assignment Specification as Reality**
+- **Assumption:** Institution statistics are complete (per assignment statement)
+- **Design Approach:** Faculty-level additions only
+- **Competency Demonstrated:** Specification compliance, focused design capability
+- **Risk:** Design may not align with actual codebase architecture
 
-1. **Extension Design:** Shows I analyzed existing architecture and designed appropriate extensions
-2. **Greenfield Design:** Shows complete system design capability independent of current state
-3. **Comparative Design:** Presents both approaches with trade-off analysis
+**Baseline B: Codebase Reality as Foundation**
+- **Assumption:** Institution statistics are incomplete (per codebase analysis)
+- **Design Approach:** Complete institution statistics + faculty statistics
+- **Competency Demonstrated:** Gap analysis, comprehensive system design
+- **Risk:** May exceed assignment scope, could be perceived as scope creep
 
-**Design Deliverables (Unchanged):**
+**Baseline C: Intent Recognition** (Recommended)
+- **Assumption:** Partial implementation represents intentional foundation for hierarchical extension
+- **Design Approach:** Faculty statistics extending existing institution patterns
+- **Competency Demonstrated:** Architectural judgment, pattern recognition, pragmatic design
+- **Risk:** Lowest - balances assignment scope with codebase reality
 
-Regardless of architectural approach, the design submission will include:
-- Complete data model specification (RDF schema design)
+### Request for Clarification
+
+Which architectural baseline best serves the assignment evaluation criteria?
+
+**Primary Question:** Should the design assume:
+1. Institution statistics are complete (follow assignment statement, ignore partial implementation)?
+2. Institution statistics are incomplete (address gaps, broader comprehensive scope)?
+3. Partial implementation is intentional foundation (recognize pattern, design extension)?
+
+**Secondary Question:** Should the design documentation:
+- Reference and leverage existing infrastructure components?
+- Design "clean slate" as if no infrastructure exists?
+- Include analysis of existing system as part of design methodology?
+
+### Design Deliverables (Unchanged Regardless of Baseline)
+
+All three baseline approaches include complete architectural design documentation:
+- Complete data model specification (RDF schema design and extensions)
 - Service architecture (component design, responsibilities, interfaces)
 - API design (endpoint specifications, request/response schemas)
-- Query architecture (SPARQL design patterns)
-- UI/UX design (wireframes, user interaction flows)
+- Query architecture (SPARQL design patterns and templates)
+- UI/UX design (wireframes, interaction flows, user journeys)
 - Migration strategy design
 - Testing architecture design
-- Deployment design
+- Deployment architecture design
 
-**Submission Timeline:**
+The baseline choice affects **which components appear in the architecture** and **how the design is framed**, but not the quality, depth, or completeness of the design documentation.
 
-I plan to submit the final design by [DATE]. If I don't receive guidance by [EARLIER DATE], I will proceed with **Approach A (Extension Architecture)** as it demonstrates architectural analysis methodology alongside design capability.
+### Submission Plan
 
-**Availability:**
+I plan to submit the final design by [DATE]. If I do not receive clarification by [EARLIER DATE], I will proceed with **Baseline C (Intent Recognition - Extension Design)** as it:
 
-I am available to discuss this at your convenience if clarification would be helpful.
+1. Respects assignment scope (focus on faculty-level statistics)
+2. Acknowledges codebase reality (partial institution implementation exists)
+3. Demonstrates architectural judgment (recognizes patterns and designs pragmatically)
+4. Balances specification compliance with system analysis capability
+
+However, I can readily pivot to Baseline A or B if that better aligns with evaluation objectives.
+
+### Availability
+
+I am available to discuss this architectural question at your convenience if clarification would be helpful.
 
 Respectfully,  
 [Your Full Name]  
@@ -318,29 +459,56 @@ Respectfully,
 
 ## Response Scenarios & How to Handle
 
-### Scenario 1: "Great analysis! Design the extension architecture."
+### Scenario 1: "Follow the assignment - assume institution stats are complete."
 **Response:**
-> "Thank you for the confirmation. I'll proceed with the Extension Design approach, showing how to leverage and extend the existing architectural patterns. The design documentation will clearly explain the analysis methodology and architectural decisions. Looking forward to presenting the design."
+> "Understood - thank you for clarifying. I'll proceed with Baseline A (Assignment Specification), designing faculty-level statistics assuming complete institution foundation. The design will focus exclusively on faculty-specific components per the assignment specification. This approach demonstrates specification compliance and focused design capability."
 
-### Scenario 2: "We'd prefer a greenfield design for assessment purposes."
+### Scenario 2: "Address the gaps - design both institution completion and faculty."
 **Response:**
-> "Understood - thank you for clarifying. I'll proceed with the Greenfield Design approach, treating this as a standalone system. The discovery will still be valuable as it informed my understanding of the domain. The design will demonstrate complete system architecture capability."
+> "Thank you for the guidance. I'll proceed with Baseline B (Reality Foundation), designing comprehensive institution statistics completion plus faculty additions. This broader scope will demonstrate gap analysis capability and comprehensive system design thinking. The design will address the discovered technical debt while adding faculty functionality."
 
-### Scenario 3: "Can you present both approaches comparatively?"
+### Scenario 3: "Leverage what exists - design faculty extending the institution pattern."
 **Response:**
-> "Excellent idea. I'll create a comparative design document presenting both Extension and Greenfield architectures with trade-off analysis. This will demonstrate design thinking across different architectural constraints. The comparison will include data models, service patterns, and deployment considerations for each approach."
+> "Perfect - this aligns with my architectural assessment. I'll proceed with Baseline C (Intent Recognition), designing faculty statistics as hierarchical extension of the existing institution pattern. The design will show how the `djht:group_id` pattern extends naturally to faculty level, demonstrating architectural judgment and pragmatic design thinking."
 
-### Scenario 4: "Interesting - let's discuss in our next meeting."
+### Scenario 4: "Present all three approaches comparatively."
 **Response:**
-> "Perfect. I'll prepare a brief presentation covering the architectural discovery, design options analysis, and recommendations. I'll also bring the architectural diagrams and technical rationale for reference. Looking forward to the discussion."
+> "Excellent idea. I'll create a comparative design document presenting all three baseline approaches (Faculty-Only, Comprehensive, Extension) with detailed trade-off analysis. This will demonstrate design thinking across different architectural constraints and show how baseline assumptions affect design decisions. The comparison will include data models, service patterns, and deployment considerations for each approach."
 
-### Scenario 5: "How confident are you in this assessment?"
+### Scenario 5: "Interesting - let's discuss in our next meeting."
 **Response:**
-> "Very confident. I've traced the architecture, reviewed the RDF data models and SPARQL patterns, and verified it's actively used in production. I've documented all architectural findings in detail for your review. Happy to walk through the architecture diagrams together if helpful."
+> "Perfect. I'll prepare a brief presentation covering:
+> 1. The baseline assumption conflict (assignment vs. codebase)
+> 2. Architectural analysis of existing institution infrastructure
+> 3. Three design baseline options with trade-offs
+> 4. My recommendation (Baseline C - Extension) and rationale
+> I'll bring architectural diagrams and technical documentation for reference. Looking forward to the discussion."
 
-### Scenario 6: No response received
+### Scenario 6: "How confident are you in this partial implementation assessment?"
+**Response:**
+> "Very confident - I've done thorough code analysis:
+> - Traced `dataset_statistics()` execution flow showing list return (not aggregated counts)
+> - Reviewed SPARQL templates confirming infrastructure exists but aggregation incomplete
+> - Analyzed `djht:group_id` predicate usage showing hierarchical pattern foundation
+> - Verified it's production-deployed and actively maintained
+> I've documented all architectural findings in `PARTIAL_IMPLEMENTATION_ANALYSIS.md` with code references. Happy to walk through the architecture analysis together if helpful."
+
+### Scenario 7: "This affects evaluation - just follow the assignment literally."
+**Response:**
+> "Understood completely. I'll proceed with Baseline A (pure assignment specification), designing only faculty-level components and assuming institution statistics are fully functional as stated. I appreciate you clarifying the evaluation criteria - this removes any ambiguity about scope. The discovery analysis will still be valuable documentation of my code analysis methodology."
+
+### Scenario 8: No response received
 **Follow-up after 2-3 days:**
-> "Quick follow-up on my email from [DATE] regarding the architectural discovery. I'm planning to proceed with the Extension Design approach starting [DATE] unless I hear otherwise. This will show how to leverage existing patterns while adding faculty-level capabilities. Please let me know if you'd prefer a different design approach or would like to discuss further."
+> "Quick follow-up on my email from [DATE] regarding the architectural baseline question for the faculty statistics design.
+>
+> **Core question:** Should I design assuming institution stats are complete (per assignment) or acknowledging they're partial (per codebase)?
+>
+> I'm planning to proceed with **Baseline C (Extension Design)** starting [DATE] unless I hear otherwise. This approach:
+> - Respects assignment scope (faculty focus)
+> - Acknowledges codebase reality (partial institution implementation)
+> - Demonstrates architectural judgment (pattern recognition and pragmatic extension)
+>
+> Please let me know if you prefer Baseline A (faculty-only) or B (comprehensive) instead, or would like to discuss further."
 
 ---
 
