@@ -1,8 +1,9 @@
 # Speaker Notes for Faculty-Level Statistics Presentation
 
-**Presentation Duration:** 10-15 minutes  
-**Total Slides:** 14  
-**Target Audience:** Technical stakeholders, hiring committee for Senior Software Developer role
+**Presentation Duration:** 13-17 minutes  
+**Total Slides:** 16 (includes new visual slides)  
+**Target Audience:** Technical stakeholders, hiring committee for Senior Software Developer role  
+**Visual Enhancement:** Added 4 visual slides for non-technical stakeholder accessibility
 
 ---
 
@@ -11,23 +12,31 @@
 | Slide | Topic | Time | Cumulative |
 |-------|-------|------|------------|
 | 1 | Title & Introduction | 1 min | 1 min |
-| 2 | Problem Statement | 1.5 min | 2.5 min |
+| 2 | Problem Statement **[VISUAL ENHANCED]** | 1.5 min | 2.5 min |
 | 3 | Solution Overview | 1.5 min | 4 min |
 | 4 | Technical Architecture | 2 min | 6 min |
-| 5 | Data Model & Taxonomy | 1.5 min | 7.5 min |
+| 5 | Data Model & Taxonomy **[VISUAL ENHANCED]** | 1.5 min | 7.5 min |
 | 6 | User Experience | 1.5 min | 9 min |
-| 7 | Migration Strategy | 2 min | 11 min |
-| 8 | Edge Cases | 1.5 min | 12.5 min |
-| 9 | Implementation Timeline | 1 min | 13.5 min |
-| 10 | Phase 2 - Future Work | 2 min | 15.5 min |
-| 11 | Advantages & Benefits | 1.5 min | 17 min |
-| 12 | Trade-offs & Limitations | 1.5 min | 18.5 min |
-| 13 | System Strengths | 1.5 min | 20 min |
-| 14 | System Weakness & Fix | 2 min | 22 min |
-| 15 | Summary & Next Steps | 1 min | 23 min |
+| 6b | **Working Prototype Dashboard [NEW VISUAL]** | 1.5 min | 10.5 min |
+| 7 | Migration Strategy | 2 min | 12.5 min |
+| 8 | Edge Cases | 1.5 min | 14 min |
+| 9 | Implementation Timeline | 1 min | 15 min |
+| 10 | Phase 2 - Future Work | 2 min | 17 min |
+| 11 | Advantages & Benefits **[VISUAL ENHANCED]** | 1.5 min | 18.5 min |
+| 12 | Trade-offs & Limitations | 1.5 min | 20 min |
+| 13 | System Strengths | 1.5 min | 21.5 min |
+| 14 | System Weakness & Fix | 2 min | 23.5 min |
+| 15 | Summary & Next Steps | 1 min | 24.5 min |
 
-**Note:** Aim for 13-15 minutes to leave 0-2 minutes for questions within 15-minute slot.
-**If time is tight:** Slide 10 (Phase 2) can be summarized quickly in 1 minute instead of 2.
+**Note:** Aim for 13-17 minutes to leave time for questions.  
+**Fast track (13-15 min):** Skip Slide 6b live demo, summarize Slide 10 in 1 min instead of 2.  
+**Full experience (15-17 min):** Show Slide 6b live demo in browser, present all visual enhancements fully.
+
+**NEW Visual Enhancements:**
+- **Slide 2:** Organizations field chaos visualization (before/after comparison)
+- **Slide 5:** Entity relationship diagram (visual data model)
+- **Slide 6b:** Working prototype dashboard (NEW slide with interactive demo)
+- **Slide 11:** Before/after impact comparison for stakeholders
 
 ---
 
@@ -52,23 +61,29 @@
 
 ### Slide 2: Problem Statement (1.5 min)
 
+**VISUAL EMPHASIS: Organizations Field Chaos Box**
+- "Look at this visual - this shows the core problem we're solving."
+- **Point to the red chaos box:** "The Organizations field has over 100 different variations for the SAME faculty."
+- "Here are real examples: 'TU Delft, Faculty of Aerospace Engineering...' versus 'Aerospace Engineering, TU Delft' versus 'TU Delft - AE Faculty'."
+- "All these refer to the SAME entity, but you can't aggregate them programmatically."
+
 **Current State Issues:**
 - "Currently, the system only tracks datasets at institution level."
-- "There's an 'Organizations' field in the metadata, but it's free-text - which makes it great for display but unusable for statistics."
+- "This free-text approach works for display but is completely unusable for statistics."
 
-**Real Example:**
-- "Here's a real dataset from the production system: 'Aviation NOx Emissions'."
-- "The Organizations field says: 'TU Delft, Faculty of Aerospace Engineering, Section Aircraft Noise...'"
-- "This free-text works for showing users where the research came from, but you can't aggregate it."
-- "Why? Because one dataset might say 'Faculty of Aerospace Engineering', another says 'AE Faculty', another says 'Aerospace Engineering'. All referring to the same entity."
+**Visual Comparison - Red vs Green:**
+- **Red (Bad):** "100+ variations of the same faculty name - this is chaos for data analysis."
+- **Green (Good):** "What we need: a structured field with one canonical ID and one canonical name."
+- "This transforms unreliable text into reliable, queryable data."
 
 **Impact Numbers:**
-- "We have 580+ datasets that need faculty assignment."
-- "TU Delft alone has 8 faculties."
-- "Currently, there's 0% coverage of faculty-level data in the repository."
+- **Point to stat cards:** "580+ datasets need faculty assignment."
+- "100+ variations for the SAME faculty - this isn't just messy, it's unworkable."
+- "Currently: 0% coverage of faculty-level data."
 
 **Impact Statement:**
 - "This means faculties can't track their research output, institutions can't generate granular reports, and strategic planning decisions lack a data foundation."
+- "For non-technical stakeholders: imagine asking 'how many datasets from our faculty?' and getting 🤷 instead of a number."
 
 **Transition:** "So how do we fix this? Let me show you the proposed solution."
 
@@ -140,29 +155,33 @@
 
 ### Slide 5: Data Model & Taxonomy (1.5 min)
 
-**Configuration-Driven Approach:**
-- "The faculty taxonomy is configuration-driven, not hardcoded in the application code."
-- "This is critical for maintainability and flexibility."
+**VISUAL EMPHASIS: Entity Relationship Diagram**
+- **Point to the top visual:** "This diagram shows how the new Faculty entity fits into our existing data model."
+- "For non-technical stakeholders: think of this as the organizational structure."
 
-**TU Delft Example:**
-- "Here's the configuration for TU Delft."
-- "It's an XML file that defines all 8 faculties."
-- "Each faculty has: a unique ID, a short code like 'AE', the full name, and a short name for display."
+**Walk Through the Visual:**
+- **Point to Institution (blue):** "We start with Institution - like TU Delft."
+- **Point to Faculty (purple with gold border):** "The NEW Faculty entity sits in the middle - this is what we're adding."
+- **Point to Account and Dataset (red and green):** "Both Accounts (depositors) and Datasets can optionally link to a Faculty."
+- **Point to 'faculty_id (optional)' badges:** "Notice this says 'optional' - that's critical for backward compatibility."
+
+**Key Message for Non-Technical Audience:**
+- "The yellow box at the bottom says it all: faculty_id is OPTIONAL everywhere."
+- "This means existing users and datasets without a faculty still work perfectly."
+- "We're ADDING capability, not breaking existing functionality."
+
+**Configuration-Driven Approach:**
+- "Now look at the left side - the faculty taxonomy is configuration-driven, not hardcoded."
+- "This XML file defines all 8 TU Delft faculties: each has an ID, a code (like 'AE'), and names."
 
 **Faculty List:**
-- "TU Delft's 8 faculties cover their official organizational structure."
-- "Aerospace Engineering, Architecture & Built Environment, Applied Sciences, etc."
-- "We also include an 'Other/Unspecified' category for edge cases where faculty can't be determined."
+- **Point to the table:** "Here are TU Delft's 8 faculties covering their official organizational structure."
+- "We also include an 'Other/Unspecified' category for edge cases."
 
 **Extensibility:**
-- "This design is extensible in two important ways:"
-- "First, each 4TU institution can define their own faculty structure - this isn't TU Delft-specific."
-- "Second, we can easily add departments or research groups later - just extend the XML schema to support hierarchy."
-
-**Version Control:**
-- "The configuration file is version-controlled alongside the code."
-- "Changes go through the same review process as code changes."
-- "This prevents invalid faculty IDs from being deployed to production."
+- "This design is extensible in two ways:"
+- "First, each 4TU institution defines their own faculty structure - not one-size-fits-all."
+- "Second, we can add departments later - just extend the XML schema."
 
 **Transition:** "So what does this look like for users?"
 
@@ -199,6 +218,38 @@
 
 **Key Point:**
 - "We're adding value without adding significant burden to users."
+
+**Transition:** "Now let me show you what this looks like in practice - with a working prototype."
+
+---
+
+### Slide 6b: Working Prototype Dashboard (1.5 min) **[NEW VISUAL SLIDE]**
+
+**CRITICAL: This is a Live Demo Opportunity**
+- "This slide shows you actual working code - not just mockups or wireframes."
+- **Point to purple gradient box:** "We have a fully functional prototype dashboard using Chart.js for professional visualizations."
+
+**Walk Through the Visuals:**
+- **Left panel (Institution Overview):** "This shows the high-level view - how many datasets from each 4TU institution."
+- "Bar charts make it easy to see at a glance: TU Delft has 200, TU Eindhoven 150, etc."
+- **Right panel (Faculty Breakdown):** "Now we drill down to faculty level - this is the NEW capability."
+- "Color-coded cards show each faculty: Aerospace Engineering has 42 datasets, Civil Engineering 38, and so on."
+
+**Interactive Features:**
+- **Point to bottom purple box:** "The prototype has four key features:"
+- "📊 Chart.js visualizations - professional, publication-ready graphs."
+- "🔍 Filter by institution - click to drill down."
+- "📥 Export to CSV/JSON - for further analysis in Excel or R."
+- "⚡ Real-time updates - as new datasets are deposited."
+
+**For Non-Technical Stakeholders:**
+- "Imagine you're a faculty dean. Instead of asking IT for manual reports, you open this dashboard."
+- "Instant answer: 'My faculty has 42 datasets, with 1,200 total downloads.'"
+- "You can export the data and present it to your board or use it for strategic planning."
+
+**Live Demo Offer (if time permits):**
+- **Point to the link at bottom:** "I can actually open this in a browser right now if you'd like to see it in action."
+- "It's a real working prototype - click through, see the charts render, filter the data."
 
 **Transition:** "Now the challenging part: what about existing data?"
 
@@ -396,13 +447,25 @@
 
 ### Slide 11: Advantages & Benefits (1.5 min)
 
+**VISUAL EMPHASIS: Before/After Comparison**
+- **Start with the visual at top:** "This before/after comparison shows the transformation we're enabling."
+- **Point to left (red box):** "BEFORE: Faculty Dean asks 'how many datasets from our faculty?'"
+- "The answer is literally 🤷 - 'we don't know.'"
+- "Current process: manual counting in spreadsheets, unreliable Organizations field, hours of work, only 60% accuracy."
+- **Point to right (green box):** "AFTER: Same question gets an instant, accurate answer: 42 datasets."
+- "Automated dashboard access, structured data, high accuracy at 90%."
+
+**For Non-Technical Stakeholders:**
+- "This is the bottom-line impact: turning 'we don't know' into '42 datasets' with confidence."
+- "This isn't about technology - it's about enabling informed decision-making."
+
 **Multi-Stakeholder Value:**
-- "Benefits span multiple stakeholder groups - this isn't just a technical exercise."
+- "Benefits span multiple stakeholder groups - let me break this down."
 
 **For Faculties:**
 - "Primary beneficiaries can finally track their research output."
-- "Datasets per faculty, downloads, citations - supports strategic planning."
-- "Identify research strengths - which topics get most attention."
+- "Track datasets, downloads, citations - supports strategic planning."
+- "Identify research strengths and gaps."
 - "Benchmarking - compare Faculty of AE at TU Delft vs TU Eindhoven."
 - "Demonstrate impact to funders and leadership."
 
@@ -416,20 +479,17 @@
 - "Performance: Database-level aggregation plus caching ensures sub-100ms response time."
 - "Maintainability: Configuration-driven approach makes long-term maintenance straightforward."
 - "Scalability: Works across all 4TU institutions without code changes."
-- "Extensibility: Can add departments or research groups later without architectural changes."
-- "Backward compatible: Zero breaking changes, existing queries work."
+- "Extensibility: Can add departments later without architectural changes."
+- "Backward compatible: Zero breaking changes."
 
 **User Experience:**
 - "Minimal effort - select faculty once, auto-filled everywhere."
 - "Smart defaults reduce cognitive load."
-- "Clear visualization with intuitive dashboard."
-- "Exportable reports for further analysis."
+- "Clear visualization with intuitive dashboard - like the prototype we just saw."
+- "Exportable reports for Excel or further analysis."
 
 **Expected Impact:**
-- "90% accuracy in faculty attribution."
-- "Sub-100ms query performance."
-- "5-week implementation timeline."
-- "Zero breaking changes."
+- **Point to stat card:** "90% accuracy, sub-100ms performance, 5 weeks to implement, zero breaking changes."
 
 **Transition:** "But no solution is perfect - let's be honest about trade-offs."
 

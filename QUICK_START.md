@@ -1,8 +1,8 @@
 # 🚀 QUICK START: Presentation Ready in 2 Minutes
 
 **Assignment:** Faculty-Level Statistics for 4TU.ResearchData  
-**Duration:** 10-15 minutes  
-**Status:** ✅ Complete and ready to present
+**Duration:** 13-17 minutes (15 min target)  
+**Status:** ✅ Complete with visual enhancements for non-technical stakeholders
 
 ---
 
@@ -17,6 +17,11 @@ xdg-open index.html
 # Press Arrow keys to navigate
 ```
 
+**BONUS:** Open working prototype for live demo (optional):
+```bash
+xdg-open ../prototype/faculty_dashboard.html
+```
+
 **That's it!** You're ready to present.
 
 ---
@@ -27,24 +32,29 @@ xdg-open index.html
 - [ ] Presentation opens in browser
 - [ ] Press 'S' → Speaker notes show
 - [ ] Arrow keys navigate slides
-- [ ] All 14 slides visible
+- [ ] All 16 slides visible (includes new visual slides)
+- [ ] **[OPTIONAL]** Prototype dashboard opens for Slide 6b demo
 
 ### Content (1 minute)
-- [ ] Skim slide 2 (Problem) - Know the real example
+- [ ] Skim slide 2 (Problem) - **NEW visual chaos box**
+- [ ] Skim slide 5 (Data Model) - **NEW entity relationship diagram**
+- [ ] Skim slide 6b (Prototype) - **NEW visual dashboard slide**
 - [ ] Skim slide 7 (Migration) - Know the 90% accuracy target
+- [ ] Skim slide 11 (Advantages) - **NEW before/after comparison**
 - [ ] Skim slide 13 (Weakness) - Know the SPARQL aggregation fix
 
 ### Mental (30 seconds)
 - [ ] Deep breath
-- [ ] Remember: 50+ hours of prep
+- [ ] Remember: 60+ hours of prep, 56+ commits
 - [ ] You know this material
+- [ ] Visual slides make it accessible to ALL stakeholders
 - [ ] Show enthusiasm!
 
 ---
 
 ## 🎯 Three Key Messages (Memorize These)
 
-1. **"Structured faculty data is critical for institutional reporting, and the solution is backward-compatible with zero breaking changes."**
+1. **"Structured faculty data transforms 'we don't know' into '42 datasets' - enabling data-driven decisions for faculties and institutions."**
 
 2. **"Hybrid migration approach (automated + manual) balances efficiency with accuracy - realistic 90% target in 5 weeks."**
 
@@ -58,19 +68,23 @@ xdg-open index.html
 |-----|-------|-------|
 | 0-1 | 1-2 | Problem (free-text Organizations unusable) |
 | 1-4 | 3-4 | Solution (4-component RDF approach) |
-| 4-7 | 5-6 | Technical (data model, UX) |
-| 7-11 | 7-8 | Migration & Edge cases |
-| 11-14 | 9-10 | Timeline, **Phase 2 scope justification** |
-| 14-17 | 11-12 | Benefits, trade-offs |
-| 17-20 | 13-14 | System analysis (strengths & weakness) |
-| 20 | 15 | Summary & Q&A |
+| 4-7 | 5-6.5 | Technical (data model, UX, **prototype demo**) |
+| 7-11 | 7-9 | Migration & Edge cases |
+| 11-14 | 9.5-11 | Timeline, **Phase 2 scope justification** |
+| 14-17 | 11.5-13 | Benefits, trade-offs |
+| 17-20 | 13.5-15 | System analysis (strengths & weakness) |
+| 20 | 15.5 | Summary & Q&A |
 
 **Checkpoints:**
 - **5 min:** Should be at Slide 4
-- **10 min:** Should be at Slide 8
-- **15 min:** Should be at Slide 15
+- **10 min:** Should be at Slide 6b (Prototype Demo)
+- **15 min:** Should be at Slide 14
 
-**Note:** Slide 10 (Phase 2) is NEW and CRITICAL - explains why Phase 1 is the right scope!
+**Visual Enhancements Added:**
+- **Slide 2:** Organizations chaos visualization (100+ variations shown)
+- **Slide 5:** Entity relationship diagram (visual data model)
+- **Slide 6b:** Working prototype dashboard **[NEW - can demo live!]**
+- **Slide 11:** Before/after stakeholder impact comparison
 
 ---
 
@@ -78,11 +92,22 @@ xdg-open index.html
 
 Read this from **SPEAKER_NOTES.md:**
 
-### Slide 2: Problem (Most Important!)
-- "Here's a real dataset: Aviation NOx Emissions"
-- "Organizations field: 'TU Delft, Faculty of Aerospace Engineering...'"
-- "Free-text works for DISPLAY, unusable for STATISTICS"
-- "Why? Variations: 'Faculty of AE', 'AE Faculty', 'Aerospace Engineering'"
+### Slide 2: Problem **[VISUAL ENHANCED]**
+- **Point to red chaos box:** "100+ variations for the SAME faculty"
+- "Examples: 'TU Delft, Faculty of Aerospace...' vs 'AE Faculty' vs 'TUD AE'"
+- **Visual comparison:** Red (chaos) vs Green (structured data)
+- "This isn't messy - it's unworkable for statistics"
+
+### Slide 5: Data Model **[VISUAL ENHANCED]**
+- **Entity relationship diagram:** Shows how Faculty entity connects
+- "Institution → Faculty → Account/Dataset"
+- **Key insight:** faculty_id is OPTIONAL everywhere = Backward Compatible
+
+### Slide 6b: Prototype Dashboard **[NEW SLIDE - VISUAL]**
+- "Fully functional prototype using Chart.js"
+- **Can open live:** `xdg-open ../prototype/faculty_dashboard.html`
+- "Shows bar charts, faculty breakdown, interactive filters, data export"
+- "This is what faculty deans will see - instant answers instead of 🤷"
 
 ### Slide 7: Migration
 - "580+ datasets need faculty assignment"
@@ -90,13 +115,18 @@ Read this from **SPEAKER_NOTES.md:**
 - "Phase 2: Manual review (~130 datasets, manageable)"
 - "Target: 90% accuracy, not 100% - realistic and honest"
 
-### Slide 10: Phase 2 - Why Phase 1 is Sufficient (NEW!)
+### Slide 10: Phase 2 - Why Phase 1 is Sufficient
 - "Phase 1: Depositor-level tracking - 80% of value, 20% of complexity"
 - "Phase 2: Author-level multi-faculty attribution - would require parsing Organizations field"
 - "Organizations has 100+ variations - 'Faculty of AE', 'AE Faculty', 'Aerospace Eng.', etc."
 - "Phase 2 would take 3-4 months (6x longer) with 70% accuracy on complex cases"
 - "Evidence-based approach: Build Phase 1 → Measure usage → Learn if Phase 2 needed → Decide"
 - **This demonstrates senior-level scoping judgment!**
+
+### Slide 11: Advantages **[VISUAL ENHANCED]**
+- **Before/after comparison:** 'We don't know' → '42 datasets'
+- "Visual shows transformation for non-technical stakeholders"
+- "This is about enabling informed decision-making, not technology"
 
 ### Slide 14: Weakness
 - "SPARQL engine exists but underutilized for statistics"

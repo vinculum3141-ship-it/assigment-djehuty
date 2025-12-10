@@ -1,8 +1,9 @@
 # Faculty-Level Statistics Presentation
 
-**Duration:** 10-15 minutes  
-**Format:** HTML presentation using Reveal.js  
-**Purpose:** Senior Software Developer Assignment Deliverable
+**Duration:** 13-17 minutes (15 min target)  
+**Format:** HTML presentation using Reveal.js with enhanced visuals  
+**Purpose:** Senior Software Developer Assignment Deliverable  
+**Visual Enhancement:** 4 visual slides added for non-technical stakeholder accessibility
 
 ---
 
@@ -20,6 +21,11 @@ xdg-open index.html
 # Or use your preferred browser directly
 firefox index.html
 chromium index.html
+```
+
+**Note:** For Slide 6b (Working Prototype Dashboard), you can open the actual working prototype:
+```bash
+xdg-open ../prototype/faculty_dashboard.html
 ```
 
 ### Option 2: Local Web Server (Best for Speaker Notes)
@@ -76,27 +82,36 @@ The speaker notes view shows:
 
 ## Presentation Structure
 
-### 15 Slides / ~13-15 Minutes
+### 16 Slides / ~13-17 Minutes (Enhanced with Visuals)
 
 | # | Topic | Time | Content |
 |---|-------|------|---------|
 | 1 | Title & Introduction | 1 min | Context setting, scope |
-| 2 | Problem Statement | 1.5 min | Current issues, real examples, impact |
+| 2 | Problem Statement **[VISUAL]** | 1.5 min | Chaos visualization, before/after |
 | 3 | Solution Overview | 1.5 min | 4-component approach, key benefits |
 | 4 | Technical Architecture | 2 min | 3-tier design, RDF schema |
-| 5 | Data Model & Taxonomy | 1.5 min | Configuration-driven faculties |
+| 5 | Data Model & Taxonomy **[VISUAL]** | 1.5 min | Entity relationship diagram |
 | 6 | User Experience | 1.5 min | Registration, deposit, dashboard |
+| 6b | **Working Prototype Dashboard [NEW]** | 1.5 min | **Live demo, visual charts** |
 | 7 | Migration Strategy | 2 min | Hybrid automated + manual |
 | 8 | Edge Cases | 1.5 min | Multi-author, missing ORCID, etc. |
 | 9 | Implementation Timeline | 1 min | 5-week plan |
-| 10 | Phase 2 - Future Work | 2 min | **Why Phase 1 is sufficient scope** |
-| 11 | Advantages & Benefits | 1.5 min | Value for stakeholders |
+| 10 | Phase 2 - Future Work | 2 min | Why Phase 1 is sufficient scope |
+| 11 | Advantages & Benefits **[VISUAL]** | 1.5 min | Before/after stakeholder impact |
 | 12 | Trade-offs & Limitations | 1.5 min | Honest assessment |
 | 13 | System Strengths | 1.5 min | RDF foundation, modularity |
 | 14 | System Weakness & Fix | 2 min | SPARQL aggregation opportunity |
 | 15 | Summary & Next Steps | 1 min | Wrap-up, Q&A |
 
-**Total:** ~23 minutes with buffer (target 13-15 min speaking + 0-2 min Q&A)
+**Total:** ~24.5 minutes with buffer (target 13-17 min speaking)  
+**Fast Track (13-15 min):** Skip Slide 6b live demo, summarize Slide 10 in 1 min  
+**Full Visual Experience (15-17 min):** Show all visuals, open Slide 6b prototype in browser
+
+**Visual Enhancements Added:**
+- **Slide 2:** Organizations field chaos with 100+ variation examples
+- **Slide 5:** Color-coded entity relationship diagram
+- **Slide 6b:** Working prototype dashboard (can open live demo)
+- **Slide 11:** Before/after comparison for non-technical stakeholders
 
 ---
 
@@ -168,17 +183,19 @@ This presentation addresses all required elements:
    - Located: `/home/ruby/Projects/assigment-djehuty/tests/test_faculty_statistics.py`
 
 4. **Comprehensive Documentation**
-   - 52 commits of work
-   - 7,000+ lines of documentation
+   - 56+ commits of work
+   - 10,000+ lines of documentation
    - Located: `/home/ruby/Projects/assigment-djehuty/docs/`
 
 ### Demo Options (If Time Permits)
 
-**Option A: Show Prototype Dashboard** (30 sec)
+**Option A: Show Working Prototype Dashboard** (1-2 min) **[RECOMMENDED FOR VISUAL IMPACT]**
 ```bash
 cd /home/ruby/Projects/assigment-djehuty/prototype
 xdg-open faculty_dashboard.html
+# Show live Chart.js visualizations, interactive filters, data export
 ```
+**Note:** This is referenced in Slide 6b - can be opened during presentation!
 
 **Option B: Show RDF Query** (30 sec)
 ```bash
@@ -196,12 +213,17 @@ grep -A 50 "<faculties>" docs/design/SOLUTION_ARCHITECTURE.md
 
 ## Timing Guide
 
-### Target: 13-15 minutes speaking time
+### Target: 13-17 minutes speaking time
 
-**Fast Track (13 min):**
+**Fast Track (13-15 min):**
+- Skip Slide 6b live demo (just show the slide visuals)
 - Slide 10 (Phase 2): Summarize in 1 min instead of 2
 - Keep Slides 12 (Trade-offs) concise
-- Keep Slides 2-3, 4-6, 7-8, 13-14 concise
+
+**Full Visual Experience (15-17 min):**
+- **Open Slide 6b prototype in browser** (live demo adds ~1 min)
+- Present all visual enhancements fully
+- Use full 2 min for Slide 10 (Phase 2 justification)
 
 **Standard Track (15 min):**
 - All slides at recommended pace
