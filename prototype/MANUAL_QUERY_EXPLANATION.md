@@ -47,47 +47,46 @@ ORDER BY DESC(?dataset_count)
 
 ---
 
-## More Detailed Query (With Institution Names)
+## More Detailed Query (With Institution Names) - OPTIONAL
 
-If they want institution names too, they'd need to join with institution data:
+**Note**: Getting institution names requires joining Account data, which may not always match perfectly. The basic query above (just group_id) is what data stewards typically use.
+
+If you want to attempt getting institution names, the query would look like this:
 
 ```sparql
 PREFIX djht: <https://ontologies.data.4tu.nl/djehuty/0.0.1/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?group_id ?institution_name (COUNT(DISTINCT ?dataset) AS ?dataset_count)
+SELECT ?group_id (SAMPLE(?inst_name) AS ?institution_name) (COUNT(DISTINCT ?dataset) AS ?dataset_count)
 WHERE {
   GRAPH <https://data.4tu.nl> {
     # Datasets
     ?container    rdf:type                      djht:DatasetContainer ;
-                  djht:latest_published_version ?dataset .
+                  djht:latest_published_version ?dataset ;
+                  djht:account                  ?account .
     
     ?dataset      rdf:type                      djht:Dataset ;
                   djht:is_public                "true"^^xsd:boolean ;
                   djht:group_id                 ?group_id .
     
-    # Institution info (from Account)
-    ?account      rdf:type                      djht:Account ;
-                  djht:group_id                 ?group_id ;
-                  djht:institution_user_id      ?institution_name .
+    # Account's institution (may not match group_id)
+    OPTIONAL {
+      ?account    djht:institution_id           ?institution_id ;
+                  djht:institution_user_id      ?inst_name .
+    }
   }
 }
-GROUP BY ?group_id ?institution_name
+GROUP BY ?group_id
 ORDER BY DESC(?dataset_count)
 ```
 
-### Example Output
+**Why This Is Complex**:
+- `group_id` (from dataset) ≠ `institution_id` (from account)
+- These are different identifier systems
+- Data stewards typically just use `group_id` and map manually
 
-```
-| group_id | institution_name                          | dataset_count |
-|----------|-------------------------------------------|---------------|
-| 28586    | Delft University of Technology            | 3             |
-| 28598    | Utrecht University                        | 2             |
-| 28595    | Wageningen University                     | 1             |
-| 28592    | Eindhoven University of Technology        | 1             |
-| 28589    | University of Twente                      | 1             |
-```
+**For the interview**: Stick with the basic query (just `group_id`). That's what they actually use!
 
 ---
 
