@@ -1,0 +1,1 @@
+# Demo Screenshots\n\nSave your backup screenshots here before the interview:\n\n1. **tests_passing.png** - Output of test_faculty_statistics.py\n2. **sparql_query.png** - SPARQL query results\n3. **python_output.png** - Python method output\n4. **git_history.png** - Git commit log\n\nSee DEMO_TROUBLESHOOTING.md for how to capture these.
