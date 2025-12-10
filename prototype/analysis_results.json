@@ -1,0 +1,73 @@
+{
+  "total_datasets": 9,
+  "datasets_with_organizations": 8,
+  "datasets_with_faculty_mentions": 4,
+  "datasets_by_institution": {
+    "TU Delft": 3,
+    "University of Twente": 1,
+    "TU Eindhoven": 1,
+    "Wageningen University & Research": 1
+  },
+  "datasets_by_faculty": {
+    "CEG": 1,
+    "EEMCS": 1,
+    "ABE": 1,
+    "AE": 1
+  },
+  "faculty_co_occurrences": {},
+  "sample_extractions": [
+    {
+      "dataset_id": "498607a2-cc6d-4e5e-9700-bd2d4bbab3b0",
+      "title": "Global Data Set for Photogrammetry Images",
+      "institution_id": "28586",
+      "institution": "TU Delft",
+      "faculties": [
+        [
+          "CEG",
+          "Faculty of Civil Engineering and Geosciences"
+        ]
+      ],
+      "org_text": "TU Delft, Faculty of Civil Engineering and Geosciences, Department of Water Resources\n"
+    },
+    {
+      "dataset_id": "cef0b5f9-4514-4e48-8d16-7c97bd16b443",
+      "title": "Data underlying the publication \"Universal Analytics Masterf...",
+      "institution_id": "28592",
+      "institution": "University of Twente",
+      "faculties": [
+        [
+          "EEMCS",
+          "Faculty of Electrical Engineering, Mathematics and Computer Science"
+        ]
+      ],
+      "org_text": "University of Twente, Faculty of Electrical Engineering, Mathematics and Computer Science (EEMCS), Human Media Interaction (HMI)\nTU Delft, Faculty of ..."
+    },
+    {
+      "dataset_id": "e41c5765-72c6-45f6-8905-c8a93fc525b3",
+      "title": "Dutch Master Training Data for All Domains",
+      "institution_id": "28598",
+      "institution": "Unknown",
+      "faculties": [
+        [
+          "ABE",
+          "Faculty of Architecture and the Built Environment"
+        ]
+      ],
+      "org_text": "TU Delft, Faculty of Architecture and the Built Environment\nErasmus School of Economics\nVrije Universiteit Amsterdam\nPBL Netherlands Environmental Ass..."
+    },
+    {
+      "dataset_id": "7573353f-4f6e-46c6-8be5-c7653c7ce52a",
+      "title": "All Science Knowledge Pack 2024",
+      "institution_id": "28586",
+      "institution": "TU Delft",
+      "faculties": [
+        [
+          "AE",
+          "Faculty of Aerospace Engineering"
+        ]
+      ],
+      "org_text": "TU Delft, Faculty of Aerospace Engineering, Section Aircraft Noise and Climate Effects\nDeutsches Zentrum f\u00fcr Luft- und Raumfahrt, Institut f\u00fcr Physik ..."
+    }
+  ],
+  "coverage_percentage": 44.44444444444444
+}
