@@ -238,14 +238,16 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 # This WORKS because Faculty entities exist!
 SELECT ?faculty_name ?faculty_short_name (COUNT(DISTINCT ?dataset) AS ?dataset_count)
 WHERE {
-  GRAPH <https://data.4tu.nl/state> {
-    # Faculty entities (these DO exist in the prototype)
+  # Faculty entities are in the self-test graph
+  GRAPH <https://data.4tu.nl/portal/self-test> {
     ?faculty      rdf:type                      djht:Faculty ;
                   djht:group_id                 ?group_id ;
                   djht:faculty_name             ?faculty_name ;
                   djht:faculty_short_name       ?faculty_short_name .
-    
-    # Datasets linked via group_id
+  }
+  
+  # Datasets are in the base graph
+  GRAPH <https://data.4tu.nl> {
     ?container    rdf:type                      djht:DatasetContainer ;
                   djht:latest_published_version ?dataset .
     ?dataset      rdf:type                      djht:Dataset ;
@@ -257,9 +259,32 @@ GROUP BY ?faculty_name ?faculty_short_name
 ORDER BY DESC(?dataset_count)
 ```
 
-**Expected Result**: Faculty names with dataset counts (e.g., "Aerospace Engineering (AE)" → 2 datasets) ✅
+**Expected Result**: Faculty names with dataset counts IF datasets were migrated to faculty group_ids  
 
-**Note**: Faculty entities use the `/state` graph, not the base graph.  
+**Note**: 
+- Faculty entities are in `<https://data.4tu.nl/portal/self-test>` graph
+- Datasets are in `<https://data.4tu.nl>` graph (base)
+- Query joins across TWO graphs via `group_id`
+- May return empty if no datasets have been migrated to faculty group_ids yet (285860001, etc.)
+
+**To verify Faculty entities exist** (simpler query that WILL return results):
+```sparql
+PREFIX djht: <https://ontologies.data.4tu.nl/djehuty/0.0.1/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?faculty_name ?faculty_short_name ?group_id
+WHERE {
+  GRAPH <https://data.4tu.nl/portal/self-test> {
+    ?faculty rdf:type djht:Faculty ;
+             djht:faculty_name ?faculty_name ;
+             djht:faculty_short_name ?faculty_short_name ;
+             djht:group_id ?group_id .
+  }
+}
+```
+
+This simpler query returns the 3 Faculty entities that exist in the prototype! ✅  
+**Note**: Faculty entities are in the `<https://data.4tu.nl/portal/self-test>` graph (not the base graph)  
 
 **RDF Entities Would Look Like**:
 ```turtle
