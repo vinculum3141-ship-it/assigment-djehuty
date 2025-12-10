@@ -1,0 +1,27 @@
+{% extends "prefixes.sparql" %}
+{% block query %}
+SELECT ?faculty_id ?faculty_name ?faculty_short_name ?institution_id (COUNT(DISTINCT ?dataset) AS ?dataset_count)
+WHERE {
+  GRAPH <{{state_graph}}> {
+    # Faculty entities
+    ?faculty        rdf:type                      djht:Faculty ;
+                    djht:id                       ?faculty_id ;
+                    djht:group_id                 ?group_id ;
+                    djht:faculty_name             ?faculty_name ;
+                    djht:faculty_short_name       ?faculty_short_name ;
+                    djht:institution_id           ?institution_id .
+    
+    # Datasets linked to this faculty via group_id
+    OPTIONAL {
+      ?container    rdf:type                      djht:DatasetContainer ;
+                    djht:latest_published_version ?dataset .
+      ?dataset      rdf:type                      djht:Dataset ;
+                    djht:is_public                "true"^^xsd:boolean ;
+                    djht:group_id                 ?group_id .
+    }
+  }
+{%- if filters is not none %}{{ filters | safe }}{% endif %}
+}
+GROUP BY ?faculty_id ?faculty_name ?faculty_short_name ?institution_id
+ORDER BY DESC(?dataset_count)
+{% endblock %}

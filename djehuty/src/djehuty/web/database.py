@@ -592,6 +592,93 @@ class SparqlInterface:
         query += rdf.sparql_suffix (order, order_direction, limit, offset)
         return self.__run_query (query, query, "statistics")
 
+    def faculty_statistics (self,
+                           faculty_ids=None,
+                           institution_id=None,
+                           limit=None,
+                           offset=0):
+        """
+        Procedure to retrieve faculty-level statistics.
+        
+        This method aggregates dataset counts by faculty, demonstrating the
+        extension pattern for sub-institutional grouping. Faculties use the
+        same djht:group_id mechanism as institutions but at finer granularity.
+        
+        Args:
+            faculty_ids: List of faculty IDs to filter by (optional)
+            institution_id: Filter faculties by institution (optional)
+            limit: Maximum number of results (optional)
+            offset: Pagination offset (default: 0)
+        
+        Returns:
+            List of dicts with faculty statistics:
+            [{
+                "faculty_id": 285860001,
+                "faculty_name": "Faculty of EEMCS",
+                "faculty_short_name": "EEMCS",
+                "institution_id": 28586,
+                "dataset_count": 42
+            }, ...]
+        """
+        
+        filters = ""
+        
+        # Filter by specific faculty IDs
+        if faculty_ids:
+            filters += rdf.sparql_in_filter("faculty_id", faculty_ids)
+        
+        # Filter by institution
+        if institution_id:
+            filters += rdf.sparql_filter("institution_id", institution_id)
+        
+        query = self.__query_from_template("statistics_faculty", {
+            "filters": filters if filters else None
+        })
+        
+        # Add pagination
+        if limit:
+            query += f"\nLIMIT {limit}"
+        if offset:
+            query += f"\nOFFSET {offset}"
+        
+        return self.__run_query(query, query, "faculty_statistics")
+
+    def institution_statistics (self,
+                                institution_ids=None,
+                                limit=None,
+                                offset=0):
+        """
+        Procedure to retrieve institution-level statistics.
+        
+        This is a wrapper that aggregates datasets by institution using the
+        existing dataset_statistics method. It demonstrates that the grouping
+        mechanism works at the institution level (coarse granularity) before
+        showing it works at faculty level (fine granularity).
+        
+        Args:
+            institution_ids: List of institution IDs to filter by (optional)
+            limit: Maximum number of results (optional)
+            offset: Pagination offset (default: 0)
+        
+        Returns:
+            List of dicts with institution statistics:
+            [{
+                "group_id": 28586,
+                "dataset_count": 1234,
+                ...
+            }, ...]
+        
+        Note: This reuses dataset_statistics(group_ids=[...]) to show
+        that faculty_statistics follows the same pattern.
+        """
+        
+        # Reuse existing dataset_statistics with institution group_ids
+        return self.dataset_statistics(
+            group_ids=institution_ids,
+            limit=limit,
+            offset=offset
+        )
+
     def container_uuid_by_id (self, identifier, item_type="dataset"):
         """Procedure to retrieve container_uuid from Figshare id if necessary"""
 
