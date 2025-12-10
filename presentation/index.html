@@ -885,7 +885,121 @@ patterns = {
                 </aside>
             </section>
 
-            <!-- SLIDE 10: Advantages & Benefits -->
+            <!-- SLIDE 10: Phase 2 - Future Enhancements (Why Phase 1 is Sufficient) -->
+            <section>
+                <h2>Phase 2: Future Enhancements</h2>
+                <p class="subtitle">Why Phase 1 is the right scope for this assignment</p>
+
+                <div class="info-box">
+                    <h3>Phase 1 (Assignment Scope): Depositor-Level Faculty Tracking</h3>
+                    <p><strong>Delivers 80% of value with 20% of complexity</strong></p>
+                    <ul>
+                        <li>Faculty assignment based on depositor (user who uploaded dataset)</li>
+                        <li>Simple 1-to-1 relationship (Dataset → Faculty)</li>
+                        <li>Hybrid migration: Automated pattern matching + manual review</li>
+                        <li>Target: 90% accuracy with existing free-text data</li>
+                        <li><span class="emphasis">Immediate value: Faculty-level statistics available in 5 weeks</span></li>
+                    </ul>
+                </div>
+
+                <div class="warning-box" style="margin-top: 20px;">
+                    <h3>Phase 2 (Future Work): Author-Level Multi-Faculty Attribution</h3>
+                    <p><strong>Addresses remaining 20% of value with 80% more complexity</strong></p>
+                    
+                    <div class="two-column">
+                        <div>
+                            <h4>🎯 Additional Capabilities</h4>
+                            <ul>
+                                <li><strong>Multi-faculty attribution:</strong> Dataset counted for all author faculties</li>
+                                <li><strong>Author-level tracking:</strong> Parse Organizations field per author</li>
+                                <li><strong>Confidence scoring:</strong> Quality metrics for data reliability</li>
+                                <li><strong>Advanced NLP:</strong> Extract departments, research groups from free-text</li>
+                                <li><strong>Collaboration networks:</strong> Visualize inter-faculty research</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>⚠️ Why Not Phase 2 Now?</h4>
+                            <ul>
+                                <li><strong>Complexity:</strong> Many-to-many relationships, parsing algorithms</li>
+                                <li><strong>Data quality:</strong> Organizations field has 100+ variations
+                                    <pre style="font-size: 0.5em; margin: 5px 0; padding: 5px;">"TU Delft, Faculty of AE..."
+"Aerospace Engineering, TU Delft"  
+"TU Delft - AE Faculty"
+"Delft University, Aero Eng."</pre>
+                                </li>
+                                <li><strong>Effort:</strong> 3-4 months vs 5 weeks (6x longer)</li>
+                                <li><strong>Risk:</strong> Higher chance of inaccurate attribution</li>
+                                <li><strong>Uncertainty:</strong> Don't know if stakeholders need this level of detail yet</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="solution-box" style="margin-top: 20px;">
+                    <h3>✓ Evidence-Based Decision: Start with Phase 1</h3>
+                    <div class="two-column">
+                        <div>
+                            <h4>Phase 1 Advantages</h4>
+                            <ul>
+                                <li>✅ Fast delivery (5 weeks)</li>
+                                <li>✅ Low risk (simple 1-to-1 model)</li>
+                                <li>✅ High value (80% of use cases)</li>
+                                <li>✅ Realistic accuracy (90% achievable)</li>
+                                <li>✅ Learn from usage before Phase 2</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Approach: Build-Measure-Learn</h4>
+                            <ol style="list-style-type: decimal;">
+                                <li><strong>Build:</strong> Deliver Phase 1 in 5 weeks</li>
+                                <li><strong>Measure:</strong> Track usage, gather feedback (3-6 months)</li>
+                                <li><strong>Learn:</strong> Do stakeholders need multi-faculty attribution?</li>
+                                <li><strong>Decide:</strong> If yes → Build Phase 2. If no → Focus elsewhere</li>
+                            </ol>
+                            <p class="emphasis" style="margin-top: 10px;">Don't build features until validated by real usage</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card" style="margin-top: 20px; text-align: center;">
+                    <h3>Phase 1 vs Phase 2 Comparison</h3>
+                    <p>Phase 1: 80% value, 5 weeks, 90% accuracy | Phase 2: +20% value, +12 weeks, 70% accuracy on complex cases</p>
+                </div>
+
+                <aside class="notes">
+                    This slide is CRITICAL for justifying the assignment scope.
+                    
+                    Phase 1 (what we're proposing): Depositor-level faculty tracking.
+                    Simple: Dataset deposited by user X → assigned to user X's faculty.
+                    This covers 80% of use cases because most datasets have one primary faculty.
+                    
+                    Phase 2 (future enhancement): Author-level multi-faculty attribution.
+                    Complex: Dataset with 5 authors from 3 faculties → counted for all 3 faculties.
+                    Requires parsing Organizations field for EACH author, not just depositor.
+                    
+                    Why Organizations field is problematic:
+                    "TU Delft, Faculty of Aerospace Engineering, Section Aircraft Noise..."
+                    vs "Aerospace Engineering, TU Delft"
+                    vs "TU Delft - AE Faculty"
+                    Over 100 different variations observed in production data!
+                    
+                    NLP/pattern matching can handle some, but accuracy drops to ~70% for complex cases.
+                    Would need sophisticated parsing, confidence scoring, manual review.
+                    
+                    Phase 2 effort: 3-4 months vs 5 weeks (6x longer).
+                    Phase 2 risk: Many-to-many relationships, data quality issues, higher complexity.
+                    
+                    Evidence-based approach: Don't build Phase 2 until we KNOW stakeholders need it.
+                    Phase 1 delivers fast, gathers real usage data, validates assumptions.
+                    If users say "we need multi-faculty attribution" after using Phase 1 → build Phase 2.
+                    If users are happy with Phase 1 → don't overbuild.
+                    
+                    This is Lean Startup Build-Measure-Learn in action.
+                    This is senior-level judgment: scope appropriately, don't overbuild, validate before investing.
+                </aside>
+            </section>
+
+            <!-- SLIDE 11: Advantages & Benefits -->
             <section>
                 <h2>Advantages: Value to Stakeholders</h2>
 

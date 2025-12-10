@@ -52,7 +52,7 @@ xdg-open index.html
 
 ---
 
-## 📊 Presentation Flow (14 slides, 12-14 min)
+## 📊 Presentation Flow (15 slides, 13-15 min)
 
 | Min | Slide | Topic |
 |-----|-------|-------|
@@ -60,13 +60,17 @@ xdg-open index.html
 | 1-4 | 3-4 | Solution (4-component RDF approach) |
 | 4-7 | 5-6 | Technical (data model, UX) |
 | 7-11 | 7-8 | Migration & Edge cases |
-| 11-13 | 9-11 | Timeline, benefits, trade-offs |
-| 13-14 | 12-13 | System analysis (strengths & weakness) |
-| 14 | 14 | Summary & Q&A |
+| 11-14 | 9-10 | Timeline, **Phase 2 scope justification** |
+| 14-17 | 11-12 | Benefits, trade-offs |
+| 17-20 | 13-14 | System analysis (strengths & weakness) |
+| 20 | 15 | Summary & Q&A |
 
 **Checkpoints:**
 - **5 min:** Should be at Slide 4
-- **10 min:** Should be at Slide 9
+- **10 min:** Should be at Slide 8
+- **15 min:** Should be at Slide 15
+
+**Note:** Slide 10 (Phase 2) is NEW and CRITICAL - explains why Phase 1 is the right scope!
 
 ---
 
@@ -86,7 +90,15 @@ Read this from **SPEAKER_NOTES.md:**
 - "Phase 2: Manual review (~130 datasets, manageable)"
 - "Target: 90% accuracy, not 100% - realistic and honest"
 
-### Slide 13: Weakness
+### Slide 10: Phase 2 - Why Phase 1 is Sufficient (NEW!)
+- "Phase 1: Depositor-level tracking - 80% of value, 20% of complexity"
+- "Phase 2: Author-level multi-faculty attribution - would require parsing Organizations field"
+- "Organizations has 100+ variations - 'Faculty of AE', 'AE Faculty', 'Aerospace Eng.', etc."
+- "Phase 2 would take 3-4 months (6x longer) with 70% accuracy on complex cases"
+- "Evidence-based approach: Build Phase 1 → Measure usage → Learn if Phase 2 needed → Decide"
+- **This demonstrates senior-level scoping judgment!**
+
+### Slide 14: Weakness
 - "SPARQL engine exists but underutilized for statistics"
 - "Most stats calculated in Python, not database"
 - "Better approach: SPARQL GROUP BY at database level"

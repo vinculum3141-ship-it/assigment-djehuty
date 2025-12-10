@@ -76,7 +76,7 @@ The speaker notes view shows:
 
 ## Presentation Structure
 
-### 14 Slides / ~12-14 Minutes
+### 15 Slides / ~13-15 Minutes
 
 | # | Topic | Time | Content |
 |---|-------|------|---------|
@@ -89,13 +89,14 @@ The speaker notes view shows:
 | 7 | Migration Strategy | 2 min | Hybrid automated + manual |
 | 8 | Edge Cases | 1.5 min | Multi-author, missing ORCID, etc. |
 | 9 | Implementation Timeline | 1 min | 5-week plan |
-| 10 | Advantages & Benefits | 1.5 min | Value for stakeholders |
-| 11 | Trade-offs & Limitations | 1.5 min | Honest assessment |
-| 12 | System Strengths | 1.5 min | RDF foundation, modularity |
-| 13 | System Weakness & Fix | 2 min | SPARQL aggregation opportunity |
-| 14 | Summary & Next Steps | 1 min | Wrap-up, Q&A |
+| 10 | Phase 2 - Future Work | 2 min | **Why Phase 1 is sufficient scope** |
+| 11 | Advantages & Benefits | 1.5 min | Value for stakeholders |
+| 12 | Trade-offs & Limitations | 1.5 min | Honest assessment |
+| 13 | System Strengths | 1.5 min | RDF foundation, modularity |
+| 14 | System Weakness & Fix | 2 min | SPARQL aggregation opportunity |
+| 15 | Summary & Next Steps | 1 min | Wrap-up, Q&A |
 
-**Total:** ~20 minutes with buffer (target 12-14 min speaking + 3-5 min Q&A)
+**Total:** ~23 minutes with buffer (target 13-15 min speaking + 0-2 min Q&A)
 
 ---
 
@@ -195,26 +196,27 @@ grep -A 50 "<faculties>" docs/design/SOLUTION_ARCHITECTURE.md
 
 ## Timing Guide
 
-### Target: 12-14 minutes speaking time
+### Target: 13-15 minutes speaking time
 
-**Fast Track (12 min):**
-- Skip or summarize Slide 11 (Trade-offs)
-- Keep Slides 2-3, 4-6, 7-8, 12-13 concise
+**Fast Track (13 min):**
+- Slide 10 (Phase 2): Summarize in 1 min instead of 2
+- Keep Slides 12 (Trade-offs) concise
+- Keep Slides 2-3, 4-6, 7-8, 13-14 concise
 
-**Standard Track (14 min):**
+**Standard Track (15 min):**
 - All slides at recommended pace
 - Brief pauses for questions during presentation
 
 **With Q&A (15 min total):**
-- 12-14 min speaking
-- 1-3 min questions (brief answers)
+- 13-15 min speaking
+- 0-2 min questions (brief answers)
 - Defer deep dives: "Great question, let me show you in the documentation"
 
 ### Checkpoints
 
 - **5 min:** Should be at Slide 4 (Technical Architecture)
-- **10 min:** Should be at Slide 9 (Implementation Timeline)
-- **14 min:** Should be at Slide 14 (Summary)
+- **10 min:** Should be at Slide 8 (Edge Cases)
+- **15 min:** Should be at Slide 15 (Summary)
 
 ---
 

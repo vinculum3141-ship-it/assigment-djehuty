@@ -19,13 +19,15 @@
 | 7 | Migration Strategy | 2 min | 11 min |
 | 8 | Edge Cases | 1.5 min | 12.5 min |
 | 9 | Implementation Timeline | 1 min | 13.5 min |
-| 10 | Advantages & Benefits | 1.5 min | 15 min |
-| 11 | Trade-offs & Limitations | 1.5 min | 16.5 min |
-| 12 | System Strengths | 1.5 min | 18 min |
-| 13 | System Weakness & Fix | 2 min | 20 min |
-| 14 | Summary & Next Steps | 1 min | 21 min |
+| 10 | Phase 2 - Future Work | 2 min | 15.5 min |
+| 11 | Advantages & Benefits | 1.5 min | 17 min |
+| 12 | Trade-offs & Limitations | 1.5 min | 18.5 min |
+| 13 | System Strengths | 1.5 min | 20 min |
+| 14 | System Weakness & Fix | 2 min | 22 min |
+| 15 | Summary & Next Steps | 1 min | 23 min |
 
-**Note:** Aim for 12-14 minutes to leave 1-3 minutes for questions within 15-minute slot.
+**Note:** Aim for 13-15 minutes to leave 0-2 minutes for questions within 15-minute slot.
+**If time is tight:** Slide 10 (Phase 2) can be summarized quickly in 1 minute instead of 2.
 
 ---
 
@@ -322,11 +324,77 @@
 **Critical Dependency:**
 - "Migration quality depends on faculty taxonomy accuracy - need institutional input early in Week 0."
 
-**Transition:** "What do stakeholders get from this?"
+**Transition:** "Now, you might wonder - why stop at Phase 1? Let me explain the bigger vision."
 
 ---
 
-### Slide 10: Advantages & Benefits (1.5 min)
+### Slide 10: Phase 2 - Future Enhancements (2 min)
+
+**THIS IS A CRITICAL SLIDE - Shows Senior-Level Scoping Judgment**
+
+**Opening:**
+- "I want to address scope directly. This assignment focuses on Phase 1, but there's a Phase 2 future vision."
+- "Let me explain why Phase 1 is the RIGHT scope for now."
+
+**Phase 1 Recap:**
+- "Phase 1: Faculty assignment based on depositor - the person who uploaded the dataset."
+- "Simple 1-to-1 relationship: Dataset assigned to one faculty."
+- "Delivers 80% of the value with 20% of the complexity."
+- "5 weeks to production, 90% accuracy achievable."
+
+**Phase 2 Vision:**
+- "Phase 2 would be author-level multi-faculty attribution."
+- "Example: Dataset with 5 authors from 3 different faculties gets counted for ALL three faculties."
+- "Sounds great, right? But here's the complexity..."
+
+**The Organizations Field Problem:**
+- "Remember that Organizations field I showed earlier?"
+- "For the DEPOSITOR, we can use their profile faculty - clean, structured."
+- "But for OTHER AUTHORS, we only have the free-text Organizations field."
+- "And that field has over 100 different variations:"
+- "Some say 'TU Delft, Faculty of Aerospace Engineering...'"
+- "Others say 'Aerospace Engineering, TU Delft'"
+- "Others say 'TU Delft - AE Faculty'"
+- "Others say 'Delft University, Aero Eng.'"
+
+**NLP/Parsing Challenge:**
+- "We'd need sophisticated NLP to parse all these variations."
+- "Pattern matching works for some, but accuracy drops to about 70% for complex cases."
+- "We'd need confidence scoring, extensive manual review."
+- "And many-to-many relationships add database complexity."
+
+**Effort Comparison:**
+- "Phase 1: 5 weeks, one developer, 90% accuracy."
+- "Phase 2: 3-4 months, potentially more resources, 70% accuracy on complex cases."
+- "That's 6x longer for questionable value."
+
+**The Key Question:**
+- "Here's the senior-level question: Do we KNOW stakeholders need multi-faculty attribution?"
+- "Or are we ASSUMING they need it?"
+- "Without usage data, we're guessing."
+
+**Evidence-Based Approach:**
+- "Better approach: Build-Measure-Learn."
+- "Step 1: Build Phase 1 - deliver in 5 weeks."
+- "Step 2: Measure - track how users actually use faculty statistics for 3-6 months."
+- "Step 3: Learn - do they ask for multi-faculty attribution? Do they need it for their workflows?"
+- "Step 4: Decide - if yes and validated, THEN build Phase 2. If no, focus resources elsewhere."
+
+**Why This Matters:**
+- "This demonstrates pragmatic engineering judgment."
+- "Don't overbuild based on assumptions."
+- "Validate needs with real usage before investing in complex features."
+- "Phase 1 alone delivers massive value - faculties can finally track their research output."
+
+**Closing Point:**
+- "So Phase 2 exists in the roadmap, it's thought through, it's scoped."
+- "But Phase 1 is the right assignment scope - fast delivery, high value, low risk, evidence-based approach."
+
+**Transition:** "Now let me show you what stakeholders get from Phase 1."
+
+---
+
+### Slide 11: Advantages & Benefits (1.5 min)
 
 **Multi-Stakeholder Value:**
 - "Benefits span multiple stakeholder groups - this isn't just a technical exercise."
@@ -367,7 +435,7 @@
 
 ---
 
-### Slide 11: Trade-offs & Limitations (1.5 min)
+### Slide 12: Trade-offs & Limitations (1.5 min)
 
 **Honest Assessment:**
 - "Being honest about limitations builds trust. Here's what we're trading off."
@@ -416,7 +484,7 @@
 
 ---
 
-### Slide 12: System Analysis - Strengths (1.5 min)
+### Slide 13: System Analysis - Strengths (1.5 min)
 
 **Working on This Assignment:**
 - "Working on this assignment gave me deep appreciation for Djehuty's architecture."
@@ -453,7 +521,7 @@
 
 ---
 
-### Slide 13: System Analysis - Key Weakness & Solution (2 min)
+### Slide 14: System Analysis - Key Weakness & Solution (2 min)
 
 **Most Surprising Finding:**
 - "This was the most surprising finding from my codebase analysis."
@@ -506,7 +574,7 @@
 
 ---
 
-### Slide 14: Summary & Next Steps (1 min)
+### Slide 15: Summary & Next Steps (1 min)
 
 **What We've Covered:**
 - "Today we've covered eight key areas:"
