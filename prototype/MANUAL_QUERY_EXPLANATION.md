@@ -178,11 +178,13 @@ GROUP BY ?group_id ?institution_name
 
 ---
 
-## Level 4: Institution Query Using Our Prototype Approach ✅
+## Level 4: Institution Query Using Our Prototype Approach ⚠️
 
 ### What It Would Look Like With Proper RDF Entities
 
-**IF** we applied the same RDF architecture from our Faculty prototype to Institutions:
+**⚠️ HYPOTHETICAL QUERY - Institution entities don't exist yet!**
+
+This demonstrates what WOULD work **IF** we applied the same RDF architecture from our Faculty prototype to Institutions:
 
 ```sparql
 PREFIX djht: <https://ontologies.data.4tu.nl/djehuty/0.0.1/>
@@ -212,9 +214,52 @@ GROUP BY ?institution_id ?institution_name ?institution_short_name
 ORDER BY DESC(?dataset_count)
 ```
 
-**Result**: Institution names auto-populate from RDF entities ✅  
+**⚠️ TESTING THIS QUERY**: Returns **empty results** because `djht:Institution` entities don't exist in the RDF store!
+
+**Result IF entities existed**: Institution names would auto-populate from RDF entities ✅  
 **Complexity**: SAME 13 logic lines as the failed complex query  
-**Difference**: Works because of proper RDF architecture, not complex joins  
+**Difference**: Would work because of proper RDF architecture, not complex joins  
+
+**Why This Is Hypothetical**:
+- ✅ `djht:Faculty` entities **DO exist** (we created them in the prototype)
+- ❌ `djht:Institution` entities **DON'T exist** (would need to be created)
+- This query demonstrates the **pattern** that would fix institution statistics
+
+**To Test Faculty Query Instead** (which DOES work):
+- See the Faculty query in `check_data.py` or `insert_sample_faculties.py`
+- Faculty entities exist, so that query returns real results with names ✅
+
+**Working Faculty Query You CAN Test**:
+```sparql
+PREFIX djht: <https://ontologies.data.4tu.nl/djehuty/0.0.1/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# This WORKS because Faculty entities exist!
+SELECT ?faculty_name ?faculty_short_name (COUNT(DISTINCT ?dataset) AS ?dataset_count)
+WHERE {
+  GRAPH <https://data.4tu.nl/state> {
+    # Faculty entities (these DO exist in the prototype)
+    ?faculty      rdf:type                      djht:Faculty ;
+                  djht:group_id                 ?group_id ;
+                  djht:faculty_name             ?faculty_name ;
+                  djht:faculty_short_name       ?faculty_short_name .
+    
+    # Datasets linked via group_id
+    ?container    rdf:type                      djht:DatasetContainer ;
+                  djht:latest_published_version ?dataset .
+    ?dataset      rdf:type                      djht:Dataset ;
+                  djht:is_public                "true"^^xsd:boolean ;
+                  djht:group_id                 ?group_id .
+  }
+}
+GROUP BY ?faculty_name ?faculty_short_name
+ORDER BY DESC(?dataset_count)
+```
+
+**Expected Result**: Faculty names with dataset counts (e.g., "Aerospace Engineering (AE)" → 2 datasets) ✅
+
+**Note**: Faculty entities use the `/state` graph, not the base graph.  
 
 **RDF Entities Would Look Like**:
 ```turtle
