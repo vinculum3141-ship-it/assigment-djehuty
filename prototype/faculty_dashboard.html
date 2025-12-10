@@ -343,24 +343,25 @@
         }
 
         function getSampleData() {
-            // Sample data for demonstration
+            // Sample data for demonstration (matches dashboard_data.json)
+            // Used as fallback if fetch fails (e.g., when opening as file://)
             return {
                 overview: {
-                    total_datasets: 0,
+                    total_datasets: 9,
                     total_institutions: 4,
                     total_faculties: 3,
                     granularity_multiplier: 11.75
                 },
                 institutions: [
-                    { name: "TU Delft", count: 0, id: 28586 },
-                    { name: "TU Eindhoven", count: 0, id: 28587 },
-                    { name: "Utrecht University", count: 0, id: 28588 },
-                    { name: "University of Twente", count: 0, id: 28589 }
+                    { name: "TU Delft", count: 3, id: 28586 },
+                    { name: "TU Eindhoven", count: 1, id: 28589 },
+                    { name: "Utrecht University", count: 4, id: 28598 },
+                    { name: "University of Twente", count: 1, id: 28592 }
                 ],
                 faculties: [
-                    { name: "Faculty of EEMCS", short_name: "EEMCS", count: 0, institution: "TU Delft", id: 285860001 },
-                    { name: "Faculty of Aerospace Engineering", short_name: "AE", count: 0, institution: "TU Delft", id: 285860002 },
-                    { name: "Faculty of Applied Sciences", short_name: "AS", count: 0, institution: "TU Delft", id: 285860003 }
+                    { name: "Faculty of Electrical Engineering, Mathematics and Computer Science", short_name: "EEMCS", count: 4, institution: "TU Delft", id: 285860001, institution_id: 28586 },
+                    { name: "Faculty of Aerospace Engineering", short_name: "AE", count: 3, institution: "TU Delft", id: 285860002, institution_id: 28586 },
+                    { name: "Faculty of Applied Sciences", short_name: "AS", count: 2, institution: "TU Delft", id: 285860003, institution_id: 28586 }
                 ]
             };
         }
