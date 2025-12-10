@@ -144,8 +144,18 @@ Known Limitation:
    - Institution stats generated manually via SPARQL
    - Solution: Our dashboard shows automated reporting potential
 
+5. **Underutilized SPARQL Infrastructure** (NEW INSIGHT ✨):
+   - Institution names require manual mapping (group_id → name)
+   - No Institution RDF entities exist (unlike our Faculty entities)
+   - Solution: Our Faculty RDF model demonstrates the better approach
+   - **Key**: Our prototype is MORE sophisticated than current institution implementation!
+
 **Interview Talking Point**:
-> "I identified several system limitations: 44% coverage due to free-text organizations, write permissions blocking migration execution, and single-author attribution. Each has a mitigation strategy, and the dashboard demonstrates how automated reporting could replace manual SPARQL queries."
+> "I identified several system limitations: 44% coverage due to free-text organizations, write permissions blocking migration execution, single-author attribution, and—importantly—**underutilized SPARQL infrastructure** for metadata enrichment. 
+>
+> The current institution statistics require data stewards to manually map `group_id` values to institution names. My Faculty implementation is actually MORE sophisticated: I created proper RDF entities with `djht:Faculty` type and `faculty_name` properties, so faculty statistics auto-populate with names—no manual mapping needed. This same pattern could be applied to Institution entities to eliminate manual work at that level too."
+
+See: `prototype/SPARQL_INFRASTRUCTURE_INSIGHT.md` for full analysis.
 
 ---
 
