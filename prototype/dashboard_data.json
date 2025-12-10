@@ -1,0 +1,64 @@
+{
+  "generated_at": "2025-12-10T12:04:19.214437",
+  "overview": {
+    "total_datasets": 9,
+    "total_institutions": 4,
+    "total_faculties": 3,
+    "granularity_multiplier": 11.75
+  },
+  "institutions": [
+    {
+      "id": 28586,
+      "name": "TU Delft",
+      "count": 3
+    },
+    {
+      "id": 28589,
+      "name": "University of Twente",
+      "count": 1
+    },
+    {
+      "id": 28592,
+      "name": "TU Eindhoven",
+      "count": 1
+    },
+    {
+      "id": 28598,
+      "name": "Utrecht University",
+      "count": 4
+    }
+  ],
+  "faculties": [
+    {
+      "id": 285860002,
+      "name": "Faculty of Aerospace Engineering",
+      "short_name": "AE",
+      "institution": "TU Delft",
+      "institution_id": 28586,
+      "count": 3
+    },
+    {
+      "id": 285860003,
+      "name": "Faculty of Applied Sciences",
+      "short_name": "AS",
+      "institution": "TU Delft",
+      "institution_id": 28586,
+      "count": 2
+    },
+    {
+      "id": 285860001,
+      "name": "Faculty of Electrical Engineering, Mathematics and Computer Science",
+      "short_name": "EEMCS",
+      "institution": "TU Delft",
+      "institution_id": 28586,
+      "count": 4
+    }
+  ],
+  "metadata": {
+    "data_source": "Mock/Sample Data for Demonstration",
+    "note": "Production values would come from migrated datasets",
+    "backend": "Djehuty Python SPARQL Interface",
+    "prototype_phase": "Phase 3 - Visualization",
+    "migration_status": "Phase 2B - Logic demonstrated, writes blocked by permissions"
+  }
+}
