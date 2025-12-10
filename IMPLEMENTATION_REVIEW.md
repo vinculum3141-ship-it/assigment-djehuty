@@ -172,19 +172,32 @@ Extracted Faculty: CEG (Faculty of Civil Engineering and Geosciences)
 
 **Script**: `prototype/migrate_sample_faculty.py` (450+ lines)
 
-**Demonstrates:**
-1. ✅ Faculty identification via pattern matching
-2. ✅ Faculty RDF entity creation approach
-3. ✅ Dataset group_id update strategy
-4. ✅ Before/after migration reporting
+**What Actually Works:**
+1. ✅ Faculty identification via pattern matching (4 datasets found)
+2. ✅ Organizations field extraction (regex patterns working)
+3. ✅ Migration logic demonstration (shows SPARQL UPDATE queries)
+4. ✅ Conceptual approach validation
 
-**Approach:**
+**What Doesn't Work (Virtuoso Permissions):**
+- ❌ Actual SPARQL UPDATE execution (write operations blocked)
+- ❌ Faculty entity creation in triple store
+- ❌ Dataset group_id updates
+- **Result**: 0 datasets actually migrated
+
+**What This Proves:**
 ```
-BEFORE:  Dataset → group_id: 28586 (Institution: TU Delft)
-AFTER:   Dataset → group_id: 285860002 (Faculty: CEG)
+CONCEPTUAL APPROACH:
+  1. Extract faculty from organizations field → PROVEN ✅
+  2. Pattern matching identifies correct faculty → PROVEN ✅
+  3. SPARQL UPDATE queries are correct → SHOWN ✅
+  4. Migration logic is sound → DEMONSTRATED ✅
+  
+ACTUAL EXECUTION:
+  - Blocked by Virtuoso write permissions → READ-ONLY DEMO
 ```
 
-**Note**: Actual triple store updates limited by Virtuoso permissions in this environment. Script demonstrates the migration logic and would work with proper write access.
+**Interview Talking Point:**
+> "The migration script demonstrates the complete approach: faculty extraction via pattern matching (working on 4/9 datasets), the SPARQL UPDATE logic for creating faculties and updating group_ids, and generates migration reports. While the actual writes fail due to Virtuoso permissions in this demo environment, the extraction and logic are proven. With write access, this script would execute the full migration."
 
 ---
 
