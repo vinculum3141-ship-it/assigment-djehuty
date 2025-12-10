@@ -6,7 +6,43 @@
 
 ## What the Manual Query Looks Like
 
-### Basic Institution Statistics Query
+### B**To verify Faculty entities exist** (simpler query that WILL return results):
+```sparql
+PREFIX djht: <https://ontologies.data.4tu.nl/djehuty/0.0.1/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?faculty_name ?faculty_short_name ?group_id
+WHERE {
+  GRAPH <https://data.4tu.nl/portal/self-test> {
+    ?faculty rdf:type djht:Faculty ;
+             djht:faculty_name ?faculty_name ;
+             djht:faculty_short_name ?faculty_short_name ;
+             djht:group_id ?group_id .
+  }
+}
+```
+
+**Alternative with cleaner output** (removes datatype annotations):
+```sparql
+PREFIX djht: <https://ontologies.data.4tu.nl/djehuty/0.0.1/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT (STR(?faculty_name) AS ?name) (STR(?faculty_short_name) AS ?short_name) ?group_id
+WHERE {
+  GRAPH <https://data.4tu.nl/portal/self-test> {
+    ?faculty rdf:type djht:Faculty ;
+             djht:faculty_name ?faculty_name ;
+             djht:faculty_short_name ?faculty_short_name ;
+             djht:group_id ?group_id .
+  }
+}
+```
+
+This returns the 3 Faculty entities that exist in the prototype! ✅  
+**Note**: 
+- Faculty entities are in the `<https://data.4tu.nl/portal/self-test>` graph (not the base graph)
+- The SPARQL interface shows datatype annotations like `"EEMCS"^^<http://www.w3.org/2001/XMLSchema#string>` - this is normal RDF output showing the value and its datatype
+- Using `STR()` function gives cleaner output without type annotationstatistics Query
 
 Here's what a data steward would run to get institutional statistics:
 
