@@ -272,7 +272,8 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 # This WORKS because Faculty entities exist!
-SELECT ?faculty_name ?faculty_short_name (COUNT(DISTINCT ?dataset) AS ?dataset_count)
+# Using STR() for cleaner output (removes datatype annotations)
+SELECT (STR(?faculty_name) AS ?name) (STR(?faculty_short_name) AS ?short_name) (COUNT(DISTINCT ?dataset) AS ?dataset_count)
 WHERE {
   # Faculty entities are in the self-test graph
   GRAPH <https://data.4tu.nl/portal/self-test> {
