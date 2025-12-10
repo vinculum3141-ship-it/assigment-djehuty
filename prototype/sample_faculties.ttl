@@ -1,0 +1,35 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix djht: <https://ontologies.data.4tu.nl/djehuty/0.0.1/> .
+@prefix djehuty: <https://data.4tu.nl/info/row/> .
+
+# Sample Faculty 1: Electrical Engineering, Mathematics and Computer Science (EEMCS) at TU Delft
+djehuty:faculty_285860001
+    rdf:type djht:Faculty ;
+    djht:id "285860001"^^xsd:integer ;
+    djht:faculty_name "Faculty of Electrical Engineering, Mathematics and Computer Science"@en ;
+    djht:faculty_short_name "EEMCS"@en ;
+    djht:faculty_code "EEMCS" ;
+    djht:institution_id "28586"^^xsd:integer ;
+    djht:group_id "285860001"^^xsd:integer .
+
+# Sample Faculty 2: Aerospace Engineering (AE) at TU Delft
+djehuty:faculty_285860002
+    rdf:type djht:Faculty ;
+    djht:id "285860002"^^xsd:integer ;
+    djht:faculty_name "Faculty of Aerospace Engineering"@en ;
+    djht:faculty_short_name "AE"@en ;
+    djht:faculty_code "AE" ;
+    djht:institution_id "28586"^^xsd:integer ;
+    djht:group_id "285860002"^^xsd:integer .
+
+# Sample Faculty 3: Applied Sciences (AS) at TU Delft
+djehuty:faculty_285860003
+    rdf:type djht:Faculty ;
+    djht:id "285860003"^^xsd:integer ;
+    djht:faculty_name "Faculty of Applied Sciences"@en ;
+    djht:faculty_short_name "AS"@en ;
+    djht:faculty_code "AS" ;
+    djht:institution_id "28586"^^xsd:integer ;
+    djht:group_id "285860003"^^xsd:integer .
