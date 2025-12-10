@@ -2,7 +2,8 @@
 
 **Purpose**: 10-15 minute interview demonstration  
 **Audience**: Technical interviewers (4TU.ResearchData team)  
-**Goal**: Prove technical competence, system understanding, and practical approach
+**Goal**: Prove technical competence, system understanding, and practical approach  
+**Context**: Gabriela confirmed prototype scope is exactly right ✅
 
 ---
 
@@ -10,13 +11,28 @@
 
 ### Timeline Breakdown
 - **Setup**: 1 min (show environment)
-- **Part 1: Problem & Discovery**: 2 min
+- **Part 1: Problem & Discovery**: 2 min (reference Gabriela's challenges)
 - **Part 2: Live Demo - RDF Model**: 3 min
 - **Part 3: Live Demo - Backend Methods**: 3 min
 - **Part 4: Two-Level Comparison**: 2 min
 - **Part 5: Visualization Dashboard**: 2 min
-- **Part 6: Next Steps & Architecture**: 2 min
+- **Part 6: Next Steps & Architecture**: 2 min (address Gabriela's 3 challenges)
 - **Q&A**: 2-3 min
+
+---
+
+## 📧 Key Context: Gabriela's Feedback
+
+**Before diving into demo, acknowledge**:
+> "Gabriela clarified that the goal is to show my design approach and reasoning, not a complete implementation. She also highlighted three specific challenges to consider, which I've addressed in the prototype."
+
+**Three Challenges** (have these ready for Q&A):
+1. ✅ **"Organizations" field is free text** → 44% extraction success with pattern matching
+2. ✅ **Multiple authors, different institutions** → Follow existing approach (depositing author)
+3. ✅ **ORCID IDs not mandatory** → Use "Organizations" field (89% availability)
+
+**Key Quote**:
+> "Identifying system weaknesses, limitations, or architectural gaps is welcome and expected."
 
 ---
 
@@ -396,11 +412,64 @@ xdg-open http://localhost:8000/faculty_dashboard.html
 
 ---
 
-### PART 6: Next Steps & Architecture (2 minutes)
+### PART 6: Next Steps & Gabriela's Challenges (2 minutes)
 
-#### Step 5.1: Show Prototype Plan
+#### Step 6.1: Address Gabriela's Three Explicit Challenges
 
-**ACTION**: Quick walkthrough of remaining work
+**ACTION**: Show how prototype addresses each challenge
+
+**SAY**:
+> "Gabriela highlighted three specific challenges in her email. Let me show how I addressed each one."
+
+**Challenge 1: "Organizations" Field is Free Text (Unreliable)**
+
+**SHOW**: Open `prototype/analysis_results.json`
+
+```bash
+cat prototype/analysis_results.json | jq '.coverage_percentage, .datasets_with_faculty_mentions'
+```
+
+**SAY**:
+> "I analyzed 9 real datasets from your triple store. Results:
+> - 44% have extractable faculty information using pattern matching
+> - 100% accuracy on the matches (8 unique TU Delft faculties identified)
+> - 89% of datasets have 'Organizations' field populated
+>
+> **Conclusion**: Free text does reduce coverage, but 44% is a solid baseline. Coverage can improve with data steward guidance or controlled vocabulary."
+
+---
+
+**Challenge 2: Multiple Authors from Different Universities**
+
+**SAY**:
+> "Currently, institution statistics group by **depositing author's institution**. I followed the same approach for faculties.
+>
+> For multi-author attribution, we'd need:
+> 1. Additional RDF predicate: `djht:contributingFaculty`
+> 2. Stakeholder input on attribution rules
+> 3. Decision: credit all faculties equally, or weighted?
+>
+> I've noted this as a Phase 2 enhancement, but kept the prototype focused on depositor faculty to match existing behavior."
+
+---
+
+**Challenge 3: ORCID IDs Not Mandatory**
+
+**SAY**:
+> "Since ORCID is optional, I focused on the 'Organizations' field which has 89% availability in the data I analyzed.
+>
+> ORCID integration could be a **future enhancement** for improved accuracy:
+> - Use ORCID to validate faculty affiliations
+> - Resolve ambiguous organization names
+> - Cross-reference with institutional ORCID registries
+>
+> But for the prototype, the Organizations field provides sufficient coverage."
+
+---
+
+#### Step 6.2: Show Prototype Plan
+
+**ACTION**: Quick walkthrough of what's complete
 
 ```bash
 cat prototype/PROGRESS.md | head -50
@@ -412,15 +481,17 @@ cat prototype/PROGRESS.md | head -50
 **SHOW** (on screen or paper):
 ```
 ✅ Phase 1 (2.5 days): RDF Model + Backend - COMPLETE
-✅ Phase 2A (1 day): Migration analysis - COMPLETE
-⚠️  Phase 2B (1 day): Migration logic - DEMONSTRATED (writes blocked)
+✅ Phase 2A (1 day): Migration analysis - COMPLETE (44% coverage proven)
+⚠️  Phase 2B (1 day): Migration logic - DEMONSTRATED (writes blocked by permissions)
 ✅ Phase 3 (1.5 days): Dashboard visualization - COMPLETE
 ```
 
 **SAY**:
-> "All three phases complete. I've proven the concept works end-to-end."
+> "All three phases complete. I've proven the concept works end-to-end. As Gabriela said, identifying limitations like write permissions is 'welcome and expected.'"
 
-#### Step 5.2: Architecture Benefits
+---
+
+#### Step 6.3: Architecture Benefits
 
 **ACTION**: Explain design advantages
 
@@ -431,17 +502,15 @@ cat prototype/PROGRESS.md | head -50
 > 2. **Backwards Compatible**: Institutions still work exactly as before
 > 3. **Scalable**: Same pattern extends to departments, labs, etc.
 >
-> I also analyzed migration from real data - proved extraction works on 9 datasets with 44% coverage.
+> For the full implementation, next steps would be:
+> - Configure Virtuoso write permissions (infrastructure)
+> - Run migration on full dataset (execution)
+> - Add API endpoints for faculty statistics (development)
+> - Replace manual SPARQL queries with automated dashboard (as Gabriela mentioned)
 >
-> For the full implementation, I'd add:
-> - API endpoints (half day)
-> - Migration execution with write permissions (2 days)
-> - Dashboard with both levels (2 days)
-> - Testing with full production data (1 day)
->
-> But for the interview, I focused on proving the concept works."
+> But for the interview, I focused on proving the design approach works."
 
-#### Step 5.3: Show Documentation
+#### Step 6.4: Show Documentation
 
 **ACTION**: Quick tour of docs
 
@@ -451,7 +520,7 @@ ls -la docs/analysis/
 
 **SAY**:
 > "I've documented everything:
-> - `PROTOTYPE_PLAN.md`: Complete 7-day strategy
+> - `GABRIELA_FEEDBACK_RESPONSE.md`: How I address her three challenges
 > - `PARTIAL_IMPLEMENTATION_ANALYSIS.md`: What I discovered in your code
 > - `PROGRESS.md`: What's done, what's next
 >

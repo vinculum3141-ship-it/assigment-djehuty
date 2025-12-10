@@ -1,7 +1,23 @@
 # Demo Quick Reference - Faculty Statistics Prototype
 
 **For Interview**: 10-15 minute demonstration  
-**What to Show**: Working RDF model + Python backend + Tests
+**What to Show**: Working RDF model + Python backend + Tests  
+**Context**: Gabriela confirmed prototype scope is exactly right ✅
+
+---
+
+## 🎯 Gabriela's 3 Challenges (Quick Reference)
+
+### Challenge 1: "Organizations" Field Unreliable (Free Text)
+**Our Answer**: ✅ Pattern matching on real data → 44% coverage, 100% accuracy
+
+### Challenge 2: Multiple Authors from Different Universities
+**Our Answer**: ✅ Follow existing approach (depositing author), note as future enhancement
+
+### Challenge 3: ORCID IDs Not Mandatory
+**Our Answer**: ✅ Use "Organizations" field instead (89% availability)
+
+**Key Point**: Gabriela said identifying limitations is "welcome and expected" ✅
 
 ---
 
