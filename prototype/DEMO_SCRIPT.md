@@ -351,9 +351,13 @@ cat prototype/PROGRESS.md | head -50
 ```
 ✅ Phase 1 (2/2.5 days): RDF Model + Backend - COMPLETE
 ⏳ Phase 1 (0.5 days): API endpoints - Next
-⏳ Phase 2 (2 days): Migration analysis + sample migration
+✅ Phase 2A (1 day): Migration analysis - COMPLETE
+⚠️  Phase 2B (1 day): Migration logic - DEMONSTRATED (writes blocked)
 ⏳ Phase 3 (2 days): Dashboard visualization
 ```
+
+**SAY**:
+> "I've also analyzed real data migration feasibility. Found 44% of datasets have extractable faculty info with 100% accuracy in pattern matching."
 
 #### Step 5.2: Architecture Benefits
 
@@ -366,13 +370,15 @@ cat prototype/PROGRESS.md | head -50
 > 2. **Backwards Compatible**: Institutions still work exactly as before
 > 3. **Scalable**: Same pattern extends to departments, labs, etc.
 >
+> I also analyzed migration from real data - proved extraction works on 9 datasets with 44% coverage.
+>
 > For the full implementation, I'd add:
 > - API endpoints (half day)
-> - Migration scripts for existing datasets (2 days)
+> - Migration execution with write permissions (2 days)
 > - Dashboard with both levels (2 days)
-> - Testing with real data (1 day)
+> - Testing with full production data (1 day)
 >
-> But for the interview, I wanted to show working code first."
+> But for the interview, I focused on proving the concept works."
 
 #### Step 5.3: Show Documentation
 
@@ -407,14 +413,16 @@ ls -la docs/analysis/
 #### Q: "How would you handle real data migration?"
 
 **ANSWER**:
-> "Phase 2 of my prototype addresses this. I'd:
-> 1. Scan existing datasets for ORCID affiliations
-> 2. Extract faculty from the Organizations field (free text)
-> 3. Use pattern matching (regex) to map to faculties
-> 4. Generate a data quality report showing coverage
-> 5. Migrate in batches with rollback capability
+> "I've actually analyzed this with your real data. I built `analyze_faculty_migration.py` that:
+> 1. Scanned 9 real datasets from your Virtuoso triple store
+> 2. Extracted faculty from the 'organizations' metadata field
+> 3. Used pattern matching (8 TU Delft faculty patterns) with 100% accuracy
+> 4. Found 44% of datasets (4/9) have extractable faculty information
 >
-> I've documented the migration strategy in `PROTOTYPE_PLAN.md` lines 450-550."
+> I also created migration logic in `migrate_sample_faculty.py` but couldn't execute writes due to Virtuoso permissions.
+> What I proved: Faculty extraction works. Remaining work is configuration + execution.
+>
+> The analysis results are in `prototype/analysis_results.json` with detailed statistics."
 
 #### Q: "What about performance with thousands of datasets?"
 

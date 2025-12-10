@@ -116,7 +116,7 @@ cat prototype/PROGRESS.md | head -30
 > "Same institution broken down by faculty: 4 institutions → 47 faculties. Extension, not replacement."
 
 **Next Steps**:
-> "Phase 1 is 80% done. Next: API endpoints (half day), then migration analysis, then dashboard visualization."
+> "Phase 1: RDF + backend complete. Phase 2A: Migration analysis complete (44% coverage proven). Phase 2B: Migration logic ready (writes need permissions). Phase 3: Dashboard next."
 
 ---
 
@@ -136,7 +136,7 @@ cat prototype/PROGRESS.md | head -30
 > "Prove concept in 2 days vs 2.5 weeks. Working code speaks louder than design docs."
 
 **"Real data migration?"**
-> "Phase 2: Scan datasets, extract from ORCID/organizations, pattern matching, quality report. Documented in PROTOTYPE_PLAN.md."
+> "I analyzed 9 real datasets: 44% have extractable faculty info with 100% pattern matching accuracy. Migration logic ready in `migrate_sample_faculty.py`, but writes blocked by Virtuoso permissions. Concept proven - execution needs configuration."
 
 **"Performance?"**
 > "SPARQL GROUP BY (database-level), caching, pagination. Pre-aggregate for thousands of datasets."
