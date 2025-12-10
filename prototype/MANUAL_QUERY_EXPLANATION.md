@@ -70,9 +70,9 @@ GROUP BY ?group_id
 
 ---
 
-#### Level 2: Complex (Trying to Add Names) ⚠️
+#### Level 2: Complex (Trying to Add Names) ❌
 ```sparql
-# 18 lines, complex joins, partial results
+# 18 lines, complex joins, but STILL no names!
 PREFIX djht: <https://ontologies.data.4tu.nl/djehuty/0.0.1/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -99,22 +99,29 @@ WHERE {
 GROUP BY ?group_id
 ORDER BY DESC(?dataset_count)
 ```
-**Result**: May return partial/inconsistent data because `group_id ≠ institution_id` ⚠️
+**Result**: Returns group_id and counts, but `institution_name` is EMPTY because the join fails ❌
+
+**Why it fails**: `dataset.group_id` (28586) ≠ `account.institution_id` (898 or other values)
+
+**Outcome**: Added 13 lines of complexity, got ZERO benefit 💥
 
 ---
 
 ### The Problem: Complexity vs Reliability
 
-| Aspect | Simple Query | Complex Query |
-|--------|--------------|---------------|
-| **Lines of code** | 5 | 18 |
-| **Joins required** | 0 | 2 (container→account, account→institution) |
-| **Reliability** | 100% | ~60% (ID mismatch issues) |
-| **Speed** | Fast | Slower |
-| **Maintenance** | Easy | Complex |
-| **Data steward effort** | 30 min (manual mapping) | 45 min (debug query + mapping) |
+| Aspect | Simple Query | Complex Query | Faculty Query (Ours) |
+|--------|--------------|---------------|---------------------|
+| **Lines of code** | 5 | 18 | 13 |
+| **Joins required** | 0 | 2 (container→account, account→institution) | 1 (faculty→dataset) |
+| **Returns names?** | ❌ No | ❌ No (join fails!) | ✅ Yes |
+| **Reliability** | ✅ 100% | ❌ 100% data but 0% names | ✅ 100% |
+| **Speed** | Fast | Slower | Fast |
+| **Maintenance** | Easy | Complex | Easy |
+| **Data steward effort** | 30 min (manual mapping) | 30 min (still need manual mapping!) | ✅ 0 min (automated) |
 
-**Conclusion**: Complex query isn't worth it → Data stewards use simple query + manual mapping
+**Conclusion**: Complex query adds 13 lines, gets ZERO benefit → Data stewards give up and use simple query + manual mapping
+
+**The real problem**: No RDF entities for institutions!
 
 ---
 
@@ -147,15 +154,19 @@ GROUP BY ?group_id ?institution_name
 
 ### Interview Talking Point 🎯
 
-> "Let me show you the complexity problem. The simple query [show level 1] works perfectly—5 lines, returns 8 datasets. 
+> "Let me show you why data stewards are stuck with manual mapping.
 >
-> But if you want institution names, you need complex joins [show level 2]—18 lines, multiple joins, and it may not even work reliably because `group_id` and `institution_id` are different identifier systems.
+> **Simple query** [show level 1]: 5 lines, works perfectly, returns 8 datasets. But no institution names.
 >
-> This is why data stewards just use the simple query and manually map IDs to names. **But this reveals underutilized SPARQL infrastructure.**
+> **Complex query** [show level 2]: Someone tried to fix this—18 lines with joins to Account entities. But look at the result [show output]—institution_name is EMPTY! The join fails because `dataset.group_id` and `account.institution_id` are different identifier systems.
 >
-> For faculty statistics, I solved this properly. Look at my Faculty query [show faculty query]—it's simple AND has names, because I created proper RDF entities. Same pattern could fix institutions too."
+> So we added 13 lines of complexity and got ZERO benefit. This is why data stewards gave up and just do manual mapping. **The real problem is missing RDF architecture.**
+>
+> **Faculty query** [show faculty query]: My solution is 13 lines—simpler than the failed complex query—AND it works because I created proper `djht:Faculty` RDF entities. Names auto-populate. No manual mapping needed.
+>
+> This demonstrates that proper RDF modeling is the answer, not complex joins. Same pattern could fix institutions too."
 
-**For the interview**: Show both queries side-by-side to demonstrate the complexity growth and explain why your Faculty approach is better! 📊
+**For the interview**: This is even MORE powerful—you're showing a FAILED attempt and explaining why your approach succeeds! �
 
 ---
 
@@ -165,13 +176,16 @@ GROUP BY ?group_id ?institution_name
 
 | Aspect | Institution Query (Current) | Faculty Query (Our Prototype) |
 |--------|---------------------------|-------------------------------|
-| **Lines of code** | 5 (simple) or 18 (with names) | 13 (clean, with names) |
+| **Lines of code** | 5 (simple) or 18 (failed complex) | 13 (clean, with names) |
 | **RDF entities** | ❌ None | ✅ `djht:Faculty` entities |
-| **Name included?** | ❌ No (requires manual mapping) | ✅ Yes (auto from RDF) |
-| **Joins required** | 0 (simple) or 2+ (complex) | 1 (faculty→dataset) |
-| **Reliability** | 100% (IDs only) or ~60% (with names) | ✅ 100% (with names) |
+| **Name included?** | ❌ No (manual mapping required) | ✅ Yes (auto from RDF) |
+| **Complex query works?** | ❌ No (join fails, names still empty) | ✅ Yes (simple join succeeds) |
+| **Joins required** | 0 (simple) or 2+ (failed) | 1 (faculty→dataset, works) |
+| **Reliability** | 100% (IDs only) | ✅ 100% (IDs + names) |
 | **Manual work** | ❌ 30 min per report | ✅ None (automated) |
 | **Scalability** | ❌ Doesn't scale | ✅ Scales to thousands |
+
+**Key difference**: Complex query TRIED to add names with joins → FAILED. Our Faculty query SUCCEEDS because of proper RDF entities.
 
 ---
 
