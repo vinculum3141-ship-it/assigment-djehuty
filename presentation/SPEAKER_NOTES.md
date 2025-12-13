@@ -71,14 +71,20 @@
 - "Currently, the system only tracks datasets at institution level."
 - "This free-text approach works for display but is completely unusable for statistics."
 
+**Why Variations Occur (point to subtitle):**
+- "Notice why this happens: free-text entry with no controlled vocabulary, typos, abbreviations, department reorganizations, multiple languages, and legacy data migrations."
+- "These are universal problems in research repositories - not unique to 4TU."
+
 **Visual Comparison - Red vs Green:**
-- **Red (Bad):** "100+ variations of the same faculty name - this is chaos for data analysis."
+- **Red (Bad):** "In typical institutional repositories, you see 100+ variations of the same faculty name - caused by these exact issues."
+- "Look at the annotations: word order changes, abbreviations, institution omitted, formal vs informal names, double abbreviations."
+- "Each variation makes the same faculty appear different in statistics - chaos for data analysis."
 - **Green (Good):** "What we need: a structured field with one canonical ID and one canonical name."
 - "This transforms unreliable text into reliable, queryable data."
 
 **Impact Numbers:**
 - **Point to stat cards:** "In a typical repository with 500+ datasets, they would all need faculty assignment."
-- "100+ variations for the SAME faculty - this isn't just messy, it's unworkable."
+- "100+ variations per faculty from these causes - this isn't just messy, it's unworkable."
 - "Currently: 0% coverage of faculty-level data."
 
 **Impact Statement:**

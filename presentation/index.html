@@ -469,17 +469,20 @@
 
                 <!-- VISUAL: Messy Organizations Field Examples -->
                 <div class="info-box" style="background: linear-gradient(135deg, #ffe6e6 0%, #fff5e6 100%); border-color: #ff6b6b;">
-                    <h3>🔍 The "Organizations" Field Chaos</h3>
+                    <h3>🔍 The "Organizations" Field Problem</h3>
+                    <div style="font-size: 0.75em; margin-bottom: 10px; color: #555;">
+                        <strong>Why variations occur:</strong> Free-text entry, typos, abbreviations, reorganizations, multiple languages, legacy migrations
+                    </div>
                     <div style="font-family: 'Courier New', monospace; font-size: 0.7em; line-height: 1.6; background: white; padding: 15px; border-radius: 5px; margin-top: 10px;">
-                        <div style="color: #e74c3c; font-weight: bold;">❌ Same Faculty, 100+ Different Ways:</div>
+                        <div style="color: #e74c3c; font-weight: bold;">❌ Typical Problem: Same Faculty, 100+ Variations:</div>
                         <div style="margin: 10px 0; padding-left: 20px;">
                             → "TU Delft, Faculty of Aerospace Engineering, Section..."<br>
-                            → "Aerospace Engineering, TU Delft"<br>
-                            → "TU Delft - AE Faculty"<br>
-                            → "Faculty of AE"<br>
-                            → "Delft University of Technology, Aerospace Eng."<br>
-                            → "TUD AE"<br>
-                            <span style="color: #999;">...and 94 more variations!</span>
+                            → "Aerospace Engineering, TU Delft" <span style="color: #999;">(word order)</span><br>
+                            → "TU Delft - AE Faculty" <span style="color: #999;">(abbreviation)</span><br>
+                            → "Faculty of AE" <span style="color: #999;">(institution omitted)</span><br>
+                            → "Delft University of Technology, Aerospace Eng." <span style="color: #999;">(formal name)</span><br>
+                            → "TUD AE" <span style="color: #999;">(double abbreviation)</span><br>
+                            <span style="color: #999;">...and 94 more variations from these causes!</span>
                         </div>
                         <div style="color: #27ae60; font-weight: bold; margin-top: 15px;">✅ What We Need:</div>
                         <div style="margin: 10px 0; padding-left: 20px;">
@@ -497,7 +500,7 @@
                     </div>
                     <div class="stat-card">
                         <h3>100+</h3>
-                        <p>Variations for SAME faculty</p>
+                        <p>Typical variations per faculty (free-text chaos)</p>
                     </div>
                     <div class="stat-card">
                         <h3>0%</h3>
@@ -1222,11 +1225,14 @@ patterns = {
                             <h4>⚠️ Why Not Phase 2 Now?</h4>
                             <ul>
                                 <li><strong>Complexity:</strong> Many-to-many relationships, parsing algorithms</li>
-                                <li><strong>Data quality:</strong> Organizations field has 100+ variations
-                                    <pre style="font-size: 0.5em; margin: 5px 0; padding: 5px;">"TU Delft, Faculty of AE..."
-"Aerospace Engineering, TU Delft"  
-"TU Delft - AE Faculty"
-"Delft University, Aero Eng."</pre>
+                                <li><strong>Data quality:</strong> Organizations field has 100+ typical variations due to:
+                                    <div style="font-size: 0.65em; margin: 5px 0 5px 20px; color: #666;">
+                                        Free-text entry • Typos/abbreviations • Reorganizations • Multiple languages • Legacy migrations
+                                    </div>
+                                    <pre style="font-size: 0.5em; margin: 5px 0; padding: 5px;">"TU Delft, Faculty of AE..." (full form)
+"Aerospace Engineering, TU Delft" (word order)  
+"TU Delft - AE Faculty" (abbreviation)
+"Delft University, Aero Eng." (formal + abbr)</pre>
                                 </li>
                                 <li><strong>Effort:</strong> 3-4 months vs 5 weeks (6x longer)</li>
                                 <li><strong>Risk:</strong> Higher chance of inaccurate attribution</li>
