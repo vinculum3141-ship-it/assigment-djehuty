@@ -492,8 +492,8 @@
 
                 <div class="three-column" style="margin-top: 20px;">
                     <div class="stat-card">
-                        <h3>580+</h3>
-                        <p>Datasets need faculty assignment</p>
+                        <h3>500+</h3>
+                        <p>Typical repository size (datasets)</p>
                     </div>
                     <div class="stat-card">
                         <h3>100+</h3>
@@ -938,7 +938,8 @@ djht:institution_id    → Faculty belongs to Institution</code></pre>
                 <h2>Migration Strategy: Hybrid Approach</h2>
 
                 <div class="info-box">
-                    <h3>Challenge: 580+ Existing Datasets Need Faculty Assignment</h3>
+                    <h3>Challenge: Existing Datasets Need Faculty Assignment</h3>
+                    <p style="font-size: 0.8em; margin-top: 10px;">Typical repositories have hundreds of datasets requiring migration</p>
                 </div>
 
                 <div class="timeline">
@@ -999,11 +1000,11 @@ patterns = {
                 </div>
 
                 <aside class="notes">
-                    Migration is the biggest challenge - can't manually review 580+ datasets.
+                    Migration is the biggest challenge - can't manually review hundreds of datasets.
                     Hybrid approach balances automation efficiency with accuracy requirements.
                     Phase 1 Automated: Pattern matching on Organizations field. Multiple patterns per faculty for robustness.
                     Confidence scoring: High confidence (≥0.8) auto-assigned, low confidence flagged for review.
-                    Phase 2 Manual: ~130 datasets with low confidence or ambiguous patterns.
+                    Phase 2 Manual: Remaining datasets with low confidence or ambiguous patterns (typically 20-30%).
                     CSV export makes review process straightforward - can use spreadsheet tools.
                     Phase 3 Validation: Ensures data quality before production deployment.
                     Target 90% accuracy is realistic and acceptable - 10% in "Other/Unspecified" is fine.
@@ -1552,7 +1553,7 @@ for dataset in all_datasets:
     inst = dataset.get('institution')
     stats[inst] = stats.get(inst, 0) + 1  # Count in Python
 </code></pre>
-                    <p class="muted">Problem: Fetches 580+ datasets, processes in memory, slow for large repositories</p>
+                    <p class="muted">Problem: Fetches all datasets, processes in memory, slow for large repositories</p>
                 </div>
 
                 <div class="solution-box">
@@ -1602,10 +1603,10 @@ ORDER BY DESC(?count)
                     This was the most surprising finding from my codebase analysis.
                     Djehuty has a powerful SPARQL engine, but it's UNDERUTILIZED for statistics.
                     Current approach: Fetch all data into Python, count/aggregate in application code.
-                    This works fine for 580 datasets, but won't scale to 5,000 or 50,000.
-                    Problem: Fetching 580 datasets uses memory, network bandwidth, takes time.
+                    This works fine for small repositories, but won't scale to 5,000 or 50,000 datasets.
+                    Problem: Fetching all datasets uses memory, network bandwidth, takes time.
                     Better approach: Push aggregation to database using SPARQL's GROUP BY.
-                    Database returns only summary (8 institutions instead of 580 datasets) - much faster.
+                    Database returns only summary (8 institutions instead of individual dataset records) - much faster.
                     This is not a criticism - it's a growth opportunity.
                     The infrastructure exists, just needs to be used more systematically.
                     My suggested fix: Document patterns, create templates, gradual refactoring.
