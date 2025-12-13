@@ -123,39 +123,50 @@
 
 ### Slide 4: Technical Architecture (2 min)
 
+**Opening:**
+- "Let me walk you through the technical architecture of the solution."
+
 **Three-Tier Architecture:**
-- "The architecture follows a clean three-tier design."
+- "The architecture follows a clean three-tier design, which is a well-established pattern for maintainable systems."
+- "This separation of concerns makes the system easier to understand, test, and maintain."
 
-**Presentation Layer:**
-- "At the top, we have the presentation layer - user-facing components."
-- "Registration form with faculty dropdown, and a statistics dashboard that shows faculty breakdown."
+**Presentation Layer (Top Tier):**
+- "At the top, we have the presentation layer - these are the user-facing components that people actually interact with."
+- "This includes a registration form where users can select their faculty from a dropdown menu."
+- "And a statistics dashboard that shows the breakdown of datasets by faculty."
+- "These are the touchpoints where users experience the new faculty-level functionality."
 
-**Application Layer:**
-- "In the middle, application layer handles business logic."
-- "FacultyManager handles faculty lists and lookups."
-- "StatisticsService calculates aggregations."
-- "MigrationService handles the historical data migration."
+**Application Layer (Middle Tier):**
+- "In the middle tier, we have the application layer, which handles all the business logic."
+- "The FacultyManager component is responsible for managing faculty lists and performing lookups."
+- "The StatisticsService handles all the aggregation calculations - counting datasets, generating reports, that sort of thing."
+- "And the MigrationService handles the complex task of migrating historical data - which we'll discuss in more detail later."
+- "This layer is where the intelligence lives - it's where we implement the rules and workflows."
 
-**Data Layer:**
-- "At the bottom, the RDF store with our schema extensions."
-- "Notice the Faculty entity sits between Institution and individual researchers."
-- "Both Account and Dataset can have an optional faculty_id."
-- "I emphasize 'optional' - this maintains backward compatibility."
+**Data Layer (Bottom Tier):**
+- "At the bottom, we have the data layer, which is the RDF triple store with our schema extensions."
+- "Notice how the Faculty entity sits between Institution and individual researchers - it's the missing link in the hierarchy."
+- "Both Account and Dataset can have an optional faculty_id field that links them to a faculty."
+- "And I emphasize 'optional' here - this is critical for maintaining backward compatibility with existing data and workflows."
+- "Nothing breaks if the faculty_id is missing - the system continues to work exactly as it does today."
 
-**RDF Schema Extension:**
-- "We add a Faculty entity as an OWL class."
-- "And four new predicates: faculty_id, faculty_name, faculty_short_name, and institution_id."
-- "The institution_id links each faculty back to its parent institution."
+**RDF Schema Extension Details:**
+- "From a technical perspective, we're adding a Faculty entity as an OWL class in the RDF schema."
+- "We introduce four new predicates to support this: faculty_id for the unique identifier, faculty_name for the full display name, faculty_short_name for abbreviations, and institution_id to link each faculty back to its parent institution."
+- "The institution_id is particularly important because it maintains the hierarchical relationship - every faculty belongs to exactly one institution."
 
-**Performance Consideration:**
-- "For performance, we use a multi-layer caching strategy."
-- "Redis for expensive statistics queries."
-- "In-memory cache for faculty lists - they rarely change."
+**Performance Considerations:**
+- "Now, for performance, we're using a multi-layer caching strategy."
+- "We use Redis for caching expensive statistics queries - things like 'how many datasets per faculty' which involve aggregating potentially hundreds of records."
+- "And we use an in-memory cache for faculty lists, because these rarely change - you're not creating new faculties every day."
+- "This caching approach ensures the system remains responsive even as the dataset count grows."
 
-**Key Point:**
-- "Everything here leverages Djehuty's existing SPARQL infrastructure - we're not introducing a new query paradigm."
+**Key Integration Point:**
+- "One important point: everything here leverages Djehuty's existing SPARQL infrastructure."
+- "We're not introducing a new query paradigm or a separate database - we're extending what's already there."
+- "This reduces complexity, maintains consistency, and makes the solution easier to integrate and support."
 
-**Transition:** "Now let's look at the data model in detail."
+**Transition:** "Now that you've seen the overall architecture, let's dive deeper into the data model and how the Faculty entity actually fits into the existing taxonomy."
 
 ---
 
