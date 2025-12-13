@@ -1,0 +1,116 @@
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         PRESENTATION LAYER                              │
+│  ┏━━━━━━━━━━━━━━━━━━┓         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓  │
+│  ┃  Registration    ┃         ┃  Statistics Dashboard            ┃  │
+│  ┃  (Faculty        ┃         ┃  (Faculty breakdown charts,      ┃  │
+│  ┃   Dropdown)      ┃         ┃   Exportable reports)            ┃  │
+│  ┗━━━━━━━━━━━━━━━━━━┛         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛  │
+└────────────────┬────────────────────────────────────┬────────────────┘
+                 │                                    │
+                 └────────── REST API (JSON) ─────────┘
+                                  │
+┌─────────────────────────────────┴────────────────────────────────────┐
+│                        APPLICATION LAYER                             │
+│  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓  │
+│  ┃  FacultyManager  │  StatisticsService  │  MigrationService   ┃  │
+│  ┃ ─────────────────────────────────────────────────────────────┃  │
+│  ┃  • faculty_list()          → Get all faculties               ┃  │
+│  ┃  • faculty_by_id()         → Get faculty details             ┃  │
+│  ┃  • statistics_for_faculty() → Aggregated dataset counts      ┃  │
+│  ┃  • migrate_dataset()       → Pattern matching + assignment   ┃  │
+│  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛  │
+└────────────────┬────────────────────────────────────┬────────────────┘
+                 │                                    │
+                 └──────── SPARQL Queries ────────────┘
+                                  │
+┌─────────────────────────────────┴────────────────────────────────────┐
+│                    DATA LAYER (RDF Store)                            │
+│                                                                      │
+│  ┌──────────┐    faculty_id    ┌──────────┐    faculty_id    ┌──────────┐
+│  │ Account  │ ───────────────→  │ Faculty  │ ←─────────────  │ Dataset  │
+│  └──────────┘                   └──────────┘                  └──────────┘
+│       ↓                              ↓                             ↓      │
+│  faculty_id                   institution_id                  faculty_id  │
+│  (optional)                     (required)                    (optional)  │
+│                                      ↓                                     │
+│                            ┌──────────────────┐                           │
+│                            │   Institution    │                           │
+│                            │  (TU Delft, UT,  │                           │
+│                            │   TU/e, WUR)     │                           │
+│                            └──────────────────┘                           │
+│                                                                           │
+│  ┌─────────────────────────────────────────────────────────────────┐    │
+│  │  CACHING STRATEGY                                               │    │
+│  │  • Redis: Statistics results (TTL: 1 hour)                      │    │
+│  │  • In-memory: Faculty lists (Invalidate on config change)       │    │
+│  └─────────────────────────────────────────────────────────────────┘    │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        RDF SCHEMA EXTENSION                              │
+└─────────────────────────────────────────────────────────────────────────┘
+
+NEW ENTITY:
+  djht:Faculty rdf:type owl:Class .
+
+NEW PREDICATES:
+  djht:faculty_id         → Links Account/Dataset to Faculty
+  djht:faculty_name       → Faculty display name (e.g., "Faculty of AE")
+  djht:faculty_short_name → Abbreviation (e.g., "AE", "CEG")
+  djht:institution_id     → Faculty belongs to Institution
+
+
+EXAMPLE RDF TRIPLES:
+
+  # Define a Faculty
+  <faculty/tu-delft-ae> rdf:type djht:Faculty ;
+                        djht:faculty_id "tu-delft-ae" ;
+                        djht:faculty_name "Faculty of Aerospace Engineering" ;
+                        djht:faculty_short_name "AE" ;
+                        djht:institution_id "tu-delft" .
+
+  # Link Account to Faculty
+  <account/123> djht:faculty_id "tu-delft-ae" .
+
+  # Link Dataset to Faculty
+  <dataset/456> djht:faculty_id "tu-delft-ae" .
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    DATA FLOW: NEW DATASET DEPOSIT                        │
+└─────────────────────────────────────────────────────────────────────────┘
+
+  1. User logs in → Account has faculty_id="tu-delft-ae"
+                    │
+  2. User deposits dataset → faculty_id copied from Account to Dataset
+                    │
+  3. Dataset saved to RDF store with faculty triple
+                    │
+  4. Statistics cache invalidated (Redis)
+                    │
+  5. Next query → SPARQL aggregates by faculty_id → New count
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│              KEY ARCHITECTURAL DECISIONS & RATIONALE                     │
+└─────────────────────────────────────────────────────────────────────────┘
+
+✓ 3-TIER ARCHITECTURE
+  Why: Clean separation of concerns, testable, maintainable
+
+✓ OPTIONAL FACULTY_ID (Backward Compatible)
+  Why: Existing datasets continue working, no breaking changes
+
+✓ CONFIGURATION-DRIVEN
+  Why: Each 4TU institution defines own faculty structure
+
+✓ SPARQL-BASED STATISTICS
+  Why: Leverages existing RDF infrastructure, no new database
+
+✓ MULTI-LAYER CACHING
+  Why: Performance - statistics expensive, faculty lists rarely change
+
+✓ ADDITIVE APPROACH (Not Replacement)
+  Why: Risk mitigation - Organizations field still works, new field added
