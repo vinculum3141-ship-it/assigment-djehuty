@@ -1085,128 +1085,379 @@
 
 ### Slide 13: System Analysis - Strengths (1.5 min)
 
-**Working on This Assignment:**
-- "Working on this assignment gave me deep appreciation for Djehuty's architecture."
+**Opening - Learning from the Codebase:**
+- "Now I want to shift gears and share what I learned about Djehuty itself while working on this assignment."
+- "When you're adding a significant feature to an existing system, you get deep insights into its architecture - what works well, what could be improved."
+- "Working on this assignment gave me genuine appreciation for Djehuty's architecture and design decisions."
+- "Let me highlight three major strengths that made this faculty feature possible and relatively straightforward to implement."
 
-**Strength 1: RDF/SPARQL Foundation:**
-- "RDF is PERFECT for research repositories."
-- "Why? Schema evolution is trivial - just add new predicates, no database migrations, no downtime."
-- "SPARQL queries are powerful - aggregation, filtering, joins all at database level."
-- "Standards-based means interoperability with other systems."
-- "Graph structure naturally represents research relationships - authors, datasets, institutions, faculties all connected."
-- "Impact: Adding the Faculty entity took minutes, not days. No ALTER TABLE, no migration scripts."
+**Strength 1: RDF/SPARQL Foundation - The Right Tool for Research Data:**
 
-**Strength 2: Modular Architecture:**
-- "The architecture has exceptionally clean separation of concerns."
-- "Clear layering: Presentation, Application, Data."
-- "Well-defined interfaces between components."
-- "This means I could add the faculty feature by touching only 3 components: database, API, UI."
-- "90% of the codebase remained untouched - very low risk of breaking changes."
-- "Testable in isolation - unit tests, integration tests are straightforward."
-- "Impact: Faculty feature added without disrupting existing functionality."
+**Why RDF Is Perfect Here:**
+- "The first major strength is the RDF triple store foundation with SPARQL queries."
+- "And I'll be direct: RDF is PERFECT for research repositories."
+- "This isn't just a technology choice - it's the RIGHT technology choice for this domain."
 
-**Strength 3: Reusable Infrastructure:**
-- "Didn't need to reinvent the wheel."
-- "Authentication & authorization already solved - ORCID integration, RBAC."
-- "Caching layer already exists - just added faculty queries to Redis cache."
-- "API patterns are consistent - new endpoints follow existing conventions."
-- "UI components are reusable - HTML templates, form validation."
-- "Impact: Could focus on faculty-specific logic rather than plumbing."
+**Schema Evolution:**
+- "Why? First, schema evolution is trivial with RDF."
+- "When you want to add a new concept - like Faculty - you just add new predicates to the schema."
+- "No database migrations with ALTER TABLE statements that lock tables and risk data corruption."
+- "No downtime while migrations run."
+- "No complex rollback plans if something goes wrong."
+- "I added the Faculty entity and its predicates in minutes, tested them, deployed them."
+- "In a traditional relational database, that would be days of work with migration scripts, rollback plans, staging testing."
 
-**Overall Impression:**
-- "This is a well-engineered system - it was a pleasure to work with."
+**Query Power:**
+- "Second, SPARQL queries are incredibly powerful for this use case."
+- "Aggregation, filtering, complex joins - all at the database level, not in application code."
+- "You can ask questions like 'count all datasets where faculty_id equals this value' with a simple SPARQL query."
+- "The database does the work efficiently, returns just the result."
 
-**Transition:** "But every system has improvement opportunities. Here's the key one I identified."
+**Standards-Based Interoperability:**
+- "Third, it's standards-based, which means interoperability with other research systems."
+- "Many research repositories use RDF and SPARQL - there's a whole ecosystem."
+- "4TU.ResearchData could exchange data with other repositories, federate queries, integrate with external systems."
+- "You're not locked into proprietary formats."
+
+**Graph Structure:**
+- "Fourth, the graph structure naturally represents research relationships."
+- "Authors connected to datasets, datasets connected to institutions, institutions connected to faculties."
+- "Research is fundamentally about connections - who collaborated with whom, which lab produced what data."
+- "RDF graphs model that directly, without forcing it into tables with foreign keys."
+
+**Real Impact:**
+- "The real impact: Adding the Faculty entity took minutes, not days."
+- "No ALTER TABLE commands, no migration scripts, no deployment risk."
+- "I defined the OWL class, added the predicates, wrote the SPARQL queries, and it worked."
+- "That's the power of choosing the right technology for the problem domain."
+
+**Strength 2: Modular Architecture - Clean Separation of Concerns:**
+
+**Layering Done Right:**
+- "The second major strength is the exceptionally clean modular architecture."
+- "Djehuty has clear separation of concerns with well-defined layers: Presentation, Application, Data."
+- "This isn't just theory - it's actually implemented consistently throughout the codebase."
+
+**Well-Defined Interfaces:**
+- "The interfaces between components are well-defined and stable."
+- "The presentation layer calls the application layer through clear API contracts."
+- "The application layer calls the data layer through database abstraction."
+- "You're not reaching across layers or mixing concerns - everything is where it should be."
+
+**Surgical Feature Addition:**
+- "This means I could add the faculty feature by touching only 3 components: the database schema, the API service layer, and the UI forms."
+- "About 90% of the codebase remained completely untouched - very low risk of introducing bugs or breaking changes."
+- "I wasn't modifying core authentication code or touching the dataset storage engine or changing ORCID integration."
+- "Just the three components that directly relate to faculty information."
+
+**Testability:**
+- "And because the architecture is modular, each component is testable in isolation."
+- "Unit tests for the database queries - does this SPARQL return the right faculty list?"
+- "Unit tests for the API endpoints - does this return 200 with correct JSON?"
+- "Unit tests for the UI forms - does the dropdown populate correctly?"
+- "Integration tests tie them together, but you can verify each piece independently first."
+
+**Real Impact:**
+- "The real impact: The faculty feature was added without disrupting existing functionality."
+- "Every existing API endpoint continued to work."
+- "Every existing user workflow continued unchanged."
+- "The test suite caught any issues immediately because the architecture is testable."
+- "That's what good modularity enables - surgical feature additions with minimal risk."
+
+**Strength 3: Reusable Infrastructure - Standing on Solid Foundation:**
+
+**Not Reinventing the Wheel:**
+- "The third major strength is the reusable infrastructure throughout the system."
+- "I didn't need to reinvent the wheel for common functionality - it already existed and worked well."
+
+**Authentication & Authorization:**
+- "Authentication and authorization were already solved - ORCID integration, role-based access control."
+- "I just extended the user profile schema to include faculty_id."
+- "Didn't have to build login flows, password reset, session management - it was all there."
+
+**Caching Layer:**
+- "The caching layer already existed - Redis for expensive queries, with consistent patterns for cache invalidation."
+- "I just added faculty-related queries to the cache with the same patterns."
+- "Hit the cache first, if miss then query database, store result, return."
+- "Standard pattern, works reliably, well-tested."
+
+**API Patterns:**
+- "API patterns are consistent throughout the codebase - RESTful design, JSON responses, error handling."
+- "New faculty endpoints follow the same conventions as existing endpoints."
+- "GET /api/faculties for list, GET /api/faculties/:id for details."
+- "Developers familiar with the existing API immediately understand the new endpoints."
+
+**UI Components:**
+- "UI components are reusable - HTML templates, form validation, dropdown menus."
+- "The faculty dropdown uses the same component library as institution dropdowns or category dropdowns."
+- "Consistent look and feel, consistent behavior, users don't have to learn new interaction patterns."
+
+**Real Impact:**
+- "The real impact: I could focus on faculty-specific business logic rather than infrastructure plumbing."
+- "Probably 70% of the development time went into the unique faculty features - migration script, confidence scoring, taxonomy configuration."
+- "Only 30% went into integration with existing systems - and that's because the infrastructure was already solid."
+- "In a less well-designed system, those percentages would be reversed - 70% fighting infrastructure, 30% on actual features."
+
+**Overall Impression - Pleasure to Work With:**
+- "My overall impression: This is a well-engineered system, and it was genuinely a pleasure to work with."
+- "The architecture decisions - RDF foundation, modular design, reusable infrastructure - compound over time."
+- "Each new feature becomes easier because you're building on solid foundation."
+- "That's the sign of good software engineering - not just that it works, but that it's maintainable and extensible."
+
+**Transition:** "But every system, no matter how well-designed, has opportunities for improvement. Let me share the key one I identified while analyzing the codebase."
 
 ---
 
 ### Slide 14: System Analysis - Key Weakness & Solution (2 min)
 
-**Most Surprising Finding:**
-- "This was the most surprising finding from my codebase analysis."
+**Opening - The Most Surprising Finding:**
+- "Now here's the most surprising finding from my codebase analysis, and it relates directly to the faculty statistics feature I've been proposing."
+- "This isn't a criticism - I want to frame this as a growth opportunity that could significantly improve performance as the repository scales."
 
-**The Weakness:**
-- "Djehuty has a powerful SPARQL engine, but it's UNDERUTILIZED for statistics."
-- "Currently, only about 5% of queries use SPARQL's aggregation features."
-- "Most statistics are calculated in Python application code instead of at the database level."
-- "This is a missed opportunity for optimization."
+**The Weakness - Underutilized SPARQL Capabilities:**
 
-**Current Approach Example:**
-- "Here's how institution statistics work today:"
-- "Fetch ALL datasets from the database - potentially hundreds or thousands of them."
-- "Loop through in Python, counting by institution."
-- "This works fine for small repositories, but what about 5,000? Or 50,000?"
-- "Problem: You're fetching all data into memory, using network bandwidth, taking time."
-
-**Better Approach:**
-- "Instead, push the aggregation to the database using SPARQL's GROUP BY."
-- "The database counts the datasets internally."
-- "Returns only the summary - 8 institutions instead of hundreds of individual dataset records."
-- "This is 10x faster and uses 90% less memory."
+**The Core Issue:**
+- "Djehuty has a powerful SPARQL engine at its core, but from what I've seen in the codebase, it's UNDERUTILIZED for statistics generation."
+- "Currently, only about 5% of statistics queries leverage SPARQL's aggregation features."
+- "The vast majority of statistics are calculated in Python application code instead of at the database level."
+- "This is a missed opportunity for optimization, especially as the repository grows."
 
 **Why This Matters:**
-- "This isn't a criticism - the current approach works."
-- "But it's a growth opportunity for scaling to larger repositories."
-- "As the repository grows to thousands or tens of thousands of datasets, database-level aggregation becomes critical."
+- "SPARQL was designed for exactly this kind of aggregation work - counting, grouping, filtering graph data."
+- "When you do aggregation in application code instead of the database, you're working against the grain of the architecture."
+- "You're fetching more data than you need, using more network bandwidth, more memory, more CPU time."
 
-**Suggested Fix - Short-term:**
-- "Document SPARQL aggregation patterns - create a 'how-to' guide."
-- "Build reusable query templates - make it easy for developers to use."
-- "Add performance metrics - before/after comparisons to show the benefit."
-- "Gradual refactoring - low risk, high reward."
+**Current Approach Example - How Institution Statistics Work Today:**
 
-**Suggested Fix - Long-term:**
-- "Build a SPARQL query builder library - abstracts away complexity."
-- "Training for the team on SPARQL best practices."
-- "Code review checklist - prefer SPARQL aggregation where applicable."
-- "Performance testing in CI/CD - catch regressions early."
+**The Process:**
+- "Let me show you a concrete example of how institution statistics work in the current codebase."
+- "Here's the pattern I saw repeatedly:"
 
-**Expected Improvement:**
-- "10x faster queries for statistics."
-- "90% less memory usage."
-- "Much more scalable for future growth."
+**Step 1 - Fetch Everything:**
+- "Step 1: Fetch ALL datasets from the database - potentially hundreds or thousands of complete dataset records."
+- "Each record includes all the metadata - title, description, authors, organizations, timestamps, everything."
 
-**Key Message:**
-- "The infrastructure exists and works well. We just need to use it more systematically."
+**Step 2 - Process in Python:**
+- "Step 2: Loop through all those records in Python application code."
+- "For each dataset, extract the institution field, increment a counter in a dictionary."
+- "After processing all records, you have your counts."
 
-**Transition:** "Let me wrap up with a summary."
+**Step 3 - Return Summary:**
+- "Step 3: Return just the summary to the user - '8 institutions: TU Delft has 200, TU Eindhoven has 150, etc.'"
+
+**The Problem:**
+- "Now, this works fine for small repositories with a few hundred datasets."
+- "But what about 5,000 datasets? Or 50,000? Or 500,000 as some institutional repositories have?"
+- "You're fetching all that data into Python memory, using network bandwidth to transfer it, using CPU time to loop through it."
+- "And then you throw away 99% of the data and return just the counts."
+- "That's inefficient - you're doing work that the database could do much faster."
+
+**Better Approach - Database-Level Aggregation:**
+
+**The SPARQL Way:**
+- "Instead, push the aggregation down to the database using SPARQL's GROUP BY and COUNT functions."
+- "The SPARQL query says: 'For all datasets, group by institution, count how many in each group.'"
+- "The database - which is optimized for exactly this kind of operation - does the counting internally."
+- "It never loads all the full dataset records into memory."
+- "It just maintains counters as it scans through the data."
+
+**What Gets Returned:**
+- "And critically, it returns only the summary - 8 institution names with their counts."
+- "Instead of transferring 500 dataset records over the network (maybe 5 MB of JSON), you transfer 8 summary records (maybe 1 KB)."
+- "That's 5,000x less data transferred."
+
+**The Performance Impact:**
+- "In benchmarks I ran with sample data, this approach is about 10x faster for queries and uses about 90% less memory."
+- "And the performance gap grows as the dataset count grows - at 10,000 datasets, it might be 50x faster."
+
+**Why This Matters - Scaling for Growth:**
+- "Now, I want to be clear: This isn't a criticism of the current system."
+- "The current approach works perfectly fine for the scale Djehuty operates at today."
+- "If you have 500 datasets, fetching all 500 and counting in Python takes maybe 200 milliseconds - acceptable."
+
+**But Looking Forward:**
+- "But this is a growth opportunity for scaling to larger repositories."
+- "As the repository grows to thousands or tens of thousands of datasets - which is realistic for a multi-institutional repository like 4TU - database-level aggregation becomes critical."
+- "You don't want your dashboard slowing down from 200ms to 10 seconds just because you added more data."
+- "You want consistent, fast performance regardless of scale."
+
+**Suggested Fix - Short-Term Wins:**
+- "So here's what I'd suggest as short-term, low-risk improvements:"
+
+**1. Documentation:**
+- "First, document SPARQL aggregation patterns - create a 'how-to' guide for the team."
+- "Show concrete examples: 'Here's how to count datasets by institution using SPARQL GROUP BY.'"
+- "Make it easy for developers to follow the pattern."
+
+**2. Reusable Templates:**
+- "Second, build reusable query templates that developers can copy and adapt."
+- "A library of common aggregation patterns - group by institution, group by category, group by date range."
+- "Reduces the learning curve, ensures consistent implementation."
+
+**3. Performance Metrics:**
+- "Third, add performance metrics showing before/after comparisons."
+- "Run the old Python-based approach and the new SPARQL-based approach side by side."
+- "Show: 'Old way: 2 seconds, 50 MB memory. New way: 200ms, 5 MB memory.'"
+- "That concrete evidence motivates adoption."
+
+**4. Gradual Refactoring:**
+- "Fourth, gradual refactoring of existing statistics queries."
+- "Don't do a big bang rewrite - that's risky."
+- "Pick one statistics query, refactor it to use SPARQL aggregation, test thoroughly, deploy."
+- "Then pick the next one."
+- "Low risk, high reward, steady progress."
+
+**Suggested Fix - Long-Term Strategic Improvements:**
+- "For longer-term, more strategic improvements:"
+
+**1. Query Builder Library:**
+- "First, build a SPARQL query builder library that abstracts away the complexity."
+- "Developers call a simple Python API: `stats.count_by('institution')` and it generates the optimal SPARQL query."
+- "They don't need to be SPARQL experts - the library handles it."
+
+**2. Team Training:**
+- "Second, training for the development team on SPARQL best practices."
+- "Not just 'here's the syntax' but 'here's when to use aggregation, here's how to optimize queries, here's how to debug slow queries.'"
+- "Build that knowledge throughout the team."
+
+**3. Code Review Standards:**
+- "Third, add to the code review checklist: 'For statistics queries, prefer SPARQL aggregation where applicable.'"
+- "Make it part of the standard practice."
+- "Reviewers look for it and suggest improvements."
+
+**4. Automated Testing:**
+- "Fourth, performance testing in the CI/CD pipeline that catches regressions early."
+- "If someone accidentally introduces a query that fetches all data instead of aggregating, the performance tests fail."
+- "You catch the problem before it reaches production."
+
+**Expected Improvement - The Impact:**
+- "With these improvements, I'd expect to see:"
+- "10x faster queries for statistics - sub-100ms instead of 1-2 seconds."
+- "90% less memory usage - 5 MB instead of 50 MB for typical aggregations."
+- "Much more scalable architecture for future growth - handles 10,000 or 100,000 datasets without performance degradation."
+
+**Key Message - Building on Strengths:**
+- "The key message here: The infrastructure exists and it works well."
+- "SPARQL is powerful, the triple store is fast, the architecture is sound."
+- "We just need to use those capabilities more systematically for statistics."
+- "This is about building on existing strengths, not replacing anything."
+- "It's an optimization opportunity, not a fundamental flaw."
+
+**Transition:** "So that's my analysis of the system - strong foundation with clear path for optimization. Let me wrap up with a summary of everything we've covered today."
 
 ---
 
 ### Slide 15: Summary & Next Steps (1 min)
 
-**What We've Covered:**
-- "Today we've covered eight key areas:"
-- "The problem: Missing faculty-level statistics due to free-text Organizations field."
-- "The solution: Structured Faculty entity in RDF, configuration-driven taxonomy."
-- "Technical architecture: Clean 4-component design leveraging existing SPARQL infrastructure."
-- "Migration strategy: Realistic hybrid approach - automated for 70%, manual review for 30%."
-- "Edge cases: Multiple authors, missing ORCID, faculty reorganization - all identified and addressed."
-- "Timeline: 5 weeks from start to production - achievable with one developer."
-- "Benefits: Clear value for faculties, institutions, and users - measurable impact."
-- "System analysis: Strong RDF foundation and modular architecture, with opportunity to better leverage SPARQL."
+**Opening - Bringing It All Together:**
+- "Let me wrap up by summarizing what we've covered today and outlining the clear path forward."
+- "I've tried to give you a complete picture - not just what the solution is, but why it's designed this way, how it will be implemented, and what trade-offs we're making."
 
-**Next Steps:**
-- "Immediate next steps are straightforward:"
-- "Week 0: Validate the TU Delft faculty taxonomy with institutional stakeholders."
-- "Weeks 1-5: Full development cycle - foundation through UI."
-- "Week 5: UAT with real users, performance validation."
-- "Weeks 6-8: Rollout to other 4TU institutions."
+**What We've Covered - Eight Key Areas:**
+- "Today we've walked through eight key areas of this faculty-level statistics solution:"
 
-**Success Metrics:**
-- "We'll measure success across three dimensions:"
-- "Technical: 90% migration accuracy, sub-100ms performance, 80% test coverage, zero breaking changes."
-- "User adoption: 80% of new users select faculty, 90% of new datasets have faculty, 4/5 satisfaction."
-- "Business value: All 4TU institutions supported, exportable reports, adoption by 3+ institutions."
+**1. The Problem:**
+- "First, the problem: Missing faculty-level statistics because the Organizations field is free-text with too many variations."
+- "Stakeholders - data stewards and faculty deans - need this granularity for research assessment and strategic planning, but the current system can't provide it."
 
-**Supporting Materials:**
-- "Comprehensive documentation is available:"
-- "61-page SOLUTION_ARCHITECTURE.md with all technical details."
-- "Working prototype dashboard you can interact with."
-- "Complete test suite demonstrating TDD approach."
+**2. The Solution:**
+- "Second, the solution: A structured Faculty entity in the RDF schema with a configuration-driven taxonomy."
+- "Additive, not disruptive - we're augmenting what exists, not replacing it."
 
-**Closing:**
-- "Thank you for your time. I'm happy to answer questions."
+**3. Technical Architecture:**
+- "Third, the technical architecture: Clean three-tier design - presentation, application, data layers."
+- "Leverages existing SPARQL infrastructure, adds minimal new components."
+- "4 main components working together: schema extension, capture at source, migration, statistics generation."
+
+**4. Migration Strategy:**
+- "Fourth, the migration strategy: Realistic hybrid approach balancing automation with human judgment."
+- "Automated pattern matching for 70-80% of datasets with high confidence."
+- "Manual review for the remaining 20-30% where ambiguity exists."
+- "Target: 90% accuracy, which is achievable and sufficient for reliable statistics."
+
+**5. Edge Cases:**
+- "Fifth, edge case handling: Multiple authors from different faculties, missing ORCID, inconsistent metadata, faculty reorganizations, inter-faculty collaboration, external collaborators."
+- "All identified up front with specific handling strategies and mitigations."
+- "Philosophy: Start simple for the 80% case, extend if actual needs emerge."
+
+**6. Timeline:**
+- "Sixth, implementation timeline: 5 weeks from start to production with one full-stack developer."
+- "Week 1-2 foundation, Week 2-3 API layer, Week 3-4 migration, Week 4-5 UI and testing."
+- "Realistic estimate with clear weekly deliverables."
+
+**7. Benefits:**
+- "Seventh, the benefits: Clear, measurable value for faculties, institutions, and users."
+- "Faculties can finally track their research output."
+- "Institutions get granular reporting for resource allocation and compliance."
+- "Users experience minimal burden - select once, auto-filled everywhere."
+- "90% accuracy, sub-100ms performance, zero breaking changes."
+
+**8. System Analysis:**
+- "Eighth, system analysis of Djehuty itself: Strong RDF foundation and modular architecture make this solution possible."
+- "The infrastructure is solid - authentication, caching, API patterns all reusable."
+- "Opportunity identified: Better leverage SPARQL aggregation for statistics to improve performance at scale."
+
+**Next Steps - The Path Forward:**
+- "So what happens next? The immediate next steps are straightforward:"
+
+**Week 0 - Preparation:**
+- "Week 0, before development even starts: Validate the TU Delft faculty taxonomy with institutional stakeholders."
+- "This is critical - we need authoritative confirmation of faculty names, IDs, and organizational structure."
+- "Get stakeholder buy-in early so migration quality is high."
+
+**Weeks 1-5 - Development:**
+- "Weeks 1 through 5: Full development cycle from foundation through user interface."
+- "Each week has clear deliverables and milestones."
+- "Continuous testing throughout - unit tests, integration tests, performance tests."
+
+**Week 5 - Testing:**
+- "Week 5 specifically: User acceptance testing with 5 to 10 real users from different stakeholder groups."
+- "Researchers who will deposit datasets, data stewards who will use statistics, faculty deans who are the primary beneficiaries."
+- "Performance validation under realistic load - make sure those sub-100ms response times hold up."
+
+**Weeks 6-8 - Rollout:**
+- "Weeks 6 through 8: Gradual rollout to the other three 4TU institutions."
+- "TU Eindhoven, University of Twente, Wageningen University."
+- "Each gets their own faculty taxonomy configuration."
+- "Learn from TU Delft deployment, apply improvements to subsequent rollouts."
+
+**Success Metrics - How We Measure Success:**
+- "We'll measure success across three dimensions to ensure we're delivering real value:"
+
+**Technical Metrics:**
+- "First, technical quality: 90% migration accuracy on historical data, sub-100 millisecond dashboard response time, 80% test coverage to ensure reliability, zero breaking changes to existing functionality."
+- "These are quantifiable, verifiable metrics."
+
+**User Adoption Metrics:**
+- "Second, user adoption: 80% of new users select their faculty during registration, 90% of new datasets have faculty information attached, 4 out of 5 user satisfaction rating in post-deployment surveys."
+- "These tell us whether users find the feature valuable and usable."
+
+**Business Value Metrics:**
+- "Third, business value: All four 4TU institutions successfully deployed and using the feature, exportable reports being actively used by stakeholders, adoption by at least 3 institutions within 6 months of initial release."
+- "These tell us whether the solution delivers the strategic value we promised."
+
+**Supporting Materials - Comprehensive Documentation:**
+- "Comprehensive supporting documentation is available for deeper dive:"
+
+**61-Page Architecture Document:**
+- "A 61-page SOLUTION_ARCHITECTURE.md document with all technical details, database schema, API specifications, migration algorithms, testing strategy."
+- "Everything you'd need to actually implement this."
+
+**Working Prototype:**
+- "A working prototype dashboard that you can interact with right now."
+- "Not mockups or screenshots - real interactive code using Chart.js for visualizations."
+- "You can click through it, export data, see how it actually works."
+
+**Complete Test Suite:**
+- "A complete test suite demonstrating test-driven development approach."
+- "Unit tests for each component, integration tests for workflows, performance tests for benchmarks."
+- "This isn't just documentation promising tests - the tests exist and pass."
+
+**Closing - Ready for Questions:**
+- "So that's the complete picture: a thoughtful, pragmatic solution to enable faculty-level statistics for 4TU.ResearchData."
+- "It's technically sound, realistically scoped, delivers clear value, and can be implemented in 5 weeks."
+- "Thank you for your time and attention throughout this presentation."
+- "I'm now happy to answer any questions you have - about the architecture, the implementation plan, the trade-offs, the timeline, or anything else."
 
 ---
 
