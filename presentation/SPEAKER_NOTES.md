@@ -45,15 +45,15 @@
 ### Slide 1: Title & Introduction (1 min)
 
 **Opening:**
-- "Good morning/afternoon. Thank you for the opportunity to present my solution for the Senior Software Developer assignment."
+- "Good afternoon. Thank you for the opportunity to present my solution for the Senior Software Developer assignment."
 - "I'm presenting a complete solution architecture for adding faculty-level statistics to the Djehuty repository system."
 
 **Context Setting:**
-- "4TU.ResearchData currently tracks datasets at the institutional level - for example, 'TU Delft' has 580 datasets."
-- "However, there's no way to break this down by faculty - which is critical for research assessment and strategic planning."
+- "4TU.ResearchData currently tracks datasets at the institutional level - although the data provided only has 6 datasets (4 from TU Delft), it is not uncommon for institutional repositories to have 500+ datasets."
+- "However, there's no way to break this down by faculty - which the stakeholders (data stewards and faculty deans) require for analyzing dataset statistics relevant to their faculties."
 
 **Presentation Scope:**
-- "Today I'll cover: the conceptual design, technical implementation, migration strategy for existing data, edge case handling, and my analysis of the system's strengths and opportunities for improvement."
+- "Today I'll cover: the conceptual design, touch on the technical implementation and possible migration strategy for existing data, as well as edge case handling and my analysis of the system's strengths and opportunities for improvement."
 
 **Transition:** "Let's start by looking at the problem in detail."
 
@@ -77,7 +77,7 @@
 - "This transforms unreliable text into reliable, queryable data."
 
 **Impact Numbers:**
-- **Point to stat cards:** "580+ datasets need faculty assignment."
+- **Point to stat cards:** "In a typical repository with 500+ datasets, they would all need faculty assignment."
 - "100+ variations for the SAME faculty - this isn't just messy, it's unworkable."
 - "Currently: 0% coverage of faculty-level data."
 
@@ -258,7 +258,7 @@
 ### Slide 7: Migration Strategy (2 min)
 
 **The Challenge:**
-- "We have 580+ existing datasets that need faculty assignment."
+- "In a repository with hundreds of existing datasets, they would all need faculty assignment."
 - "We can't manually review all of them - that would take weeks."
 - "But we also can't accept low accuracy - this data needs to be reliable."
 
@@ -272,7 +272,7 @@
 - "Each match gets a confidence score."
 - "High confidence (≥0.8) gets auto-assigned."
 - "Low confidence gets flagged for manual review."
-- "We expect about 450 datasets - roughly 70-80% - to be auto-assigned."
+- "We expect roughly 70-80% of datasets to be auto-assigned with high confidence."
 
 **Phase 2: Manual Review:**
 - "Second, manual review for low-confidence matches."
@@ -594,15 +594,15 @@
 
 **Current Approach Example:**
 - "Here's how institution statistics work today:"
-- "Fetch ALL datasets from the database - all 580 of them."
+- "Fetch ALL datasets from the database - potentially hundreds or thousands of them."
 - "Loop through in Python, counting by institution."
-- "This works fine for 580 datasets, but what about 5,000? Or 50,000?"
+- "This works fine for small repositories, but what about 5,000? Or 50,000?"
 - "Problem: You're fetching all data into memory, using network bandwidth, taking time."
 
 **Better Approach:**
 - "Instead, push the aggregation to the database using SPARQL's GROUP BY."
 - "The database counts the datasets internally."
-- "Returns only the summary - 8 institutions instead of 580 datasets."
+- "Returns only the summary - 8 institutions instead of hundreds of individual dataset records."
 - "This is 10x faster and uses 90% less memory."
 
 **Why This Matters:**
@@ -801,7 +801,7 @@ If the audience remembers only three things, make it these:
 1. Open text editor with SPARQL query
 2. "Here's the actual SPARQL query for faculty statistics."
 3. "Database-level aggregation with GROUP BY."
-4. "Returns summary data, not all 580 datasets."
+4. "Returns summary data, not individual dataset records."
 5. "This is why it's 10x faster than application-level counting."
 
 **Option 3: Show Configuration File (30 seconds)**
