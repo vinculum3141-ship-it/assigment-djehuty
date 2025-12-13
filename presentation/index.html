@@ -35,6 +35,20 @@
             }
         }
         
+        /* Fix vertical positioning - align to top with comfortable spacing */
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            height: 100%;
+            padding: 20px 40px;
+        }
+        
+        .reveal .slides section.present {
+            top: 0 !important;
+        }
+        
         :root {
             --primary-color: #667eea;
             --secondary-color: #764ba2;
@@ -1617,6 +1631,7 @@ ORDER BY DESC(?count)
             slideNumber: 'c/t',
             showNotes: false,
             transition: 'slide',
+            center: false,
             width: 960,
             height: 700,
             margin: 0.1,
