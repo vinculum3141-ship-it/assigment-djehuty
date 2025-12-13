@@ -12,41 +12,65 @@
         @media print {
             @page {
                 size: A4 landscape;
-                margin: 10mm;
+                margin: 15mm;
+            }
+            
+            html {
+                width: 297mm;
+                height: 210mm;
+            }
+            
+            body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .reveal {
+                width: 100% !important;
+                height: 100% !important;
             }
             
             .reveal .slides {
                 width: 100% !important;
                 height: 100% !important;
                 zoom: 1 !important;
-                left: 0 !important;
-                top: 0 !important;
                 transform: none !important;
+                top: 0 !important;
+                left: 0 !important;
+            }
+            
+            .reveal .slides section {
+                width: 100% !important;
+                height: 100% !important;
+                padding: 20mm !important;
+                page-break-after: always;
             }
             
             .reveal .slide-background {
                 display: block !important;
             }
-            
-            html, body {
-                width: 297mm;
-                height: 210mm;
-                overflow: hidden;
-            }
         }
         
-        /* Fix vertical positioning - align to top with comfortable spacing */
+        /* Better viewport and scaling control */
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .reveal {
+            width: 100%;
+            height: 100%;
+        }
+        
         .reveal .slides {
             text-align: left;
         }
         
         .reveal .slides section {
-            height: 100%;
-            padding: 20px 40px;
-        }
-        
-        .reveal .slides section.present {
-            top: 0 !important;
+            padding: 30px;
         }
         
         :root {
@@ -1632,11 +1656,11 @@ ORDER BY DESC(?count)
             showNotes: false,
             transition: 'slide',
             center: false,
-            width: 960,
-            height: 700,
-            margin: 0.1,
-            minScale: 0.2,
-            maxScale: 2.0,
+            width: 1024,
+            height: 768,
+            margin: 0.04,
+            minScale: 0.5,
+            maxScale: 1.5,
             plugins: [ RevealNotes, RevealHighlight ],
             
             // Timing for 15-minute presentation
