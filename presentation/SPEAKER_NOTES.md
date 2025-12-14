@@ -1089,11 +1089,10 @@
 
 ### Slide 13: System Analysis - Strengths (1.5 min)
 
-**Opening - Learning from the Codebase:**
-- "Now I want to shift gears and share what I learned about Djehuty itself while working on this assignment."
-- "When you're adding a significant feature to an existing system, you get deep insights into its architecture - what works well, what could be improved."
-- "Working on this assignment gave me genuine appreciation for Djehuty's architecture and design decisions."
-- "Let me highlight three major strengths that made this faculty feature possible and relatively straightforward to implement."
+**Opening - Why This Platform Works:**
+- "Before we move to the final summary, let me explain why I'm confident this faculty feature will succeed."
+- "It's because Djehuty has three architectural strengths that make adding faculty statistics straightforward."
+- "These aren't just nice-to-haves - they're the reasons the 5-week timeline is realistic and the implementation is low-risk."
 
 **Strength 1: RDF/SPARQL Foundation - The Right Tool for Research Data:**
 
@@ -1209,7 +1208,7 @@
 - "The data layer's quality means features like faculty tracking can be added without re-architecting the core."
 - "There's room for improvement in the application layer modularity, but the system is maintainable and the right foundation is in place."
 
-**Transition:** "But every system, no matter how well-designed, has opportunities for improvement. Let me share the key one I identified while analyzing the codebase."
+**Transition:** "Those three strengths - RDF flexibility, data layer separation, reusable infrastructure - are why I'm confident in the 5-week timeline and low-risk implementation. Now, you asked for feedback on the system..."
 
 ---
 
