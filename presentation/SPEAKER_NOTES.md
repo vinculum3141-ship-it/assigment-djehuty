@@ -588,13 +588,17 @@
 
 **Not a Blocker:**
 - "This turns out not to be a blocker for our solution."
-- "ORCID records currently only contain institution-level affiliation anyway, not faculty-level detail."
-- "So even if we had ORCID data for everyone, it wouldn't help us determine faculty."
+- "Currently, Djehuty only stores the ORCID identifier itself from authentication - it doesn't fetch employment or affiliation records from ORCID profiles."
+- "Even if we enhanced the integration to fetch that data from ORCID, we couldn't rely on it as the primary source for two reasons:"
+- "First, not all users have ORCID accounts - it's optional."
+- "Second, even users with ORCID may not keep their employment records current, or may not have included department-level details in their profile."
+- "ORCID data quality varies significantly - some profiles are meticulously maintained, others are sparse or outdated."
 
 **Our Approach:**
-- "We rely on the depositor's faculty from their user profile as the primary source."
-- "This is captured during registration, stored in their account, independent of ORCID."
-- "The Organizations field serves as a fallback if we need to verify or migrate historical data."
+- "Therefore, we rely on explicitly capturing the depositor's faculty from their user profile during registration as the primary source."
+- "This is deliberate data entry, stored in their account, independent of ORCID."
+- "The Organizations field serves as a fallback for migrating historical data where we don't have profile information."
+- "This approach gives us consistent, reliable data that we control, rather than depending on external data sources with variable quality."
 
 **Edge Case 3: Inconsistent or Vague Metadata**
 
