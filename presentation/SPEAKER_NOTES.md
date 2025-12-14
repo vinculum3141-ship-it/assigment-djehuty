@@ -1213,112 +1213,21 @@
 
 ---
 
-### Slide 14: System Analysis - Key Weakness & Solution (2 min)
+### Slide 14: Bonus Observation from Code Review (30 seconds)
 
-**Opening - The Most Surprising Finding:**
-- "Now here's the most surprising finding from my codebase analysis, and it relates directly to the faculty statistics feature I've been proposing."
-- "This isn't a criticism - I want to frame this as a growth opportunity that could significantly improve performance as the repository scales."
+**Opening - Quick Feedback:**
+- "You asked for feedback, so here's one brief observation - completely separate from the faculty feature."
 
-**Optimization Opportunity - More Consistent SPARQL Aggregation:**
+**The Observation:**
+- "Statistics queries use mixed patterns: batch updates use SPARQL aggregation well, but some live queries aggregate in Python."
+- "For example, author statistics (line 3960) fetch all datasets and sum metrics in a Python loop."
+- "Could use SPARQL GROUP BY more consistently - the faculty stats template shows this pattern works."
 
-**The Core Observation:**
-- "While reviewing the codebase, I noticed an optimization opportunity around statistics queries."
-- "The system uses a mixed approach: some statistics use SPARQL aggregation effectively, others calculate in Python."
-- "There's room to be more systematic about when and how to use SPARQL's aggregation features."
-- "This isn't a critical flaw - it's a refinement opportunity as the repository scales."
+**Why It's Minor:**
+- "This works fine at current scale - it's about consistency and maintainability, not performance."
+- "Low priority suggestion: if touched later, consider documenting when to use SPARQL vs Python."
 
-**The Good Pattern - Batch Updates:**
-- "First, let me acknowledge what DOES work well: batch statistics updates."
-- "The system has SPARQL queries that use COUNT and SUM to aggregate view counts and download counts periodically."
-- "These update 'total_views' and 'total_downloads' fields efficiently."
-- "Then UI queries just read these pre-calculated values - smart caching pattern."
-- "This is GOOD architecture - you don't recalculate frequently-accessed statistics on every page load."
-
-**The Opportunity - Live Query Optimization:**
-- "Where I see opportunity is in some live queries that still fetch and aggregate in Python."
-- "Let me give you a specific, verified example from the codebase."
-
-**Example - Author Profile Statistics:**
-- "In wsgi.py line 3960, author profile statistics work like this:"
-- "Step 1: Fetch all datasets by this author - could be 50, 100, or more datasets."
-- "Step 2: Loop through in Python: for each dataset, sum up views, downloads, shares, citations."
-- "Step 3: Return the totals."
-
-**Why This Matters for Scale:**
-- "For an author with 10 datasets, this is fine - fast enough, low memory."
-- "For an author with 100 datasets, you're fetching 100 full dataset records, extracting 4 metrics each, summing in Python."
-- "A SPARQL query with GROUP BY could do: 'Give me SUM(views), SUM(downloads) WHERE author = X'"
-- "The database returns just 4 numbers instead of 100 dataset records."
-- "That's much less data transfer, less memory, faster execution."
-
-**Why It's Not Critical Now:**
-- "Now, to be clear: At current scale, this isn't causing problems."
-- "Author profile pages load fast enough."
-- "Python aggregation over 100 items takes milliseconds."
-- "But it represents a pattern that doesn't scale linearly - as datasets grow, performance degrades."
-**The Bigger Picture - Mixed Patterns:**
-- "The real insight: The codebase uses BOTH patterns - SPARQL aggregation AND Python aggregation."
-- "About 10% of SPARQL query templates use GROUP BY, COUNT, SUM - showing the capability exists and works well."
-- "But some queries still fetch records and aggregate in application code."
-- "This isn't wrong - it's just inconsistent."
-- "A more systematic approach would be: 'For aggregation queries, prefer SPARQL unless there's a specific reason not to.'"
-
-**Why This Matters - Consistency and Maintainability:**
-- "Beyond performance, consistency matters for maintainability."
-- "If every developer knows 'statistics go in SPARQL templates', that's clear guidance."
-- "New features follow established patterns automatically."
-- "Code reviews catch deviations: 'Why is this aggregating in Python? Can it use a SPARQL template?'"
-- "The architecture itself guides correct implementation."
-
-**Suggested Improvement - Make It Systematic:**
-- "So here's what I'd suggest - not urgent, but valuable for long-term health:"
-
-**1. Document the Pattern:**
-- "First, document when to use SPARQL aggregation vs Python."
-- "Create a simple decision tree: 'For statistics over multiple records → SPARQL template with GROUP BY.'"
-- "For one-off queries or complex business logic → Python is fine.'"
-- "Make the guidance explicit so developers know the preferred approach."
-
-**2. Code Example Library:**
-- "Second, maintain a few reference examples in comments or docs."
-- "Point to statistics_faculty.sparql as a good model - shows GROUP BY, COUNT, clean structure."
-- "Point to update_view_and_download_counts.sparql as another example."
-- "Developers can copy and adapt these patterns."
-
-**3. Gradual Migration:**
-- "Third, opportunistic refactoring - not a rewrite project."
-- "When touching author statistics code for other reasons, consider: 'Could this use a SPARQL template?'"
-- "Low-priority, low-risk improvement."
-- "Only where it adds clear value."
-
-**Expected Impact - Realistic Assessment:**
-- "If this pattern becomes more systematic, what's the actual benefit?"
-
-**Performance Gains:**
-- "For queries that currently fetch 50+ records and aggregate in Python:"
-- "Expect maybe 2-3x faster execution - from 200ms to 70ms."
-- "Not revolutionary, but noticeable at scale."
-- "More importantly: consistent performance as data grows."
-
-**Code Clarity:**
-- "Bigger benefit might be code clarity and maintainability."
-- "SPARQL templates are testable, reusable, version-controlled."
-- "Logic is in the query, not scattered through Python code."
-- "Easier to optimize: tune the SPARQL, not hunt through application code."
-
-**Not Urgent:**
-- "But let me be clear: This is NOT urgent."
-- "Current system performs well at current scale."
-- "This is about technical excellence and long-term scalability, not fixing a broken system."
-
-**Key Message - Refinement, Not Overhaul:**
-- "The key message: This is a refinement opportunity, not a critical weakness."
-- "The SPARQL infrastructure is solid - proven by the 10% of templates that use aggregation effectively."
-- "The batch update pattern with pre-calculated statistics is good architecture."
-- "The opportunity is consistency: use SPARQL aggregation more systematically for live queries too."
-- "Low priority, high confidence - the path forward is clear if/when it becomes a priority."
-
-**Transition:** "So that's my analysis of the system - strong foundation with clear path for optimization. Let me wrap up with a summary of everything we've covered today."
+**Transition:** "That's it for bonus feedback - now back to the faculty feature. Let me wrap up with a summary."
 
 ---
 

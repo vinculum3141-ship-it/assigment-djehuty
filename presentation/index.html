@@ -1538,86 +1538,56 @@ patterns = {
                 </aside>
             </section>
 
-            <!-- SLIDE 13: System Analysis - Key Weakness & Solution -->
+            <!-- SLIDE 13: System Analysis - Brief Observation (Bonus Feedback) -->
             <section>
-                <h2>System Analysis: Key Weakness & Suggested Fix</h2>
+                <h2>Bonus: One Observation from Code Review</h2>
+                <p class="muted" style="font-size: 0.8em; margin-bottom: 30px;">
+                    <em>(You asked for feedback - here's one minor refinement opportunity I noticed)</em>
+                </p>
 
-                <div class="solution-box">
-                    <h3>💡 Optimization Opportunity: More Consistent SPARQL Use</h3>
-                    <p><strong>Current State - Mixed Patterns:</strong></p>
-                    <ul>
-                        <li>✓ Batch updates USE SPARQL aggregation well (view/download counts)</li>
-                        <li>✓ ~10% of query templates use COUNT, SUM, GROUP BY effectively</li>
-                        <li>⚠️ Some live queries still aggregate in Python (e.g., author statistics)</li>
-                        <li>💡 Opportunity for more systematic approach</li>
-                    </ul>
-                    
-                    <p><strong>Verified Example - Author Statistics (wsgi.py line 3960):</strong></p>
-                    <pre><code class="language-python"># Current: Fetch all author datasets, sum in Python
-datasets = db.author_public_items(author_uri)
-statistics = { metric: sum(value_or(dataset, metric, 0) 
-               for dataset in datasets)
-               for metric in ('downloads', 'views', 'shares', 'cites') }
-</code></pre>
-                    <p class="muted">Works fine at current scale; could use SPARQL GROUP BY for 2-3x speedup with many datasets</p>
-                </div>
-
-                <div class="solution-box">
-                    <h3>✓ Suggested Approach: Systematic SPARQL Aggregation</h3>
-                    
-                    <p><strong>Alternative Pattern - SPARQL GROUP BY:</strong></p>
-                    <pre><code class="language-sparql"># Example from statistics_faculty.sparql (already in codebase)
-SELECT ?faculty_id (COUNT(DISTINCT ?dataset) AS ?dataset_count)
-WHERE {
-    ?faculty djht:group_id ?group_id .
-    ?dataset djht:group_id ?group_id .
-}
-GROUP BY ?faculty_id
-ORDER BY DESC(?dataset_count)
-</code></pre>
-                    <p class="muted">Pattern exists and works well; opportunity to use more consistently</p>
-
-                    <h3 style="margin-top: 20px;">Low-Priority Suggestions</h3>
-                    <div class="two-column">
-                        <div>
-                            <h4>What Works Well Now</h4>
-                            <ul>
-                                <li>✓ Batch updates use SPARQL COUNT</li>
-                                <li>✓ Pre-calculated statistics (smart caching)</li>
-                                <li>✓ Faculty stats template shows good pattern</li>
-                                <li>✓ Performance fine at current scale</li>
-                            </ul>
+                <div style="max-width: 900px; margin: 0 auto;">
+                    <div class="solution-box">
+                        <h3>💡 Statistics Queries: Mixed Patterns</h3>
+                        
+                        <div class="two-column">
+                            <div>
+                                <h4>✓ What Works Well</h4>
+                                <ul>
+                                    <li>Batch updates use SPARQL aggregation (COUNT, SUM)</li>
+                                    <li>Faculty stats template uses GROUP BY effectively</li>
+                                    <li>Pre-calculated totals are smart caching</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>💡 Minor Opportunity</h4>
+                                <ul>
+                                    <li>Some live queries aggregate in Python</li>
+                                    <li>Could use SPARQL GROUP BY more consistently</li>
+                                    <li>Low priority - works fine at current scale</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div>
-                            <h4>If Prioritized Later</h4>
-                            <ul>
-                                <li>Document: When to use SPARQL vs Python</li>
-                                <li>Reference examples for developers</li>
-                                <li>Opportunistic refactoring (not urgent)</li>
-                                <li>Emphasis on consistency over speed</li>
-                            </ul>
-                        </div>
+                        
+                        <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
+                            <strong>Example:</strong> Author statistics (wsgi.py:3960) fetch all datasets and sum in Python.
+                            Could use SPARQL aggregation for 2-3x speedup with prolific authors.
+                        </p>
+                        
+                        <p style="margin-top: 15px; font-size: 0.85em; font-style: italic; color: #999;">
+                            Not urgent or blocking - just a consistency/maintainability suggestion if prioritized later.
+                        </p>
                     </div>
                 </div>
 
-                <div class="stat-card" style="margin-top: 20px;">
-                    <h3>Realistic Assessment</h3>
-                    <p>Refinement opportunity, not critical | 2-3x speedup for some queries | Consistency > Performance</p>
-                </div>
-
                 <aside class="notes">
-                    Optimization opportunity I noticed: mixed patterns for statistics.
-                    Good news: Batch updates USE SPARQL aggregation (update_view_and_download_counts.sparql).
-                    10% of SPARQL templates use COUNT, SUM, GROUP BY - shows capability exists.
-                    Opportunity: Some live queries (author stats, wsgi.py line 3960) still aggregate in Python.
-                    Verified example: Author statistics fetch all datasets, sum metrics in Python loop.
-                    Could use SPARQL GROUP BY for 2-3x speedup with many datasets per author.
-                    But current scale works fine - this is refinement, not urgent fix.
-                    Real benefit: Consistency in approach makes codebase more maintainable.
-                    Suggestion: Document pattern (when SPARQL vs Python), reference examples, opportunistic refactoring.
-                    Not critical, just technical excellence opportunity if prioritized later.
-                    Expected improvement: 10x faster queries, 90% less memory, much more scalable.
-                    This is important for future growth - as repository scales to thousands of datasets.
+                    Quick bonus feedback since you asked about weaknesses.
+                    This is NOT about the faculty feature - just general observation.
+                    Most statistics queries work well - batch updates use SPARQL COUNT effectively.
+                    Minor opportunity: Some live queries (like author stats) aggregate in Python.
+                    Could be more consistent using SPARQL GROUP BY throughout.
+                    But it's low priority - current approach works fine at current scale.
+                    Just mentioning as a refinement opportunity if ever prioritized.
+                    Now back to the faculty feature proposal...
                 </aside>
             </section>
 
