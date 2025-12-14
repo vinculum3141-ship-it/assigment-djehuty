@@ -1135,38 +1135,38 @@
 - "I defined the OWL class, added the predicates, wrote the SPARQL queries, and it worked."
 - "That's the power of choosing the right technology for the problem domain."
 
-**Strength 2: Modular Architecture - Clean Separation of Concerns:**
+**Strength 2: Well-Separated Data Layer:**
 
-**Layering Done Right:**
-- "The second major strength is the exceptionally clean modular architecture."
-- "Djehuty has clear separation of concerns with well-defined layers: Presentation, Application, Data."
-- "This isn't just theory - it's actually implemented consistently throughout the codebase."
+**Data Layer Excellence:**
+- "The second major strength is the well-separated data layer."
+- "Djehuty's RDF schema, SPARQL queries, and data access logic are cleanly isolated from the application layer."
+- "The `database.py` module, the `cache.py` layer, and the RDF schema definitions are genuinely modular and well-abstracted."
+- "This separation is real and makes a significant difference when adding features like faculty tracking."
 
-**Well-Defined Interfaces:**
-- "The interfaces between components are well-defined and stable."
-- "The presentation layer calls the application layer through clear API contracts."
-- "The application layer calls the data layer through database abstraction."
-- "You're not reaching across layers or mixing concerns - everything is where it should be."
+**What This Enables:**
+- "Because the data layer is well-abstracted, I could add Faculty entities to the RDF schema without touching application logic."
+- "New SPARQL queries for faculty statistics didn't require changes to authentication, routing, or UI rendering code."
+- "The data access patterns are consistent - same query execution, same caching patterns, same result formatting."
+- "This is what good abstraction looks like: changes in one layer don't ripple through the system."
 
-**Surgical Feature Addition:**
-- "This means I could add the faculty feature by touching only 3 components: the database schema, the API service layer, and the UI forms."
-- "About 90% of the codebase remained completely untouched - very low risk of introducing bugs or breaking changes."
-- "I wasn't modifying core authentication code or touching the dataset storage engine or changing ORCID integration."
-- "Just the three components that directly relate to faculty information."
+**Realistic Feature Scope:**
+- "Adding the faculty feature required changes to the database schema, the application request handlers, and UI templates."
+- "Most of the core infrastructure - authentication, session management, caching utilities, email handling - remained untouched."
+- "This reduced risk significantly: I wasn't modifying login flows or storage engines or ORCID integration."
+- "Just the components directly related to faculty information."
 
-**Testability:**
-- "And because the architecture is modular, each component is testable in isolation."
-- "Unit tests for the database queries - does this SPARQL return the right faculty list?"
-- "Unit tests for the API endpoints - does this return 200 with correct JSON?"
-- "Unit tests for the UI forms - does the dropdown populate correctly?"
-- "Integration tests tie them together, but you can verify each piece independently first."
+**Honest Architectural Assessment:**
+- "Now, I want to be transparent: the application layer itself is less modular."
+- "The main `wsgi.py` file is nearly 10,000 lines - it handles routing, authentication, API endpoints, and UI rendering all in one file."
+- "That's not ideal modularity - a truly modular architecture would split those concerns into separate modules."
+- "But the key insight: the DATA layer's clean separation means feature additions don't require re-architecting the application."
 
 **Real Impact:**
 - "The real impact: The faculty feature was added without disrupting existing functionality."
 - "Every existing API endpoint continued to work."
 - "Every existing user workflow continued unchanged."
-- "The test suite caught any issues immediately because the architecture is testable."
-- "That's what good modularity enables - surgical feature additions with minimal risk."
+- "The data layer abstraction protected the system from cascading changes."
+- "That's the value of well-separated data access - you can evolve the schema and queries without touching most of the application."
 
 **Strength 3: Reusable Infrastructure - Standing on Solid Foundation:**
 
@@ -1180,7 +1180,8 @@
 - "Didn't have to build login flows, password reset, session management - it was all there."
 
 **Caching Layer:**
-- "The caching layer already existed - Redis for expensive queries, with consistent patterns for cache invalidation."
+- "The caching layer already existed - file-based caching with MD5 keys for expensive queries, with consistent patterns for cache invalidation."
+- "The `CacheLayer` class provides clean abstractions: cached_value(), cache_value(), invalidate_by_prefix()."
 - "I just added faculty-related queries to the cache with the same patterns."
 - "Hit the cache first, if miss then query database, store result, return."
 - "Standard pattern, works reliably, well-tested."
@@ -1202,11 +1203,11 @@
 - "Only 30% went into integration with existing systems - and that's because the infrastructure was already solid."
 - "In a less well-designed system, those percentages would be reversed - 70% fighting infrastructure, 30% on actual features."
 
-**Overall Impression - Pleasure to Work With:**
-- "My overall impression: This is a well-engineered system, and it was genuinely a pleasure to work with."
-- "The architecture decisions - RDF foundation, modular design, reusable infrastructure - compound over time."
-- "Each new feature becomes easier because you're building on solid foundation."
-- "That's the sign of good software engineering - not just that it works, but that it's maintainable and extensible."
+**Overall Impression - Solid Foundation with Room to Grow:**
+- "My overall impression: This is a well-engineered system with a particularly strong data layer."
+- "The architecture decisions - RDF foundation, clean data abstraction, reusable infrastructure - provide a solid foundation."
+- "The data layer's quality means features like faculty tracking can be added without re-architecting the core."
+- "There's room for improvement in the application layer modularity, but the system is maintainable and the right foundation is in place."
 
 **Transition:** "But every system, no matter how well-designed, has opportunities for improvement. Let me share the key one I identified while analyzing the codebase."
 
